@@ -1,8 +1,14 @@
 (ns biomarket.models.db
   (:require [clojure.java.jdbc :as db]
-            [clojure.string :refer [split trim]]
+            [clojure.string :refer [split trim] :as st]
             [clojure.java.io :as io]
-            [jdbc.pool.c3p0 :as pool])
+            [jdbc.pool.c3p0 :as pool]
+            [clojure.java.io :refer [resource]]
+            [clojure.edn :as edn]
+            [clj-time.core :as t]
+            [clj-time.format :as f]
+            [clj-time.coerce :as c]
+            [clj-time.jdbc])
   (:import [org.apache.commons.codec.binary Base64]
            [org.postgresql.util PGobject]))
 
@@ -19,22 +25,54 @@
     :subname (str "//" "127.0.0.1" ":" "5432" "/" "biomarket")}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; server calls
+;; utilities
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn readable-duration [minutes]
+  (let [int-minutes (int minutes)
+        days        (quot int-minutes 1440)
+        days-r      (rem int-minutes 1440)
+        hours       (quot days-r 60)
+        hours-r     (rem days-r 60)
+        minutes     (rem hours-r 60)]
+    {:days days :hours hours :minutes minutes}))
 
+(defn- time-plural
+  [unit text]
+  (if (> unit 0) (str unit " " text "s") (str unit " " text)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; queries
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn- minutes-till
+  [d]
+  (let [{:keys [days hours minutes]}
+        (readable-duration (t/in-minutes (if (t/after? (t/now) d)
+                                           (t/interval d (t/now))
+                                           (t/interval (t/now) d))))]
+    (cond (> days 0) (str (time-plural days "day") " " (time-plural hours "hour"))
+          (> hours 0)
+          (str (time-plural hours "hour") " " (time-plural minutes "minute"))
+          :else
+          (time-plural minutes "minute"))))
 
-(defn user-exists
-  [{:keys [email]}]
-  {:status "success"
-   :result (db/query spec
-                     ["select count(*) from users where email = ?" email]
-                     :result-set-fn #(not
-                                      (= 0 (:count (first %)))))})
+(defn- days-till
+  [d]
+  (let [{:keys [days hours minutes]}
+        (readable-duration (t/in-minutes (if (t/after? (t/now) d)
+                                           (t/interval d (t/now))
+                                           (t/interval (t/now) d))))]
+    (cond (> days 0) (if (= 1 days) (str days " day") (str days " days"))
+          (> hours 0) (if (= 1 hours) (str hours " hour") (str hours " hours"))
+          :else (if (= 1 minutes) (str minutes " minute") (str minutes " minutes")))))
+
+(defn- parse-date
+  [date]
+  (let [f (f/formatters :date)]
+    (f/unparse f date)))
+
+(defn- set-datetime
+  [string]
+  (let [f (map #(Integer/parseInt %) (st/split string #"-"))]
+    (-> (apply t/date-time (concat f '(0 0 0)))
+        (t/plus (t/days 1)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; inserting
@@ -45,19 +83,155 @@
   (db/insert! spec table m))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; server call handlers
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn user-exists
+  [{:keys [email]}]
+  {:status "success"
+   :result (db/query spec
+                     ["select count(*) from users where email = ?" email]
+                     :result-set-fn #(not
+                                      (= 0 (:count (first %)))))})
+
+(defn new-user
+  [m]
+  {:status "success"
+   :result (insert! :users m)})
+
+(defn login-get-user
+  [username]
+  (db/query spec
+            ["select password from users where email = ?" username]
+            :result-set-fn #(if-let [a (and (seq %) (first %))]
+                              (hash-map username
+                                        {:username username
+                                         :password (:password a)
+                                         :roles #{:user}})
+                              {})))
+
+(defn get-skills
+  [m]
+  {:status "success"
+   :result (db/query spec ["select * from skills"])})
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; project server calls
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- project-skills
+  [id]
+  (db/query spec ["select id,name,type from skills,skillproj where skillproj.sid=skills.id and skillproj.pid=?" id]))
+
+(defn- calculate-times
+  [rows]
+  (->> (map #(update-in % [:bidmin] (fn [_] (minutes-till (:biddead %)))) rows)
+       (map #(update-in % [:projmin] (fn [_] (days-till (:projdead %)))))
+       (map #(update-in % [:biddead] (fn [x] (parse-date x))))
+       (map #(update-in % [:projdead] (fn [x] (parse-date x))))))
+
+(defmulti get-projects (fn [{:keys [session body]}] (:query-type body)))
+
+(defmethod get-projects "expired-projects"
+  [{:keys [session body]}]
+  {:status "success"
+   :result (->> (db/query spec
+                          ["select * from projects where username = ? and biddead < ?"
+                           (get-in session [:cemerick.friend/identity :current])
+                           (t/now)]
+                          :row-fn (fn [x]
+                                    (assoc x :skills (project-skills (:id x)))))
+                (map #(update-in % [:status] (fn [_] :expired)))
+                calculate-times)})
+
+(defmethod get-projects "all-projects"
+  [{:keys [body]}]
+  {:status "success"
+   :result
+   (->> (db/query spec
+                  ["select * from projects where status = ? and biddead > ?"
+                   (name (:status body))
+                   (t/now)]
+                  :row-fn (fn [x]
+                            (assoc x :skills (project-skills (:id x)))))
+        calculate-times)})
+
+(defmethod get-projects "user-projects"
+  [{:keys [session body]}]
+  {:status "success"
+   :result
+   (->> (db/query spec
+                  ["select * from projects where username = ? and biddead > ?"
+                   (get-in session [:cemerick.friend/identity :current])
+                   (t/now)]
+                  :row-fn (fn [x]
+                            (assoc x :skills (project-skills (:id x)))))
+        calculate-times)})
+
+(defn save-project
+  [r]
+  (let [m (-> (assoc (:body r) :username (get-in r [:session :cemerick.friend/identity
+                                                    :current]))
+              (update-in [:hours] #(Integer/parseInt %))
+              (update-in [:budget] #(Integer/parseInt %))
+              (update-in [:biddead] set-datetime)
+              (update-in [:projdead] set-datetime)
+              (assoc :status "open")
+              (select-keys [:title :description :hours :budget :basis
+                            :username :biddead :projdead :status]))
+        sk (get-in r [:body :skills])]
+    {:status "success"
+     :result (let [pid (-> (insert! :projects m) first :id)]
+               (if (seq sk)
+                 (apply db/insert! spec :skillproj
+                        (map #(hash-map :sid % :pid pid) sk)))
+               pid)}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn create-database
   []
-  (db/db-do-commands spec
-                     (db/create-table-ddl
-                      :users
-                      [:id :serial "PRIMARY KEY"]
-                      [:first :varchar "NOT NULL"]
-                      [:last :varchar "NOT NULL"]
-                      [:email :varchar]
-                      [:address :varchar])))
+  (let [skills (edn/read-string (slurp (resource "data/skills.clj")))]
+    (try
+      (do
+        (db/db-do-commands spec
+                           (db/create-table-ddl
+                            :users
+                            [:id :serial "PRIMARY KEY"]
+                            [:first :varchar "NOT NULL"]
+                            [:last :varchar "NOT NULL"]
+                            [:email :varchar "NOT NULL"]
+                            [:address :varchar]
+                            [:password :varchar "NOT NULL"]))
+        (db/db-do-commands spec
+                           (db/create-table-ddl
+                            :skills
+                            [:id :serial "PRIMARY KEY"]
+                            [:name :varchar "NOT NULL"]
+                            [:type :varchar "NOT NULL"]))
+        (db/db-do-commands spec
+                           (db/create-table-ddl
+                            :skillproj
+                            [:sid :integer "NOT NULL"]
+                            [:pid :integer "NOT NULL"]))
+        (db/db-do-commands spec
+                           (db/create-table-ddl
+                            :projects
+                            [:id :serial "PRIMARY KEY"]
+                            [:username :varchar "NOT NULL"]
+                            [:title :varchar "NOT NULL"]
+                            [:description :varchar "NOT NULL"]
+                            [:biddead :timestamp "NOT NULL"]
+                            [:projdead :timestamp "NOT NULL"]
+                            [:hours :integer "NOT NULL"]
+                            [:budget :integer "NOT NULL"]
+                            [:basis :varchar "NOT NULL"]
+                            [:status :varchar "NOT NULL"]))
+        (apply db/insert! spec :skills skills))
+      (catch Exception e
+        (println (.getNextException e))))))
 
 (defn delete-database
   []
@@ -65,4 +239,4 @@
           (db/db-do-commands spec
                              (db/drop-table-ddl %))
           (catch Exception _))
-       '(:users)))
+       '(:users :skills :skillproj :projects)))

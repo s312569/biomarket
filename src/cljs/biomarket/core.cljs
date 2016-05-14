@@ -6,7 +6,10 @@
             [secretary.core :as secretary :refer-macros [defroute]]
             [om.dom :as dom :include-macros true]
             [biomarket.login :as login]
-            [biomarket.utilities :refer [log] :as ut])
+            [biomarket.utilities :refer [log] :as ut]
+            [biomarket.dashboard :refer [dashboard]]
+            [biomarket.projects :refer [projects-view-control]]
+            [biomarket.find :refer [find-view]])
   (:import [goog History]
            [goog.history EventType]))
 
@@ -22,81 +25,76 @@
 (.setEnabled history true)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; dash
+;; app control
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn top-navigation
-  [[current inputs] owner]
-  (om/component
-   (dom/div
-    #js {:className "pure-menu pure-menu-horizontal"}
-    (apply dom/ul
-           #js {:className "pure-menu-list"}
-           (map #(om/build ut/menu-item (conj % current))
-                inputs)))))
-
-(defn dashboard
-  [_ owner]
+(defn header
+  [current owner]
   (reify
+    om/IInitState
+    (init-state [_]
+      {:nav-items [["Dashboard" ::dash]
+                   ["Profile" ::profile]
+                   ["My jobs" ::jobs]
+                   ["My projects" ::projects]
+                   ["Find a project" ::find]
+                   ["Logout" ::logout]]})
     om/IRenderState
-    (render-state [_ _]
-      (dom/div
-       #js {:className "pure-u-1"}
+    (render-state [_ {:keys [nav-items]}]
+      (dom/nav
+       #js {:className "navbar navbar-default navbar-fixed-top"}
        (dom/div
-        #js {:className "pure-u-1-3"}
+        #js {:className "container"}
         (dom/div
-         #js {:className "pdisplay"}
-         (dom/p nil "Hello there")))
-       (dom/div
-        #js {:className "pure-u-1-3"}
+         #js {:className "navbar-header"}
+         (dom/button
+          #js {:type "button" :className "navbar-toggle collapsed"
+               :data-toggle "collapse" :data-target "#navbar"
+               :aria-expanded "false" :aria-controls "navbar"}
+          (dom/span #js {:className "sr-only"})
+          (dom/span #js {:className "icon-bar"})
+          (dom/span #js {:className "icon-bar"})
+          (dom/span #js {:className "icon-bar"}))
+         (dom/a #js {:className "navbar-brand"} "Biomarket"))
         (dom/div
-         #js {:className "pure-u-20-24 pdisplay"}
-         (dom/p nil "Another one")))
-       (dom/div
-        #js {:className "pure-u-1-3"}
-        (dom/div
-         #js {:className "pdisplay"}
-         (dom/p nil "One more")))))))
+         #js {:id "navbar" :class "navbar-collapse collapse"}
+         (apply
+          dom/ul
+          #js {:className "nav navbar-nav"}
+          (map #(dom/li
+                 #js {:className (if (= current (second %)) "active")}
+                 (dom/a
+                  #js {:onClick (fn [_] (ut/pub-info owner ::navigation (second %)))
+                       :style #js {:cursor "pointer"}}
+                  (first %)))
+               nav-items))))))))
 
 (defn app-control
   [_ owner]
   (reify
     om/IInitState
     (init-state [_]
-      {:current :dash
-       :nav-items [["Dashboard" :dash]
-                   ["Profile" :profile]
-                   ["Look for work" :jobs]
-                   ["Post a project" :post]
-                   ["My projects" :projects]
-                   ["Logout" :logout]]})
+      {:current ::dash})
     om/IWillMount
     (will-mount [_]
-      (ut/register-loop owner :navigation (fn [o {:keys [data]}]
+      (ut/register-loop owner ::navigation (fn [o {:keys [data]}]
                                             (om/set-state! o :current data))))
     om/IWillUnmount
     (will-unmount [_]
-      (ut/unsubscribe owner :navigation))
+      (ut/unsubscribe owner ::navigation))
     om/IRenderState
     (render-state [_ {:keys [current nav-items]}]
       (dom/div
-       #js {:className "pure-g"
-            :style #js {:padding-top "5em"}}
-       (dom/div
-        #js {:className "pure-u-1"
-             :style #js {:text-align "center"}}
-        (dom/div #js {:className "pure-u-3-24"})
-        (dom/div #js {:className "pure-u-18-24"}
-                 (om/build top-navigation [current nav-items])
-                 (dom/hr nil)
-                 (condp = current
-                   :dash (om/build dashboard nil)
-                   :profile "Profile"
-                   :jobs "Jobs"
-                   :projects "My projects"
-                   :post "Post"
-                   :logout (set! (.-location js/document) "/logout")))
-        (dom/div #js {:className "pure-u-3-24"}))))))
+       #js {:text-align "center"}
+       (om/build header current)
+       (dom/div #js {:style #js {:padding-top "20px"}} " ")
+       (condp = current
+         ::dash (om/build dashboard nil)
+         ::profile "Profile"
+         ::jobs "Jobs"
+         ::find (om/build find-view nil)
+         ::projects (om/build projects-view-control nil)
+         ::logout (set! (.-location js/document) "/logout"))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; home

@@ -53,7 +53,7 @@
          :style #js {:text-align "center"}}
     (dom/form
      #js {:method "POST" :action "/signup" :className "pure-form"}
-     (apply dom/div nil (map #(om/build ut/input %) inputs))
+     (apply dom/div nil (map #(om/build ut/input (conj % ::inputd)) inputs))
      (if (every? #(nil? (:invalid %)) (vals inputs))
        (om/build ut/padded-button ["10px" "Register"])
        (om/build ut/padded-button-disabled ["10px" "Register"]))))))
@@ -88,7 +88,7 @@
          :style #js {:text-align "center"}}
     (dom/form
      #js {:method "POST" :action "/login" :className "pure-form"}
-     (apply dom/div nil (map #(om/build ut/input %)
+     (apply dom/div nil (map #(om/build ut/input (conj % ::inputd))
                              inputs))
      (om/build ut/padded-button ["10px" "Login"]))
     (om/build or-table nil)
@@ -98,6 +98,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; control
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod ut/get-input :password2
+  [owner {:keys [fname element]}]
+  (let [inputs (om/get-state owner :inputs)]
+    (if (= (get-in inputs [:password1 :value]) (:value element))
+      (om/set-state! owner :inputs
+                     (assoc inputs fname (assoc element :invalid nil)))
+      (om/set-state! owner :inputs
+                     (assoc inputs fname (assoc element :invalid
+                                                '("Passwords don't match.")))))))
 
 (defn test-username-exists
   [owner {:keys [fname element]}]
@@ -110,19 +120,23 @@
     om/IInitState
     (init-state [_]
       {:state :login
-       :inputs {:username {:value "" :ph "Email address" :type "text"}
-                :password {:value "" :ph "Password" :type "password"}}})
+       :inputs {:username {:value "" :placeholder "Email address" :type "text"
+                           :title "Email" :name "username" :input-type :no-icon
+                           :invalid false}
+                :password {:value "" :placeholder "Password" :type "password"
+                           :title "Password" :name "password" :input-type :no-icon
+                           :invalid false}}})
     om/IWillMount
     (will-mount [_]
       (ut/register-loop owner :state (fn [o _]
                                        (om/set-state! owner :state :register)
                                        (om/set-state! owner :inputs (rinputs owner))))
-      (ut/register-loop owner :inputd (fn [o {:keys [data]}]
+      (ut/register-loop owner ::inputd (fn [o {:keys [data]}]
                                         (ut/get-input o data)
                                         (test-username-exists o data))))
     om/IWillUnmount
     (will-unmount [_]
-      (ut/unsubscribe owner :inputd :state))
+      (ut/unsubscribe owner ::inputd :state))
     om/IRenderState
     (render-state [_ {:keys [inputs state]}]
       (dom/div

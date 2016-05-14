@@ -18,13 +18,6 @@
 ;; authentication
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def users (atom {"root" {:username "root"
-                          :password (creds/hash-bcrypt "admin_password")
-                          :roles #{::admin}}
-                  "jane" {:username "jane"
-                          :password (creds/hash-bcrypt "user_password")
-                          :roles #{::user}}}))
-
 (defn- resolve-uri
   [context uri]
   (let [context (if (instance? URI context) context (URI. context))]
@@ -45,15 +38,16 @@
     (let [user {:identity email
                 :username email
                 :password (creds/hash-bcrypt password1)
-                :roles #{::user}}]
-      (swap! users (fn [a e u] (assoc a e u)) email user)
+                :roles #{:user}}]
+      (db/new-user {:first fname :last sname :password (creds/hash-bcrypt password1)
+                    :email email})
       (friend/merge-authentication
        (redirect (str (:context req) "/user"))
        user))))
 
 (defn check-user
-  [x]
-  (creds/bcrypt-credential-fn @users x))
+  [{:keys [username password] :as params}]
+  (creds/bcrypt-credential-fn (db/login-get-user username) params))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; routes
@@ -63,9 +57,16 @@
   (GET "/" [] (home-view))
   (GET "/login" [] (login-or-register))
   (GET "/user" request
-       (friend/authorize #{::user} (app-view)))
+       (friend/authorize #{:user} (app-view)))
   (GET "/logout" req
        (friend/logout* (redirect (str (:context req) "/"))))
+  (POST "/new-project" req
+        (friend/authorize #{:user} (response (db/save-project req))))
+  (POST "/projects" req
+        (friend/authorize #{:user} (response (db/get-projects req))))
+  (POST "/skills" req
+        (let [p (:body req)]
+          (friend/authorize #{:user} (response (db/get-skills p)))))
   (POST "/signup" {params :params :as req}
         (new-user params req))
   (POST "/user-exists" req

@@ -14,6 +14,8 @@
                  [ring/ring-defaults "0.2.0"]
                  [hiccup "1.0.5"]
                  [ring/ring-core "1.4.0"]
+                 [clj-time "0.11.0"]
+                 [com.andrewmcveigh/cljs-time "0.4.0"]
                  [secretary "1.2.3"]
                  [com.cemerick/friend "0.2.1"]
                  [org.clojure/core.cache "0.6.5"]
