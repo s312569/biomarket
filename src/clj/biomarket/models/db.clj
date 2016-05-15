@@ -25,7 +25,7 @@
     :subname (str "//" "127.0.0.1" ":" "5432" "/" "biomarket")}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; utilities
+;; time
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn readable-duration [minutes]
@@ -75,6 +75,14 @@
         (t/plus (t/days 1)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; money
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn moneystring->bigdec
+  [string]
+  (.setScale (bigdec string) 2 BigDecimal/ROUND_CEILING))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; inserting
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -116,6 +124,33 @@
    :result (db/query spec ["select * from skills"])})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; bid server calls
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- fix-times
+  [bid]
+  (let [f (f/formatters :basic-date-time)]
+    (update-in bid [:time] #(f/unparse f %))))
+
+(defn save-bid
+  [{:keys [session body]}]
+  (let [user (get-in session [:cemerick.friend/identity :current])
+        time (f/parse (f/formatters :basic-date-time) (:time body))
+        bid-id (-> (insert! :bids (-> (dissoc body :comment :date)
+                                      (assoc :username user :status "submitted" :time time
+                                             :amount (moneystring->bigdec (:amount body)))))
+                   first :id)
+        comment-id (-> (insert! :bidcomments
+                                (-> (select-keys body [:comment :pid :time])
+                                    (assoc :username user :bid bid-id :time time)))
+                       first :id)
+        bids (db/query spec ["select * from bids where pid = ?" (:pid body)]
+                       :row-fn fix-times)]
+    {:status "success"
+     :result {:bids bids
+              :user-bids (filter #(= user (:username %)) bids)}}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; project server calls
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -130,43 +165,40 @@
        (map #(update-in % [:biddead] (fn [x] (parse-date x))))
        (map #(update-in % [:projdead] (fn [x] (parse-date x))))))
 
+(defn- get-bids
+  [row]
+  (let [bs (db/query spec ["select * from bids where pid = ?" (:id row)]
+                     :row-fn fix-times)]
+    (merge row {:bids bs :user-bids (filter #(= (:username row) (:username %)) row)})))
+
+(defn- projects
+  [q]
+  (->> (db/query spec q :row-fn (fn [x] (assoc x :skills (project-skills (:id x)))))
+       (map get-bids)
+       calculate-times))
+
 (defmulti get-projects (fn [{:keys [session body]}] (:query-type body)))
 
 (defmethod get-projects "expired-projects"
   [{:keys [session body]}]
-  {:status "success"
-   :result (->> (db/query spec
-                          ["select * from projects where username = ? and biddead < ?"
-                           (get-in session [:cemerick.friend/identity :current])
-                           (t/now)]
-                          :row-fn (fn [x]
-                                    (assoc x :skills (project-skills (:id x)))))
-                (map #(update-in % [:status] (fn [_] :expired)))
-                calculate-times)})
+  (let [user (get-in session [:cemerick.friend/identity :current])]
+    {:status "success"
+     :result (->> (projects ["select * from projects where username = ? and biddead < ?"
+                             user (t/now)])
+                  (map #(update-in % [:status] (fn [_] :expired))))}))
 
 (defmethod get-projects "all-projects"
   [{:keys [body]}]
   {:status "success"
-   :result
-   (->> (db/query spec
-                  ["select * from projects where status = ? and biddead > ?"
-                   (name (:status body))
-                   (t/now)]
-                  :row-fn (fn [x]
-                            (assoc x :skills (project-skills (:id x)))))
-        calculate-times)})
+   :result (projects ["select * from projects where status = ? and biddead > ?"
+                      (name (:status body)) (t/now)])})
 
 (defmethod get-projects "user-projects"
   [{:keys [session body]}]
-  {:status "success"
-   :result
-   (->> (db/query spec
-                  ["select * from projects where username = ? and biddead > ?"
-                   (get-in session [:cemerick.friend/identity :current])
-                   (t/now)]
-                  :row-fn (fn [x]
-                            (assoc x :skills (project-skills (:id x)))))
-        calculate-times)})
+  (let [user (get-in session [:cemerick.friend/identity :current])]
+    {:status "success"
+     :result (projects ["select * from projects where username = ? and biddead > ?"
+                        user (t/now)])}))
 
 (defn save-project
   [r]
@@ -229,6 +261,25 @@
                             [:budget :integer "NOT NULL"]
                             [:basis :varchar "NOT NULL"]
                             [:status :varchar "NOT NULL"]))
+        (db/db-do-commands spec
+                           (db/create-table-ddl
+                            :bidcomments
+                            [:id :serial "PRIMARY KEY"]
+                            [:comment :varchar "NOT NULL"]
+                            [:username :varchar "NOT NULL"]
+                            [:time :timestamp "NOT NULL"]
+                            [:bid :integer "NOT NULL"]
+                            [:pid :integer "NOT NULL"]))
+        (db/db-do-commands spec
+                           (db/create-table-ddl
+                            :bids
+                            [:id :serial "PRIMARY KEY"]
+                            [:pid :integer "NOT NULL"]
+                            [:time :timestamp "NOT NULL"]
+                            [:amount :decimal "NOT NULL"]
+                            [:basis :varchar "NOT NULL"]
+                            [:username :varchar "NOT NULL"]
+                            [:status :varchar "NOT NULL"]))
         (apply db/insert! spec :skills skills))
       (catch Exception e
         (println (.getNextException e))))))
@@ -239,4 +290,4 @@
           (db/db-do-commands spec
                              (db/drop-table-ddl %))
           (catch Exception _))
-       '(:users :skills :skillproj :projects)))
+       '(:users :skills :skillproj :projects :bids :bidcomments)))

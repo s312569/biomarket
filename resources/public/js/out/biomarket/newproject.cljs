@@ -52,8 +52,7 @@
               (ut/pub-info owner ::saved result)))]
     (if (all-good? owner)
       (ut/post-params "/new-project"
-                      (merge (->> (map (fn [[k v]]
-                                         (vector k (:value v)))
+                      (merge (->> (map (fn [[k v]] (vector k (:value v)))
                                        (om/get-state owner :inputs))
                                   (into {}))
                              {:basis (:value (om/get-state owner :basis))

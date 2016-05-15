@@ -23,6 +23,8 @@
               (om/set-state! owner :projects result)))
         projects? (condp = (om/get-state owner :view)
                     :expired :expired-projects
+                    :active :user-projects
+                    :completed :user-projects
                     :open :user-projects)]
     (ut/post-params "/projects" {:query-type projects?} h)))
 

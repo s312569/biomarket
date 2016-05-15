@@ -62,6 +62,8 @@
        (friend/logout* (redirect (str (:context req) "/"))))
   (POST "/new-project" req
         (friend/authorize #{:user} (response (db/save-project req))))
+  (POST "/save-bid" req
+        (friend/authorize #{:user} (response (db/save-bid req))))
   (POST "/projects" req
         (friend/authorize #{:user} (response (db/get-projects req))))
   (POST "/skills" req
