@@ -8,29 +8,19 @@
             [clojure.string :as str]
             [biomarket.login :as login]
             [biomarket.utilities :refer [log] :as ut]
-            [biomarket.newproject :refer [new-project-view]])
+            [biomarket.newproject :refer [new-project-view]]
+            [biomarket.bids :as bid])
   (:import [goog History]
            [goog.history EventType]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; server calls
+;; project
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- get-projects
-  [owner]
-  (let [h (fn [{:keys [status result]}]
-            (if (= "success" status)
-              (om/set-state! owner :projects result)))
-        projects? (condp = (om/get-state owner :view)
-                    :expired :expired-projects
-                    :active :user-projects
-                    :completed :user-projects
-                    :open :user-projects)]
-    (ut/post-params "/projects" {:query-type projects?} h)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; project list view
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn- change-view
+  [owner view]
+  (om/set-state! owner :bottoms
+                 (update-in (om/get-state owner :bottoms) [:visible] (fn [x] view))))
 
 (defn show-bids
   [pid owner]
@@ -39,9 +29,26 @@
 
 (defn- project-summary
   [project owner]
-  (om/component
-   (om/build ut/project-panel [project
-                               {:bids ["Show bids" show-bids (:pid project)]}])))
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:bottoms {:visible :default
+                 :oc-tag (:id project)
+                 :links
+                 {:bids ["Show bids" show-bids]}}
+       :bids nil})
+    om/IWillMount
+    (will-mount [_]
+      (ut/register-loop owner (:id project)
+                        (fn [o {:keys [data]}]
+                          (change-view o (:view data))))
+      (bid/bid-server-call owner (:id project)))
+    om/IWillUnmount
+    (will-unmount [_]
+      (ut/unsubscribe owner (:id project)))
+    om/IRenderState
+    (render-state [_ {:keys [bottoms bids]}]
+      (om/build ut/project-panel [(merge project bids) bottoms]))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; project list view
@@ -56,22 +63,18 @@
       #js {:className "panel panel-default"}
       (dom/div
        #js {:className "panel-heading"}
-       (apply dom/div
-              nil
-              (map #(dom/button
-                     #js {:className "btn btn-primary"
-                          :onClick (second %)}
-                     (first %))
-                   control)))
+       (apply dom/div nil (map #(dom/button
+                                 #js {:className "btn btn-primary"
+                                      :onClick (second %)}
+                                 (first %))
+                               control)))
       (dom/div
        #js {:className "panel-body"
             :style #js {:text-align "center"}}
-       (dom/div
-        #js {:style #js {:text-align "center"
-                         :font-weight "bold"}}
-        "Show:")
-       (apply dom/div
-              #js {:className "btn-group" :role "group"}
+       (dom/div #js {:style #js {:text-align "center"
+                                 :font-weight "bold"}}
+                "Show:")
+       (apply dom/div #js {:className "btn-group" :role "group"}
               (map #(dom/a
                      #js {:className (if (= view (second %))
                                        "btn btn-default active"
@@ -80,6 +83,24 @@
                                      (ut/pub-info owner ::project-view (second %)))}
                      (first %))
                    drop)))))))
+
+(defn- view->project-view
+  [project view]
+  (condp = view
+    :expired (assoc project :view-type :expired)
+    (assoc project :view-type :open)))
+
+(defn- get-projects
+  [owner]
+  (let [h (fn [{:keys [status result]}]
+            (when (= "success" status)
+              (om/set-state! owner :projects result)))
+        projects? (condp = (om/get-state owner :view)
+                    :expired :expired-projects
+                    :active :user-projects
+                    :completed :user-projects
+                    :open :user-projects)]
+    (ut/post-params "/projects" {:query-type projects?} h)))
 
 (defn- home-view
   [_ owner]
@@ -109,7 +130,7 @@
        (om/build project-nav [nav inputs view])
        (dom/div #js {:style #js {:padding-top "10px"}})
        (if (seq projects)
-         (apply dom/div nil (map #(om/build project-summary %)
+         (apply dom/div nil (map #(om/build project-summary (view->project-view % view))
                                  projects))
          (dom/div #js {:style #js {:padding-top "30px"
                                    :text-align "center"}}

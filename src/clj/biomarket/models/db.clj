@@ -8,6 +8,9 @@
             [clj-time.core :as t]
             [clj-time.format :as f]
             [clj-time.coerce :as c]
+            [clojurewerkz.money.format :as fm]
+            [clojurewerkz.money.currencies :as cu]
+            [clojurewerkz.money.amounts :refer [amount-of]]
             [clj-time.jdbc])
   (:import [org.apache.commons.codec.binary Base64]
            [org.postgresql.util PGobject]))
@@ -23,6 +26,14 @@
     :user "jason"
     :password "7004jason"
     :subname (str "//" "127.0.0.1" ":" "5432" "/" "biomarket")}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; users
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- get-session-user
+  [session]
+  (get-in session [:cemerick.friend/identity :current]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; time
@@ -74,6 +85,11 @@
     (-> (apply t/date-time (concat f '(0 0 0)))
         (t/plus (t/days 1)))))
 
+(defn- fix-times
+  [row]
+  (let [f (f/formatters :basic-date-time)]
+    (update-in row [:time] #(f/unparse f %))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; money
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -91,7 +107,7 @@
   (db/insert! spec table m))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; server call handlers
+;; user server calls
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn user-exists
@@ -118,6 +134,10 @@
                                          :roles #{:user}})
                               {})))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; skills server calls
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn get-skills
   [m]
   {:status "success"
@@ -127,28 +147,51 @@
 ;; bid server calls
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- fix-times
-  [bid]
-  (let [f (f/formatters :basic-date-time)]
-    (update-in bid [:time] #(f/unparse f %))))
+(defn- bids
+  [user pid]
+  (let [bs (db/query spec ["select * from bids where username = ? and pid = ?"
+                           user pid]
+                     :row-fn fix-times)]
+    {:bids bs :user-bids (filter #(= user (:username %)) bs)}))
+
+(defn get-bids
+  [{:keys [session body]}]
+  {:status "success"
+   :result (bids (get-session-user session) (:pid body))})
 
 (defn save-bid
   [{:keys [session body]}]
-  (let [user (get-in session [:cemerick.friend/identity :current])
-        time (f/parse (f/formatters :basic-date-time) (:time body))
-        bid-id (-> (insert! :bids (-> (dissoc body :comment :date)
-                                      (assoc :username user :status "submitted" :time time
-                                             :amount (moneystring->bigdec (:amount body)))))
-                   first :id)
-        comment-id (-> (insert! :bidcomments
-                                (-> (select-keys body [:comment :pid :time])
-                                    (assoc :username user :bid bid-id :time time)))
-                       first :id)
-        bids (db/query spec ["select * from bids where pid = ?" (:pid body)]
-                       :row-fn fix-times)]
+  (let [bid (-> (insert! :bids (merge body
+                                      {:time (t/now)
+                                       :amount (moneystring->bigdec (:amount body))
+                                       :username (get-session-user session)}))
+                first :id)]
     {:status "success"
-     :result {:bids bids
-              :user-bids (filter #(= user (:username %)) bids)}}))
+     :result (bids (get-session-user session) (:pid body))}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; comment server calls
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- comments
+  [user pid]
+  (db/query spec ["select * from bidcomments where username = ? and pid = ?"
+                  user pid]
+            :row-fn fix-times))
+
+(defn get-comments
+  [{:keys [session body]}]
+  {:status "success"
+   :result (comments (get-session-user session) (:pid body))})
+
+(defn save-comment
+  [{:keys [session body]}]
+  (let [cid (-> (insert! :bidcomments (merge body
+                                             {:time (t/now)
+                                              :username (get-session-user session)}))
+                first :id)]
+    {:status "success"
+     :result (comments (get-session-user session) (:pid body))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; project server calls
@@ -165,16 +208,9 @@
        (map #(update-in % [:biddead] (fn [x] (parse-date x))))
        (map #(update-in % [:projdead] (fn [x] (parse-date x))))))
 
-(defn- get-bids
-  [row]
-  (let [bs (db/query spec ["select * from bids where pid = ?" (:id row)]
-                     :row-fn fix-times)]
-    (merge row {:bids bs :user-bids (filter #(= (:username row) (:username %)) row)})))
-
 (defn- projects
-  [q]
+  [q user]
   (->> (db/query spec q :row-fn (fn [x] (assoc x :skills (project-skills (:id x)))))
-       (map get-bids)
        calculate-times))
 
 (defmulti get-projects (fn [{:keys [session body]}] (:query-type body)))
@@ -184,21 +220,25 @@
   (let [user (get-in session [:cemerick.friend/identity :current])]
     {:status "success"
      :result (->> (projects ["select * from projects where username = ? and biddead < ?"
-                             user (t/now)])
+                             user (t/now)]
+                            user)
                   (map #(update-in % [:status] (fn [_] :expired))))}))
 
 (defmethod get-projects "all-projects"
-  [{:keys [body]}]
-  {:status "success"
-   :result (projects ["select * from projects where status = ? and biddead > ?"
-                      (name (:status body)) (t/now)])})
+  [{:keys [body session]}]
+  (let [user (get-in session [:cemerick.friend/identity :current])]
+    {:status "success"
+     :result (projects ["select * from projects where status = ? and biddead > ?"
+                        (name (:status body)) (t/now)]
+                       user)}))
 
 (defmethod get-projects "user-projects"
   [{:keys [session body]}]
   (let [user (get-in session [:cemerick.friend/identity :current])]
     {:status "success"
      :result (projects ["select * from projects where username = ? and biddead > ?"
-                        user (t/now)])}))
+                        user (t/now)]
+                       user)}))
 
 (defn save-project
   [r]
@@ -267,8 +307,8 @@
                             [:id :serial "PRIMARY KEY"]
                             [:comment :varchar "NOT NULL"]
                             [:username :varchar "NOT NULL"]
+                            [:read :boolean "NOT NULL" "DEFAULT 'false'"]
                             [:time :timestamp "NOT NULL"]
-                            [:bid :integer "NOT NULL"]
                             [:pid :integer "NOT NULL"]))
         (db/db-do-commands spec
                            (db/create-table-ddl
@@ -277,9 +317,7 @@
                             [:pid :integer "NOT NULL"]
                             [:time :timestamp "NOT NULL"]
                             [:amount :decimal "NOT NULL"]
-                            [:basis :varchar "NOT NULL"]
-                            [:username :varchar "NOT NULL"]
-                            [:status :varchar "NOT NULL"]))
+                            [:username :varchar "NOT NULL"]))
         (apply db/insert! spec :skills skills))
       (catch Exception e
         (println (.getNextException e))))))

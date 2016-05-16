@@ -6,8 +6,20 @@
             [clojure.string :as str]
             [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
-            [cljs-time.core :as time]
-            [cljs-time.format :as tf]))
+            [cljs-time.core :as t]
+            [cljs-time.format :as f]
+            [cljs-time.format :as tf]
+            [cljs.pprint :as pprint]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; time
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn datestring->readable
+  [string]
+  (let [rfc (f/formatters :rfc822)
+        f (f/formatters :basic-date-time)]
+    (->> (f/parse f string) (f/unparse rfc))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; logging
@@ -105,11 +117,6 @@
                                       :className "flinka"}
                                  " Less"))))))))
 
-(defn- show-default
-  [_ owner]
-  (om/component
-   (dom/div nil "")))
-
 (defn control-buttons
   [inputs owner]
   (om/component
@@ -174,31 +181,41 @@
 ;; action links
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn- show-default
+  [_ owner]
+  (om/component
+   (dom/div nil "")))
+
 (defn bottom-links
-  [links owner]
-  (reify
-    om/IInitState
-    (init-state [_]
-      {:visible :default})
-    om/IRenderState
-    (render-state [_ {:keys [visible]}]
-      (dom/div
-       #js {:style #js {:padding-top "10px"}}
-       (apply
-        dom/div
-        #js {:className "btn-group" :role "group"}
-        (map (fn [[tag ele]]
-               (dom/a
-                #js {:className (if (= visible tag)
-                                  "btn btn-default active"
-                                  "btn btn-default")
-                     :onClick #(om/set-state! owner :visible
-                                              (if (= visible tag) :default tag))}
-                (first ele)))
-             links))
-       (condp = visible
-         :default (om/build show-default nil)
-         (apply om/build (drop 1 (visible links))))))))
+  [[project {:keys [links visible oc-tag bid-widget]}] owner]
+  (om/component
+   (dom/div
+    #js {:style #js {:padding-top "10px"}}
+    (dom/div
+     #js {:className "row"}
+     (dom/div
+      #js {:className "col-md-4"}
+      (apply
+       dom/div
+       #js {:className "btn-group" :role "group"}
+       (map (fn [[tag ele]]
+              (dom/a
+               #js {:className (if (= visible tag)
+                                 "btn btn-default active"
+                                 "btn btn-default")
+                    :onClick #(pub-info owner oc-tag
+                                        {:action :change-view
+                                         :view (if (= visible tag) :default tag)})}
+               (first ele)))
+            links)))
+     (if bid-widget
+       (dom/div
+        #js {:className "col-md-8"
+             :style #js {:text-align "right"}}
+        (om/build bid-widget project))))
+    (condp = visible
+      :default (om/build show-default nil)
+      (om/build (second (visible links)) project)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; project info
@@ -210,44 +227,133 @@
   [& fields]
   (apply dom/div #js {:style #js {:color "red"}} fields))
 
+(defn- average-bid
+  [project]
+  (if (seq (:bids project))
+    (str "$"
+         (pprint/cl-format nil "~$"
+                           (/ (reduce + (map :amount (:bids project)))
+                              (count (:bids project)))))
+    "No bids yet"))
+
+(defn color-span
+  [text color]
+  (dom/span #js {:style #js {:color color
+                             :font-weight "bold"}} text))
+
 (defmethod table-info "expired"
   [project]
-  {"Status" (alert-table-info (dom/div nil "Bidding") (dom/div nil "Expired"))
-   "Bidding ended" (alert-table-info (str (:bidmin project) " ago"))
-   "Project deadline" (:projmin project)
-   "Bids" "##"
-   "Average bid (USD)" "$XXX"
-   "Budget (USD)" (str "$" (:budget project))})
+  (let [f #(color-span % "green")]
+    {"Status" (alert-table-info (dom/div nil "Bidding") (dom/div nil "Expired"))
+     "Bidding ended" (alert-table-info (str (:bidmin project) " ago"))
+     "Project deadline" (f (:projmin project))
+     "Bids" (f (count (:bids project)))
+     "Average bid (USD)" (f (average-bid project))
+     "Budget (USD)" (f (str "$" (:budget project)))}))
 
 (defmethod table-info :default
   [project]
-  {"Status" (str/capitalize (:status project))
-   "Bidding ends" (:bidmin project)
-   "Project deadline" (:projmin project)
-   "Bids" "##"
-   "Average bid (USD)" "$XXX"
-   "Budget (USD)" (str "$" (:budget project))})
+  (let [f #(color-span % "green")]
+    {"Status" (f (str/capitalize (:status project)))
+     "Bidding ends" (f (:bidmin project))
+     "Project deadline" (f (:projmin project))
+     "Bids" (f (count (:bids project)))
+     "Average bid" (f (average-bid project))
+     "Budget" (f (str "$" (:budget project)))}))
+
+(defn make-a-table
+  [{:keys [data tparam]}]
+  (om/component
+   (let [tjs (clj->js (merge {:className "table"} tparam))]
+     (dom/div
+      #js {:style #js {:background-color "white"
+                       :margin "10px"}}
+      (dom/table
+       tjs
+       (dom/thead nil
+                  (apply dom/tr nil
+                         (map #(dom/th
+                                #js {:style #js {:text-align "center"}}
+                                %)
+                              (keys (first data)))))
+       (apply dom/tbody nil
+              (map (fn [x]
+                     (apply dom/tr nil
+                            (map #(dom/td
+                                   #js {:style #js {:text-align "center"}}
+                                   %)
+                                 (vals x))))
+                   data)))))))
 
 (defn info-table
   [project owner]
   (om/component
    (let [data (table-info project)]
-     (dom/table
-      #js {:className "table"}
-      (dom/thead nil
-                 (apply dom/tr nil
-                        (map #(dom/th
-                               #js {:style #js {:text-align "center"}}
-                               %)
-                             (keys data))))
-      (dom/tbody nil
-                 (apply dom/tr nil
-                        (map #(dom/td
-                               #js {:style #js {:color "green"
-                                                :font-weight "bold"
-                                                :text-align "center"}}
-                               %)
-                             (vals data))))))))
+     (om/build make-a-table {:data (list data)}))))
+
+;; right panel info
+
+(defmulti panel-right-info (fn [p] (:view-type p)))
+
+(defmethod panel-right-info :find
+  [p]
+  (let [s (str (apply str
+                      (interpose " " (take 2 (str/split (:bidmin p) #"\s+"))))
+               " left")]
+    (dom/h4 nil (dom/span #js {:className "label label-danger"} s))))
+
+(defmethod panel-right-info :default
+  [p]
+  (let [bc (count (:bids p))]
+    (dom/h4 nil (dom/span #js {:className "label label-danger"}
+                          (if (= bc 1) "1 bid" (str bc " bids"))))))
+
+;; labels
+
+(defn- label
+  [class text]
+  (dom/span
+   #js {:style #js {:padding-right "10px"}}
+   (dom/span #js {:className class}
+             text)))
+
+(defmulti title-labels (fn [x] (:view-type x)))
+
+(defmethod title-labels :default
+  [project]
+  (om/component
+   (dom/h4
+    #js {:style #js {:font-weight "bold"}}
+    (dom/span #js {:style #js {:padding-right "10px"}}
+              (str (:title project) "  "))
+    (let [best (first (sort-by :amount (:bids project)))]
+      (if best
+        (label "label label-success" (str "Best bid: $" (:amount best)))
+        (label "label label-danger" "No bids yet!"))))))
+
+(defmethod title-labels :find
+  [project]
+  (om/component
+   (dom/h4
+    #js {:style #js {:font-weight "bold"}}
+    (dom/span #js {:style #js {:padding-right "10px"}}
+              (str (:title project) "  "))
+    (let [ub (first (sort-by :time > (:user-bids project)))
+          best (first (sort-by :amount (:bids project)))]
+      (cond (and ub (>= (:amount best) (:amount ub)))
+            (dom/span nil
+                      (label "label label-success" (str "Best bid: $" (:amount best)))
+                      (label "label label-success" (str "Your bid: $" (:amount ub))))
+            (and ub (< (:amount best) (:amount ub)))
+            (dom/span nil
+                      (label "label label-success" (str "Best bid: $" (:amount best)))
+                      (label "label label-danger" (str "Your bid: $" (:amount ub))))
+            best
+            (label "label label-danger" (str "Best bid: $" (:amount best)))
+            :else
+            (label "label label-danger" "No bids yet!"))))))
+
+;; the panel
 
 (defn project-panel
   [[project blinks] owner]
@@ -259,21 +365,58 @@
      #js {:className "panel-heading"}
      (dom/div
       #js {:className "row"}
-      (dom/div #js {:className "col-md-10"
-                    :style #js {:font-weight "bold"
-                                :font-size "large"}}
-               (:title project))
-      (dom/div #js {:className "col-md-2"
-                    :style #js {:color "red"
-                                :text-align "right"}}
-               "XXX bids")))
+      (dom/div #js {:className "col-md-10"}
+               (om/build title-labels project))
+      (dom/div #js {:className "col-md-2" :style #js {:text-align "right"}}
+               (panel-right-info project))))
     (dom/div
      #js {:className "panel-body"}
      (om/build more-less-text (:description project))
      (dom/div #js {:style #js {:padding-top "20px"}} (om/build info-table project)))
     (dom/div
      #js {:className "panel-footer"}
-     (om/build bottom-links blinks)))))
+     (om/build bottom-links [project blinks])))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tables
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn fixed-head-table
+  [{:keys [data tparam]}]
+  (om/component
+   (dom/table
+    #js {:style #js {:cellspacing "0" :cellpadding "0" :border "0"
+                     :width "100%" :padding-top "20px"}}
+    (dom/tr
+     nil
+     (dom/td
+      nil
+      (dom/table
+       #js {:style #js {:cellspacing "0" :cellpadding "1" :border "0"
+                        :width "100%"}}
+       (apply dom/tr nil
+              (map #(dom/th
+                     #js {:style #js {:width "50%"}}
+                     %)
+                   (keys (first data)))))))
+    (dom/tr
+     nil
+     (dom/td
+      nil
+      (dom/div
+       #js {:style #js {:max-height "277px" :overflow-y "auto" :width "100%"
+                        :min-height "50px"}}
+       (apply dom/table
+              #js {:className "table"
+                   :style #js {:cellspacing "0" :cellpadding "1" :border "0"
+                               :background-color "white"}}
+              (map (fn [x]
+                     (apply dom/tr nil
+                            (map #(dom/td
+                                   #js {:style #js {:text-align "center"}}
+                                   %)
+                                 (vals x))))
+                   data))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; skills
@@ -373,12 +516,17 @@
   (om/component
    (apply dom/div js)))
 
+(defn on-change-function
+  [owner tag fname element e]
+  (pub-info owner tag
+            {:fname fname
+             :element (assoc element :value (-> e .-target .-value))}))
+
 (defn input
   [[fname element tag] owner]
   (om/component
-   (let [oc #(pub-info owner tag
-                       {:fname fname
-                        :element (assoc element :value (-> % .-target .-value))})
+   (log element)
+   (let [oc #(on-change-function owner tag fname element %)
          classes (condp = (:invalid element)
                    false {:fg "form-group" :icon "" :fb ""}
                    nil {:fg "form-group has-success has-feedback"
@@ -392,6 +540,93 @@
       (dom/label
        #js {:className "control-label" :htmlFor (:id element)} (:title element))
       (om/build the-input (clean-input element classes oc))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; comments widget
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- comment-server-call
+  [owner pid]
+  (let [h (fn [{:keys [status result]}]
+            (om/set-state! owner :comments result))]
+    (post-params "/comments" {:pid pid} h)))
+
+(defn- submit-comment-call
+  [owner pid]
+  (let [c (:comment (om/get-state owner :inputs))
+        h (fn [{:keys [status result]}]
+            (om/set-state! owner :comments result))]
+    (post-params "save-comment" {:pid pid :comment (:value c)} h)))
+
+(defn- show-comment
+  [comment owner]
+  (om/component
+   (dom/div
+    nil
+    (dom/div #js {:style #js {:font-size "small" :text-align "left"}}
+             (str "On " (datestring->readable (:time comment))
+                  " " (:username comment) " said:"))
+    (dom/div #js {:style #js {:margin "5px" :font-weight "bold"}}
+             (:comment comment)
+             (dom/hr nil)))))
+
+(defn- comment-control
+  [[inputs tag] owner]
+  (om/component
+   (dom/div
+    #js {:className "form"}
+    (apply dom/div
+           nil
+           (map #(om/build input (conj % tag))
+                inputs))
+    (dom/button #js {:className "btn btn-primary"
+                     :onClick #(pub-info owner tag {:action :submit})}
+                "Comment"))))
+
+(defn comments
+  [project owner]
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:inputs {:comment {:value "" :type "textarea" :rows "2" :name "comment"
+                          :input-type :no-icon :invalid false
+                          :title ""}}
+       :cid (gensym)
+       :comments nil})
+    om/IWillMount
+    (will-mount [_]
+      (register-loop owner (om/get-state owner :cid)
+                     (fn [o {:keys [data]}]
+                       (condp = (:action data)
+                         :submit (submit-comment-call owner (:id project))
+                         (get-input o data))))
+      (comment-server-call owner (:id project)))
+    om/IRenderState
+    (render-state [_ {:keys [inputs cid comments]}]
+      (dom/div
+       #js {:style #js {:margin-top "10px"}}
+       (dom/label nil "Discussion")
+       (dom/div
+        #js {:className "panel panel-default"
+             :style #js {:min-height "100%"}}
+        (apply dom/div
+               #js {:className "panel-body"
+                    :ref "comments"
+                    :style #js {:margin "5px"
+                                :max-height "300"
+                                :overflow-y "scroll"
+                                :position "relative"
+                                :bottom "0"}}
+               (if-not (seq comments)
+                 (list (dom/div #js {:style #js {:text-align "center"}}
+                                "No discussion yet!")
+                       (dom/hr nil))
+                 (map #(om/build show-comment %)
+                      (filter #(not (= "" (str/trim (:comment %))))
+                              (sort-by :time < comments)))))
+        (dom/div
+         #js {:className "panel-footer"}
+         (om/build comment-control [inputs cid])))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; radios

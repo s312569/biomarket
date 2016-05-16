@@ -18,6 +18,7 @@
                  [com.andrewmcveigh/cljs-time "0.4.0"]
                  [secretary "1.2.3"]
                  [com.cemerick/friend "0.2.1"]
+                 [clojurewerkz/money "1.9.0"]
                  [org.clojure/core.cache "0.6.5"]
                  [org.clojure/core.memoize "0.5.9" :exclusions [org.clojure/core.cache]]
                  [org.clojure/clojurescript "1.8.51"]

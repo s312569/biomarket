@@ -62,6 +62,8 @@
        (friend/logout* (redirect (str (:context req) "/"))))
   (POST "/new-project" req
         (friend/authorize #{:user} (response (db/save-project req))))
+  (POST "/bids" req
+        (friend/authorize #{:user} (response (db/get-bids req))))
   (POST "/save-bid" req
         (friend/authorize #{:user} (response (db/save-bid req))))
   (POST "/projects" req
@@ -71,6 +73,10 @@
           (friend/authorize #{:user} (response (db/get-skills p)))))
   (POST "/signup" {params :params :as req}
         (new-user params req))
+  (POST "/comments" req
+        (friend/authorize #{:user} (response (db/get-comments req))))
+  (POST "/save-comment" req
+        (friend/authorize #{:user} (response (db/save-comment req))))
   (POST "/user-exists" req
         (let [p (:body req)]
           (response (db/user-exists p))))
