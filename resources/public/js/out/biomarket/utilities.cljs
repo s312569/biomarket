@@ -125,10 +125,9 @@
     (apply
      dom/div
      #js {:className "panel-heading"}
-     (map #(dom/button
-            #js {:className "btn btn-default"
-                 :onClick (second %)}
-            (first %))
+     (map #(dom/a #js {:className "btn btn-default"
+                       :onClick (second %)}
+                  (first %))
           inputs)))))
 
 (defn menu-item
@@ -159,23 +158,20 @@
    (dom/div
     #js {:style #js {:padding padding}}
     (if func
-      (dom/button
-       #js {:className "pure-button pure-button-primary"
-            :onClick func}
-       value)
-      (dom/button
-       #js {:className "pure-button pure-button-primary"}
-       value)))))
+      (dom/button #js {:className "pure-button pure-button-primary"
+                       :onClick func}
+                  value)
+      (dom/button #js {:className "pure-button pure-button-primary"}
+                  value)))))
 
 (defn padded-button-disabled
   [[padding value] owner]
   (om/component
    (dom/div
     #js {:style #js {:padding padding}}
-    (dom/button
-     #js {:className "pure-button pure-button-primary"
-          :disabled "true"}
-     value))))
+    (dom/button #js {:className "pure-button pure-button-primary"
+                     :disabled "true"}
+                value))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; action links
@@ -317,6 +313,14 @@
    (dom/span #js {:className class}
              text)))
 
+(defn- best-bid
+  [bids]
+  (->> (group-by :username bids)
+       vals
+       (map #(first (sort-by :time > %)))
+       (sort-by :amount)
+       first))
+
 (defmulti title-labels (fn [x] (:view-type x)))
 
 (defmethod title-labels :default
@@ -326,7 +330,7 @@
     #js {:style #js {:font-weight "bold"}}
     (dom/span #js {:style #js {:padding-right "10px"}}
               (str (:title project) "  "))
-    (let [best (first (sort-by :amount (:bids project)))]
+    (let [best (best-bid (:bids project))]
       (if best
         (label "label label-success" (str "Best bid: $" (:amount best)))
         (label "label label-danger" "No bids yet!"))))))
@@ -339,7 +343,7 @@
     (dom/span #js {:style #js {:padding-right "10px"}}
               (str (:title project) "  "))
     (let [ub (first (sort-by :time > (:user-bids project)))
-          best (first (sort-by :amount (:bids project)))]
+          best (best-bid (:bids project))]
       (cond (and ub (>= (:amount best) (:amount ub)))
             (dom/span nil
                       (label "label label-success" (str "Best bid: $" (:amount best)))
@@ -525,7 +529,6 @@
 (defn input
   [[fname element tag] owner]
   (om/component
-   (log element)
    (let [oc #(on-change-function owner tag fname element %)
          classes (condp = (:invalid element)
                    false {:fg "form-group" :icon "" :fb ""}
@@ -540,93 +543,6 @@
       (dom/label
        #js {:className "control-label" :htmlFor (:id element)} (:title element))
       (om/build the-input (clean-input element classes oc))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; comments widget
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- comment-server-call
-  [owner pid]
-  (let [h (fn [{:keys [status result]}]
-            (om/set-state! owner :comments result))]
-    (post-params "/comments" {:pid pid} h)))
-
-(defn- submit-comment-call
-  [owner pid]
-  (let [c (:comment (om/get-state owner :inputs))
-        h (fn [{:keys [status result]}]
-            (om/set-state! owner :comments result))]
-    (post-params "save-comment" {:pid pid :comment (:value c)} h)))
-
-(defn- show-comment
-  [comment owner]
-  (om/component
-   (dom/div
-    nil
-    (dom/div #js {:style #js {:font-size "small" :text-align "left"}}
-             (str "On " (datestring->readable (:time comment))
-                  " " (:username comment) " said:"))
-    (dom/div #js {:style #js {:margin "5px" :font-weight "bold"}}
-             (:comment comment)
-             (dom/hr nil)))))
-
-(defn- comment-control
-  [[inputs tag] owner]
-  (om/component
-   (dom/div
-    #js {:className "form"}
-    (apply dom/div
-           nil
-           (map #(om/build input (conj % tag))
-                inputs))
-    (dom/button #js {:className "btn btn-primary"
-                     :onClick #(pub-info owner tag {:action :submit})}
-                "Comment"))))
-
-(defn comments
-  [project owner]
-  (reify
-    om/IInitState
-    (init-state [_]
-      {:inputs {:comment {:value "" :type "textarea" :rows "2" :name "comment"
-                          :input-type :no-icon :invalid false
-                          :title ""}}
-       :cid (gensym)
-       :comments nil})
-    om/IWillMount
-    (will-mount [_]
-      (register-loop owner (om/get-state owner :cid)
-                     (fn [o {:keys [data]}]
-                       (condp = (:action data)
-                         :submit (submit-comment-call owner (:id project))
-                         (get-input o data))))
-      (comment-server-call owner (:id project)))
-    om/IRenderState
-    (render-state [_ {:keys [inputs cid comments]}]
-      (dom/div
-       #js {:style #js {:margin-top "10px"}}
-       (dom/label nil "Discussion")
-       (dom/div
-        #js {:className "panel panel-default"
-             :style #js {:min-height "100%"}}
-        (apply dom/div
-               #js {:className "panel-body"
-                    :ref "comments"
-                    :style #js {:margin "5px"
-                                :max-height "300"
-                                :overflow-y "scroll"
-                                :position "relative"
-                                :bottom "0"}}
-               (if-not (seq comments)
-                 (list (dom/div #js {:style #js {:text-align "center"}}
-                                "No discussion yet!")
-                       (dom/hr nil))
-                 (map #(om/build show-comment %)
-                      (filter #(not (= "" (str/trim (:comment %))))
-                              (sort-by :time < comments)))))
-        (dom/div
-         #js {:className "panel-footer"}
-         (om/build comment-control [inputs cid])))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; radios

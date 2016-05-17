@@ -1,7 +1,7 @@
 (ns ^:figwheel-always biomarket.find
   (:require-macros [cljs.core.async.macros :refer [go go-loop alt!]])
   (:require [goog.events :as events]
-            [cljs.core.async :refer [put! <! >! chan pub sub]]
+            [cljs.core.async :refer [put! <! >! chan pub sub timeout]]
             [om.core :as om :include-macros true]
             [secretary.core :as secretary :refer-macros [defroute]]
             [om.dom :as dom :include-macros true]
@@ -9,7 +9,8 @@
             [cljs-time.core :as t]
             [cljs-time.format :as f]
             [biomarket.utilities :refer [log] :as ut]
-            [biomarket.bids :as bid])
+            [biomarket.bids :as bid]
+            [biomarket.comments :as com])
   (:import [goog History]
            [goog.history EventType]))
 
@@ -61,9 +62,10 @@
                    :oc-tag (:id project)
                    :links {:skills ["Matched skills" show-skills]
                            :bids ["Show bids" bid/show-bids]
-                           :discussion ["Discussion" ut/comments]}
+                           :discussion ["Discussion" com/comments]}
                    :bid-widget bid/bid-widget}
-         :bids nil}))
+         :bids nil
+         :bid-loop true}))
     om/IWillMount
     (will-mount [_]
       (let [inputs (om/get-state owner :inputs)]
@@ -73,9 +75,15 @@
                               :change-view (change-view o (:view data))
                               :submit (do (bid/submit-bid o (:data data) (:id project))
                                           (bid/bid-server-call owner (:id project))))))
-        (bid/bid-server-call owner (:id project))))
+        (bid/bid-server-call owner (:id project))
+        (go
+          (while (om/get-state owner :bid-loop)
+            (let [t (timeout 10000)]
+              (bid/bid-server-call owner (:id project))
+              (<! t))))))
     om/IWillUnmount
     (will-unmount [_]
+      (om/set-state! owner :bid-loop false)
       (ut/unsubscribe owner (:id project)))
     om/IRenderState
     (render-state [_ {:keys [bottoms bids]}]

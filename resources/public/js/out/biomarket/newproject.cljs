@@ -213,11 +213,10 @@
          #js {:className "panel-heading"}
          (apply dom/div
                 #js {:className "btn-group" :role "group"}
-                (map #(dom/button
-                       #js {:className "btn btn-primary"
-                            :type "button"
-                            :onClick (second %)}
-                       (first %))
+                (map #(dom/a #js {:className "btn btn-primary"
+                                  :type "button"
+                                  :onClick (second %)}
+                             (first %))
                      control))))))))
 
 (defn- min-now

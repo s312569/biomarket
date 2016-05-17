@@ -82,15 +82,14 @@
 
 (defn button-func
   [owner]
-  (ut/pub-info owner (om/get-state owner :pid)
-               {:action :submit
-                :data (:amount (om/get-state owner :inputs))}))
+  (ut/pub-info owner (om/get-state owner :pid) {:action :submit
+                                                :data (:amount (om/get-state owner :inputs))}))
 
 (defn- button-state
   [owner]
   (let [cb (current-bid (:user-bids (om/get-state owner :bids)))
         ab (js/parseFloat (:value (:amount (om/get-state owner :inputs))))]
-    (cond (not cb)
+    (cond (and (not cb) (not (= ab 0)))
           [(clj->js {:className "btn btn-primary"
                      :onClick #(button-func owner)})
            "Submit bid"]
@@ -102,6 +101,19 @@
           [(clj->js {:className "btn btn-primary"
                      :onClick #(button-func owner)})
            "Update bid"])))
+
+(defn- form-state
+  [owner]
+  (let [amount (:amount (om/get-state owner :inputs))
+        cb (current-bid (:user-bids (om/get-state owner :bids)))
+        ab (js/parseFloat (:value amount))]
+    (if (or (= ab cb) (= ab 0))
+      (clj->js {:className "form-inline"
+                :onSubmit (fn [_] false)
+                :onKeyDown (fn [e] (if (= 13 (.-which e)) false))})
+      (clj->js {:className "form-inline"
+                :onSubmit (fn [_] false)
+                :onKeyDown (fn [e] (if (= 13 (.-which e)) (button-func owner)))}))))
 
 (defn- reset-inputs
   [owner]
@@ -125,6 +137,7 @@
     (init-state [_]
       {:inputs nil
        :button-state nil
+       :form-state nil
        :pid (:id project)
        :basis (:basis project)
        :bids nil
@@ -133,33 +146,34 @@
     (will-receive-props [_ np]
       (om/set-state! owner :bids (select-keys np [:user-bids :bids]))
       (om/set-state! owner :inputs (reset-inputs owner))
-      (om/set-state! owner :button-state (button-state owner)))
+      (om/set-state! owner :button-state (button-state owner))
+      (om/set-state! owner :form-state (form-state owner)))
     om/IWillMount
     (will-mount [_]
       (om/set-state! owner :bids (select-keys project [:user-bids :bids]))
+      (om/set-state! owner :inputs (reset-inputs owner))
       (ut/register-loop owner (om/get-state owner :bid)
                         (fn [o {:keys [data]}]
                           (ut/get-input o data)
-                          (om/set-state! o :button-state
-                                         (button-state o)))))
+                          (om/set-state! o :button-state (button-state o))
+                          (om/set-state! o :form-state (form-state o)))))
     om/IWillUnmount
     (will-unmount [_]
       (ut/unsubscribe owner (om/get-state owner :bid)))
     om/IRenderState
-    (render-state [_ {:keys [inputs bid button-state]}]
+    (render-state [_ {:keys [inputs bid button-state form-state]}]
       (let [amount (:amount inputs)]
         (dom/form
-         #js {:className "form-inline"}
+         form-state
+         (dom/label #js {:className "control-label"} "Your current bid: ")
          (dom/div
           #js {:className "form-group"}
           (dom/div
            #js {:className "input-group"}
            (dom/div #js {:className "input-group-addon"} (:before amount))
-           (dom/input #js {:className "form-control"
-                           :value (:value amount)
+           (dom/input #js {:className "form-control" :value (:value amount)
                            :type (:type amount)
-                           :onChange
-                           #(ut/on-change-function owner bid :amount amount %)})
+                           :onChange #(ut/on-change-function owner (om/get-state owner :bid) :amount amount %)})
            (dom/div #js {:className "input-group-addon"} (:after amount)))
           (apply dom/a button-state)
           (if (seq (:user-bids project))

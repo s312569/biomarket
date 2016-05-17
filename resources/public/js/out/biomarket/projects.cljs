@@ -63,10 +63,9 @@
       #js {:className "panel panel-default"}
       (dom/div
        #js {:className "panel-heading"}
-       (apply dom/div nil (map #(dom/button
-                                 #js {:className "btn btn-primary"
-                                      :onClick (second %)}
-                                 (first %))
+       (apply dom/div nil (map #(dom/a #js {:className "btn btn-primary"
+                                            :onClick (second %)}
+                                       (first %))
                                control)))
       (dom/div
        #js {:className "panel-body"

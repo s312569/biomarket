@@ -149,10 +149,11 @@
 
 (defn- bids
   [user pid]
-  (let [bs (db/query spec ["select * from bids where username = ? and pid = ?"
-                           user pid]
-                     :row-fn fix-times)]
-    {:bids bs :user-bids (filter #(= user (:username %)) bs)}))
+  (let [all-bids (db/query spec ["select * from bids where pid = ?" pid]
+                           :row-fn fix-times)
+        user-bids (db/query spec ["select * from bids where username = ? and pid = ?" user pid]
+                            :row-fn fix-times)]
+    {:bids all-bids :user-bids user-bids}))
 
 (defn get-bids
   [{:keys [session body]}]
