@@ -92,15 +92,15 @@
     (cond (and (not cb) (not (= ab 0)))
           [(clj->js {:className "btn btn-primary"
                      :onClick #(button-func owner)})
-           "Submit bid"]
+           "Submit"]
           (= ab cb)
           [(clj->js {:className "btn btn-primary"
                      :disabled "disabled"})
-           "Update bid"]
+           "Update"]
           :else
           [(clj->js {:className "btn btn-primary"
                      :onClick #(button-func owner)})
-           "Update bid"])))
+           "Update"])))
 
 (defn- form-state
   [owner]
@@ -172,10 +172,11 @@
            #js {:className "input-group"}
            (dom/div #js {:className "input-group-addon"} (:before amount))
            (dom/input #js {:className "form-control" :value (:value amount)
+                           :width "10px"
                            :type (:type amount)
                            :onChange #(ut/on-change-function owner (om/get-state owner :bid) :amount amount %)})
            (dom/div #js {:className "input-group-addon"} (:after amount)))
           (apply dom/a button-state)
           (if (seq (:user-bids project))
-            (dom/a #js {:className "btn btn-primary"}
-                   "Delete bid"))))))))
+            (dom/a #js {:className "btn btn-danger"}
+                   "X"))))))))

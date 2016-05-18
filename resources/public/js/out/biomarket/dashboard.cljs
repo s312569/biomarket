@@ -6,7 +6,7 @@
             [secretary.core :as secretary :refer-macros [defroute]]
             [om.dom :as dom :include-macros true]
             [biomarket.login :as login]
-            [biomarket.utilities :refer [app-state log]])
+            [biomarket.utilities :refer [log]])
   (:import [goog History]
            [goog.history EventType]))
 

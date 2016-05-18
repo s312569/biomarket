@@ -9,17 +9,8 @@
             [cljs-time.core :as t]
             [cljs-time.format :as f]
             [cljs-time.format :as tf]
-            [cljs.pprint :as pprint]))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; time
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn datestring->readable
-  [string]
-  (let [rfc (f/formatters :rfc822)
-        f (f/formatters :basic-date-time)]
-    (->> (f/parse f string) (f/unparse rfc))))
+            [cljs.pprint :as pprint]
+            [taoensso.sente  :as sente :refer (cb-success?)]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; logging
@@ -32,6 +23,16 @@
 (defn log
   [s]
   (.log js/console (str s)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; time
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn datestring->readable
+  [string]
+  (let [rfc (f/formatters :rfc822)
+        f (f/formatters :basic-date-time)]
+    (->> (f/parse f string) (f/unparse rfc))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; server calls
@@ -49,18 +50,6 @@
              :format :json
              :response-format :json
              :keywords? true}))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; app state
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defonce app-state
-  (let [req-chan (chan)
-        pub-chan (chan)
-        notif-chan (pub pub-chan :topic)]
-    (atom {:req-chan req-chan
-           :notif-chan notif-chan
-           :pub-chan pub-chan})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; input validation tests

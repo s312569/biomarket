@@ -5,7 +5,8 @@
             [om.core :as om :include-macros true]
             [secretary.core :as secretary :refer-macros [defroute]]
             [om.dom :as dom :include-macros true]
-            [biomarket.utilities :refer [log pub-info] :as ut]))
+            [biomarket.utilities :refer [log pub-info] :as ut]
+            [biomarket.server :as serve]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; server calls
@@ -154,4 +155,4 @@
   (om/root login
            nil
            {:target (. js/document (getElementById "app"))
-            :shared @ut/app-state}))
+            :shared @serve/app-state}))

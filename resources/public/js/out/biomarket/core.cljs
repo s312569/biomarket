@@ -10,63 +10,9 @@
             [biomarket.dashboard :refer [dashboard]]
             [biomarket.projects :refer [projects-view-control]]
             [biomarket.find :refer [find-view]]
-            [taoensso.sente  :as sente :refer (cb-success?)])
+            [biomarket.server :as serve])
   (:import [goog History]
            [goog.history EventType]))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; websocket stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(let [{:keys [chsk ch-recv send-fn state]}
-      (sente/make-channel-socket! "/chsk"
-       {:type :auto})]
-  (def chsk chsk)
-  (def ch-chsk ch-recv)
-  (def chsk-send! send-fn)
-  (def chsk-state state))
-
-(defmulti -event-msg-handler
-  "Multimethod to handle Sente `event-msg`s"
-  :id ; Dispatch on event-id
-  )
-
-(defn event-msg-handler
-  "Wraps `-event-msg-handler` with logging, error catching, etc."
-  [{:as ev-msg :keys [id ?data event]}]
-  (-event-msg-handler ev-msg))
-
-(defmethod -event-msg-handler
-  :default ; Default/fallback case (no other matching handler)
-  [{:as ev-msg :keys [event]}]
-  (log (str "Unhandled event: " event)))
-
-(defmethod -event-msg-handler :chsk/state
-  [{:as ev-msg :keys [?data]}]
-  (if (:first-open? ?data)
-    (log (str "Channel socket successfully established!: " ?data))
-    (log (str "Channel socket state change: " ?data))))
-
-(defmethod -event-msg-handler :chsk/recv
-  [{:as ev-msg :keys [?data]}]
-  (log (str "Push event from server: " ?data)))
-
-(defmethod -event-msg-handler :chsk/handshake
-  [{:as ev-msg :keys [?data]}]
-  (let [[?uid ?csrf-token ?handshake-data] ?data]
-    (log (str "Handshake: " ?data))))
-
-(defonce router_ (atom nil))
-(defn  stop-router! [] (when-let [stop-f @router_] (stop-f)))
-(defn start-router! []
-  (stop-router!)
-  (reset! router_
-    (sente/start-client-chsk-router!
-     ch-chsk event-msg-handler)))
-
-(defn start! [] (start-router!))
-
-(defonce _start-once (start!))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; history
@@ -158,4 +104,4 @@
   (om/root app-control
            nil
            {:target (. js/document (getElementById "app"))
-            :shared @ut/app-state}))
+            :shared @serve/app-state}))
