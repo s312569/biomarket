@@ -136,6 +136,17 @@
                                          :roles #{:user}})
                               {})))
 
+(defn- user-data-save
+  [q]
+  (let [r (atom nil)]
+    (try (db/execute! spec q)
+         (reset! r {:status :success})
+         (catch Exception e
+           (reset! r
+                   {:status :failure :reason (.getMessage (.getNextException e))}))
+         (finally
+           @r))))
+
 (defmethod server/get-data :user-data
   [{:keys [username]}]
   (let [d (first (db/query spec ["select * from users where email = ?" username]))]
@@ -144,28 +155,28 @@
 
 (defmethod server/save-data :name-update
   [{:keys [username first last middle]}]
-  (let [r (atom nil)]
-    (try (db/execute! spec ["update users set first=?,last=?,middle=? where email=?"
-                            first last middle username])
-         (reset! r {:status :success})
-         (catch Exception e
-           (reset! r
-                   {:status :failure :reason (.getMessage (.getNextException e))}))
-         (finally
-           @r))))
+  (user-data-save ["update users set first=?,last=?,middle=? where email=?" first last middle username]))
 
 (defmethod server/save-data :address-update
   [{:keys [username address1 address2 address3]}]
-  (println (str address1 " - " address2))
-  (let [r (atom nil)]
-    (try (db/execute! spec ["update users set address1=?,address2=?,address3=? where email=?"
-                            address1 address2 address3 username])
-         (reset! r {:status :success})
-         (catch Exception e
-           (reset! r
-                   {:status :failure :reason (.getMessage (.getNextException e))}))
-         (finally
-           @r))))
+  (user-data-save ["update users set address1=?,address2=?,address3=? where email=?"
+                   address1 address2 address3 username]))
+
+(defmethod server/save-data :city-update
+  [{:keys [username city] :as m}]
+  (user-data-save ["update users set city=? where email=?" city username]))
+
+(defmethod server/save-data :country-update
+  [{:keys [username country] :as m}]
+  (user-data-save ["update users set country=? where email=?" country username]))
+
+(defmethod server/save-data :postcode-update
+  [{:keys [username postcode] :as m}]
+  (user-data-save ["update users set postcode=? where email=?" postcode username]))
+
+(defmethod server/save-data :phone-update
+  [{:keys [username phone] :as m}]
+  (user-data-save ["update users set phone=? where email=?" phone username]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; skills

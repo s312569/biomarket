@@ -9,27 +9,27 @@ goog.require('cljs.core.async');
 goog.require('goog.events');
 goog.require('om.core');
 biomarket.login.user_exists_QMARK_ = (function biomarket$login$user_exists_QMARK_(owner,email){
-var h = (function (p__318314){
-var map__318315 = p__318314;
-var map__318315__$1 = ((((!((map__318315 == null)))?((((map__318315.cljs$lang$protocol_mask$partition0$ & (64))) || (map__318315.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__318315):map__318315);
-var status = cljs.core.get.call(null,map__318315__$1,new cljs.core.Keyword(null,"status","status",-1997798413));
-var id = cljs.core.get.call(null,map__318315__$1,new cljs.core.Keyword(null,"id","id",-1388402092));
-var result = cljs.core.get.call(null,map__318315__$1,new cljs.core.Keyword(null,"result","result",1415092211));
-if(cljs.core.truth_((function (){var and__25707__auto__ = cljs.core._EQ_.call(null,"success",status);
-if(and__25707__auto__){
+var h = (function (p__76627){
+var map__76628 = p__76627;
+var map__76628__$1 = ((((!((map__76628 == null)))?((((map__76628.cljs$lang$protocol_mask$partition0$ & (64))) || (map__76628.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__76628):map__76628);
+var status = cljs.core.get.call(null,map__76628__$1,new cljs.core.Keyword(null,"status","status",-1997798413));
+var id = cljs.core.get.call(null,map__76628__$1,new cljs.core.Keyword(null,"id","id",-1388402092));
+var result = cljs.core.get.call(null,map__76628__$1,new cljs.core.Keyword(null,"result","result",1415092211));
+if(cljs.core.truth_((function (){var and__25800__auto__ = cljs.core._EQ_.call(null,"success",status);
+if(and__25800__auto__){
 return result;
 } else {
-return and__25707__auto__;
+return and__25800__auto__;
 }
 })())){
-var ni = cljs.core.update_in.call(null,om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858)),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"email","email",1415816706),new cljs.core.Keyword(null,"invalid","invalid",412869516)], null),((function (map__318315,map__318315__$1,status,id,result){
-return (function (p1__318310_SHARP_){
-if(p1__318310_SHARP_ === false){
+var ni = cljs.core.update_in.call(null,om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858)),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"email","email",1415816706),new cljs.core.Keyword(null,"invalid","invalid",412869516)], null),((function (map__76628,map__76628__$1,status,id,result){
+return (function (p1__76623_SHARP_){
+if(p1__76623_SHARP_ === false){
 return cljs.core.list("An account for that email already exists.");
 } else {
-return cljs.core.cons.call(null,"An account for that email already exists.",p1__318310_SHARP_);
+return cljs.core.cons.call(null,"An account for that email already exists.",p1__76623_SHARP_);
 }
-});})(map__318315,map__318315__$1,status,id,result))
+});})(map__76628,map__76628__$1,status,id,result))
 );
 return om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858),ni);
 } else {
@@ -39,18 +39,18 @@ return null;
 return biomarket.utilities.post_params.call(null,"/user-exists",new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"email","email",1415816706),email], null),h);
 });
 biomarket.login.rinputs = (function biomarket$login$rinputs(owner){
-return new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"fname","fname",1500291491),new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"ph","ph",-1483583977),"First name",new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"name","name",1843675177),"fname",new cljs.core.Keyword(null,"invalid","invalid",412869516),false,new cljs.core.Keyword(null,"tests","tests",-1041085625),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (p1__318317_SHARP_){
-return (cljs.core.count.call(null,p1__318317_SHARP_) > (2));
-}),"First name must be greater than two characters."], null)], null)], null),new cljs.core.Keyword(null,"sname","sname",-1950917667),new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"ph","ph",-1483583977),"Second name",new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"name","name",1843675177),"sname",new cljs.core.Keyword(null,"invalid","invalid",412869516),false,new cljs.core.Keyword(null,"tests","tests",-1041085625),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (p1__318318_SHARP_){
-return (cljs.core.count.call(null,p1__318318_SHARP_) > (2));
-}),"Second name must be greater than two characters."], null)], null)], null),new cljs.core.Keyword(null,"email","email",1415816706),new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"ph","ph",-1483583977),"Email",new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"name","name",1843675177),"email",new cljs.core.Keyword(null,"invalid","invalid",412869516),false,new cljs.core.Keyword(null,"tests","tests",-1041085625),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (p1__318319_SHARP_){
-return (cljs.core.count.call(null,p1__318319_SHARP_) > (2));
-}),"Email must be greater than two characters."], null)], null)], null),new cljs.core.Keyword(null,"password1","password1",-1551287478),new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"ph","ph",-1483583977),"Password",new cljs.core.Keyword(null,"type","type",1174270348),"password",new cljs.core.Keyword(null,"name","name",1843675177),"password1",new cljs.core.Keyword(null,"invalid","invalid",412869516),false,new cljs.core.Keyword(null,"tests","tests",-1041085625),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (p1__318320_SHARP_){
-return (cljs.core.count.call(null,p1__318320_SHARP_) > (6));
+return new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"fname","fname",1500291491),new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"ph","ph",-1483583977),"First name",new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"name","name",1843675177),"fname",new cljs.core.Keyword(null,"invalid","invalid",412869516),false,new cljs.core.Keyword(null,"tests","tests",-1041085625),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (p1__76630_SHARP_){
+return (cljs.core.count.call(null,p1__76630_SHARP_) > (2));
+}),"First name must be greater than two characters."], null)], null)], null),new cljs.core.Keyword(null,"sname","sname",-1950917667),new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"ph","ph",-1483583977),"Second name",new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"name","name",1843675177),"sname",new cljs.core.Keyword(null,"invalid","invalid",412869516),false,new cljs.core.Keyword(null,"tests","tests",-1041085625),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (p1__76631_SHARP_){
+return (cljs.core.count.call(null,p1__76631_SHARP_) > (2));
+}),"Second name must be greater than two characters."], null)], null)], null),new cljs.core.Keyword(null,"email","email",1415816706),new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"ph","ph",-1483583977),"Email",new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"name","name",1843675177),"email",new cljs.core.Keyword(null,"invalid","invalid",412869516),false,new cljs.core.Keyword(null,"tests","tests",-1041085625),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (p1__76632_SHARP_){
+return (cljs.core.count.call(null,p1__76632_SHARP_) > (2));
+}),"Email must be greater than two characters."], null)], null)], null),new cljs.core.Keyword(null,"password1","password1",-1551287478),new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"ph","ph",-1483583977),"Password",new cljs.core.Keyword(null,"type","type",1174270348),"password",new cljs.core.Keyword(null,"name","name",1843675177),"password1",new cljs.core.Keyword(null,"invalid","invalid",412869516),false,new cljs.core.Keyword(null,"tests","tests",-1041085625),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (p1__76633_SHARP_){
+return (cljs.core.count.call(null,p1__76633_SHARP_) > (6));
 }),"Password1 must be longer than six characters."], null)], null)], null),new cljs.core.Keyword(null,"password2","password2",557827521),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"ph","ph",-1483583977),"Re-enter password",new cljs.core.Keyword(null,"type","type",1174270348),"password",new cljs.core.Keyword(null,"name","name",1843675177),"password2",new cljs.core.Keyword(null,"invalid","invalid",412869516),false], null)], null);
 });
 biomarket.login.register_display = (function biomarket$login$register_display(inputs,owner){
-if(typeof biomarket.login.t_biomarket$login318326 !== 'undefined'){
+if(typeof biomarket.login.t_biomarket$login76639 !== 'undefined'){
 } else {
 
 /**
@@ -59,64 +59,64 @@ if(typeof biomarket.login.t_biomarket$login318326 !== 'undefined'){
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.login.t_biomarket$login318326 = (function (register_display,inputs,owner,meta318327){
+biomarket.login.t_biomarket$login76639 = (function (register_display,inputs,owner,meta76640){
 this.register_display = register_display;
 this.inputs = inputs;
 this.owner = owner;
-this.meta318327 = meta318327;
+this.meta76640 = meta76640;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.login.t_biomarket$login318326.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_318328,meta318327__$1){
+biomarket.login.t_biomarket$login76639.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_76641,meta76640__$1){
 var self__ = this;
-var _318328__$1 = this;
-return (new biomarket.login.t_biomarket$login318326(self__.register_display,self__.inputs,self__.owner,meta318327__$1));
+var _76641__$1 = this;
+return (new biomarket.login.t_biomarket$login76639(self__.register_display,self__.inputs,self__.owner,meta76640__$1));
 });
 
-biomarket.login.t_biomarket$login318326.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_318328){
+biomarket.login.t_biomarket$login76639.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_76641){
 var self__ = this;
-var _318328__$1 = this;
-return self__.meta318327;
+var _76641__$1 = this;
+return self__.meta76640;
 });
 
-biomarket.login.t_biomarket$login318326.prototype.om$core$IRender$ = true;
+biomarket.login.t_biomarket$login76639.prototype.om$core$IRender$ = true;
 
-biomarket.login.t_biomarket$login318326.prototype.om$core$IRender$render$arity$1 = (function (this__28693__auto__){
+biomarket.login.t_biomarket$login76639.prototype.om$core$IRender$render$arity$1 = (function (this__36757__auto__){
 var self__ = this;
-var this__28693__auto____$1 = this;
-return React.DOM.div({"className": "pure-u-1-3", "style": {"text-align": "center"}},React.DOM.form({"method": "POST", "action": "/signup", "className": "pure-form"},cljs.core.apply.call(null,om.dom.div,null,cljs.core.map.call(null,((function (this__28693__auto____$1){
-return (function (p1__318321_SHARP_){
-return om.core.build.call(null,biomarket.utilities.input,cljs.core.conj.call(null,p1__318321_SHARP_,new cljs.core.Keyword("biomarket.login","inputd","biomarket.login/inputd",-1574274302)));
-});})(this__28693__auto____$1))
-,self__.inputs)),((cljs.core.every_QMARK_.call(null,((function (this__28693__auto____$1){
-return (function (p1__318322_SHARP_){
-return (new cljs.core.Keyword(null,"invalid","invalid",412869516).cljs$core$IFn$_invoke$arity$1(p1__318322_SHARP_) == null);
-});})(this__28693__auto____$1))
+var this__36757__auto____$1 = this;
+return React.DOM.div({"className": "pure-u-1-3", "style": {"text-align": "center"}},React.DOM.form({"method": "POST", "action": "/signup", "className": "pure-form"},cljs.core.apply.call(null,om.dom.div,null,cljs.core.map.call(null,((function (this__36757__auto____$1){
+return (function (p1__76634_SHARP_){
+return om.core.build.call(null,biomarket.utilities.input,cljs.core.conj.call(null,p1__76634_SHARP_,new cljs.core.Keyword("biomarket.login","inputd","biomarket.login/inputd",-1574274302)));
+});})(this__36757__auto____$1))
+,self__.inputs)),((cljs.core.every_QMARK_.call(null,((function (this__36757__auto____$1){
+return (function (p1__76635_SHARP_){
+return (new cljs.core.Keyword(null,"invalid","invalid",412869516).cljs$core$IFn$_invoke$arity$1(p1__76635_SHARP_) == null);
+});})(this__36757__auto____$1))
 ,cljs.core.vals.call(null,self__.inputs)))?om.core.build.call(null,biomarket.utilities.padded_button,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["10px","Register"], null)):om.core.build.call(null,biomarket.utilities.padded_button_disabled,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["10px","Register"], null)))));
 });
 
-biomarket.login.t_biomarket$login318326.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"register-display","register-display",1686240990,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"inputs","inputs",-1788631911,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"inputs","inputs",-1788631911,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta318327","meta318327",-19318670,null)], null);
+biomarket.login.t_biomarket$login76639.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"register-display","register-display",1686240990,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"inputs","inputs",-1788631911,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"inputs","inputs",-1788631911,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta76640","meta76640",-710277284,null)], null);
 });
 
-biomarket.login.t_biomarket$login318326.cljs$lang$type = true;
+biomarket.login.t_biomarket$login76639.cljs$lang$type = true;
 
-biomarket.login.t_biomarket$login318326.cljs$lang$ctorStr = "biomarket.login/t_biomarket$login318326";
+biomarket.login.t_biomarket$login76639.cljs$lang$ctorStr = "biomarket.login/t_biomarket$login76639";
 
-biomarket.login.t_biomarket$login318326.cljs$lang$ctorPrWriter = (function (this__26325__auto__,writer__26326__auto__,opt__26327__auto__){
-return cljs.core._write.call(null,writer__26326__auto__,"biomarket.login/t_biomarket$login318326");
+biomarket.login.t_biomarket$login76639.cljs$lang$ctorPrWriter = (function (this__26418__auto__,writer__26419__auto__,opt__26420__auto__){
+return cljs.core._write.call(null,writer__26419__auto__,"biomarket.login/t_biomarket$login76639");
 });
 
-biomarket.login.__GT_t_biomarket$login318326 = (function biomarket$login$register_display_$___GT_t_biomarket$login318326(register_display__$1,inputs__$1,owner__$1,meta318327){
-return (new biomarket.login.t_biomarket$login318326(register_display__$1,inputs__$1,owner__$1,meta318327));
+biomarket.login.__GT_t_biomarket$login76639 = (function biomarket$login$register_display_$___GT_t_biomarket$login76639(register_display__$1,inputs__$1,owner__$1,meta76640){
+return (new biomarket.login.t_biomarket$login76639(register_display__$1,inputs__$1,owner__$1,meta76640));
 });
 
 }
 
-return (new biomarket.login.t_biomarket$login318326(biomarket$login$register_display,inputs,owner,null));
+return (new biomarket.login.t_biomarket$login76639(biomarket$login$register_display,inputs,owner,null));
 });
 biomarket.login.or_table = (function biomarket$login$or_table(_,owner){
-if(typeof biomarket.login.t_biomarket$login318332 !== 'undefined'){
+if(typeof biomarket.login.t_biomarket$login76645 !== 'undefined'){
 } else {
 
 /**
@@ -125,56 +125,56 @@ if(typeof biomarket.login.t_biomarket$login318332 !== 'undefined'){
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.login.t_biomarket$login318332 = (function (or_table,_,owner,meta318333){
+biomarket.login.t_biomarket$login76645 = (function (or_table,_,owner,meta76646){
 this.or_table = or_table;
 this._ = _;
 this.owner = owner;
-this.meta318333 = meta318333;
+this.meta76646 = meta76646;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.login.t_biomarket$login318332.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_318334,meta318333__$1){
+biomarket.login.t_biomarket$login76645.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_76647,meta76646__$1){
 var self__ = this;
-var _318334__$1 = this;
-return (new biomarket.login.t_biomarket$login318332(self__.or_table,self__._,self__.owner,meta318333__$1));
+var _76647__$1 = this;
+return (new biomarket.login.t_biomarket$login76645(self__.or_table,self__._,self__.owner,meta76646__$1));
 });
 
-biomarket.login.t_biomarket$login318332.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_318334){
+biomarket.login.t_biomarket$login76645.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_76647){
 var self__ = this;
-var _318334__$1 = this;
-return self__.meta318333;
+var _76647__$1 = this;
+return self__.meta76646;
 });
 
-biomarket.login.t_biomarket$login318332.prototype.om$core$IRender$ = true;
+biomarket.login.t_biomarket$login76645.prototype.om$core$IRender$ = true;
 
-biomarket.login.t_biomarket$login318332.prototype.om$core$IRender$render$arity$1 = (function (this__28693__auto__){
+biomarket.login.t_biomarket$login76645.prototype.om$core$IRender$render$arity$1 = (function (this__36757__auto__){
 var self__ = this;
-var this__28693__auto____$1 = this;
+var this__36757__auto____$1 = this;
 return React.DOM.table({"width": "100%"},React.DOM.tr(null,React.DOM.td({"width": "40%"},React.DOM.hr(null)),React.DOM.td({"width": "10%"},React.DOM.p({"style": {"font-style": "italic", "line-height": "4em"}},"or")),React.DOM.td({"width": "40%"},React.DOM.hr(null))));
 });
 
-biomarket.login.t_biomarket$login318332.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"or-table","or-table",-238429391,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"_","_",-1201019570,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"_","_",-1201019570,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta318333","meta318333",-1423722956,null)], null);
+biomarket.login.t_biomarket$login76645.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"or-table","or-table",-238429391,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"_","_",-1201019570,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"_","_",-1201019570,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta76646","meta76646",-1480344825,null)], null);
 });
 
-biomarket.login.t_biomarket$login318332.cljs$lang$type = true;
+biomarket.login.t_biomarket$login76645.cljs$lang$type = true;
 
-biomarket.login.t_biomarket$login318332.cljs$lang$ctorStr = "biomarket.login/t_biomarket$login318332";
+biomarket.login.t_biomarket$login76645.cljs$lang$ctorStr = "biomarket.login/t_biomarket$login76645";
 
-biomarket.login.t_biomarket$login318332.cljs$lang$ctorPrWriter = (function (this__26325__auto__,writer__26326__auto__,opt__26327__auto__){
-return cljs.core._write.call(null,writer__26326__auto__,"biomarket.login/t_biomarket$login318332");
+biomarket.login.t_biomarket$login76645.cljs$lang$ctorPrWriter = (function (this__26418__auto__,writer__26419__auto__,opt__26420__auto__){
+return cljs.core._write.call(null,writer__26419__auto__,"biomarket.login/t_biomarket$login76645");
 });
 
-biomarket.login.__GT_t_biomarket$login318332 = (function biomarket$login$or_table_$___GT_t_biomarket$login318332(or_table__$1,___$1,owner__$1,meta318333){
-return (new biomarket.login.t_biomarket$login318332(or_table__$1,___$1,owner__$1,meta318333));
+biomarket.login.__GT_t_biomarket$login76645 = (function biomarket$login$or_table_$___GT_t_biomarket$login76645(or_table__$1,___$1,owner__$1,meta76646){
+return (new biomarket.login.t_biomarket$login76645(or_table__$1,___$1,owner__$1,meta76646));
 });
 
 }
 
-return (new biomarket.login.t_biomarket$login318332(biomarket$login$or_table,_,owner,null));
+return (new biomarket.login.t_biomarket$login76645(biomarket$login$or_table,_,owner,null));
 });
 biomarket.login.login_display = (function biomarket$login$login_display(inputs,owner){
-if(typeof biomarket.login.t_biomarket$login318339 !== 'undefined'){
+if(typeof biomarket.login.t_biomarket$login76652 !== 'undefined'){
 } else {
 
 /**
@@ -183,67 +183,67 @@ if(typeof biomarket.login.t_biomarket$login318339 !== 'undefined'){
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.login.t_biomarket$login318339 = (function (login_display,inputs,owner,meta318340){
+biomarket.login.t_biomarket$login76652 = (function (login_display,inputs,owner,meta76653){
 this.login_display = login_display;
 this.inputs = inputs;
 this.owner = owner;
-this.meta318340 = meta318340;
+this.meta76653 = meta76653;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.login.t_biomarket$login318339.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_318341,meta318340__$1){
+biomarket.login.t_biomarket$login76652.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_76654,meta76653__$1){
 var self__ = this;
-var _318341__$1 = this;
-return (new biomarket.login.t_biomarket$login318339(self__.login_display,self__.inputs,self__.owner,meta318340__$1));
+var _76654__$1 = this;
+return (new biomarket.login.t_biomarket$login76652(self__.login_display,self__.inputs,self__.owner,meta76653__$1));
 });
 
-biomarket.login.t_biomarket$login318339.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_318341){
+biomarket.login.t_biomarket$login76652.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_76654){
 var self__ = this;
-var _318341__$1 = this;
-return self__.meta318340;
+var _76654__$1 = this;
+return self__.meta76653;
 });
 
-biomarket.login.t_biomarket$login318339.prototype.om$core$IRender$ = true;
+biomarket.login.t_biomarket$login76652.prototype.om$core$IRender$ = true;
 
-biomarket.login.t_biomarket$login318339.prototype.om$core$IRender$render$arity$1 = (function (this__28693__auto__){
+biomarket.login.t_biomarket$login76652.prototype.om$core$IRender$render$arity$1 = (function (this__36757__auto__){
 var self__ = this;
-var this__28693__auto____$1 = this;
-return React.DOM.div({"className": "pure-u-1-3", "style": {"text-align": "center"}},React.DOM.form({"method": "POST", "action": "/login", "className": "pure-form"},cljs.core.apply.call(null,om.dom.div,null,cljs.core.map.call(null,((function (this__28693__auto____$1){
-return (function (p1__318335_SHARP_){
-return om.core.build.call(null,biomarket.utilities.input,cljs.core.conj.call(null,p1__318335_SHARP_,new cljs.core.Keyword("biomarket.login","inputd","biomarket.login/inputd",-1574274302)));
-});})(this__28693__auto____$1))
-,self__.inputs)),om.core.build.call(null,biomarket.utilities.padded_button,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["10px","Login"], null))),om.core.build.call(null,biomarket.login.or_table,null),om.core.build.call(null,biomarket.utilities.padded_button,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, ["10px","Register",((function (this__28693__auto____$1){
+var this__36757__auto____$1 = this;
+return React.DOM.div({"className": "pure-u-1-3", "style": {"text-align": "center"}},React.DOM.form({"method": "POST", "action": "/login", "className": "pure-form"},cljs.core.apply.call(null,om.dom.div,null,cljs.core.map.call(null,((function (this__36757__auto____$1){
+return (function (p1__76648_SHARP_){
+return om.core.build.call(null,biomarket.utilities.input,cljs.core.conj.call(null,p1__76648_SHARP_,new cljs.core.Keyword("biomarket.login","inputd","biomarket.login/inputd",-1574274302)));
+});})(this__36757__auto____$1))
+,self__.inputs)),om.core.build.call(null,biomarket.utilities.padded_button,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["10px","Login"], null))),om.core.build.call(null,biomarket.login.or_table,null),om.core.build.call(null,biomarket.utilities.padded_button,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, ["10px","Register",((function (this__36757__auto____$1){
 return (function (){
 return biomarket.utilities.pub_info.call(null,self__.owner,new cljs.core.Keyword(null,"state","state",-1988618099),new cljs.core.Keyword(null,"register","register",1968522516));
-});})(this__28693__auto____$1))
+});})(this__36757__auto____$1))
 ], null)));
 });
 
-biomarket.login.t_biomarket$login318339.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"login-display","login-display",-1891436065,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"inputs","inputs",-1788631911,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"inputs","inputs",-1788631911,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta318340","meta318340",-418751056,null)], null);
+biomarket.login.t_biomarket$login76652.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"login-display","login-display",-1891436065,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"inputs","inputs",-1788631911,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"inputs","inputs",-1788631911,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta76653","meta76653",539467906,null)], null);
 });
 
-biomarket.login.t_biomarket$login318339.cljs$lang$type = true;
+biomarket.login.t_biomarket$login76652.cljs$lang$type = true;
 
-biomarket.login.t_biomarket$login318339.cljs$lang$ctorStr = "biomarket.login/t_biomarket$login318339";
+biomarket.login.t_biomarket$login76652.cljs$lang$ctorStr = "biomarket.login/t_biomarket$login76652";
 
-biomarket.login.t_biomarket$login318339.cljs$lang$ctorPrWriter = (function (this__26325__auto__,writer__26326__auto__,opt__26327__auto__){
-return cljs.core._write.call(null,writer__26326__auto__,"biomarket.login/t_biomarket$login318339");
+biomarket.login.t_biomarket$login76652.cljs$lang$ctorPrWriter = (function (this__26418__auto__,writer__26419__auto__,opt__26420__auto__){
+return cljs.core._write.call(null,writer__26419__auto__,"biomarket.login/t_biomarket$login76652");
 });
 
-biomarket.login.__GT_t_biomarket$login318339 = (function biomarket$login$login_display_$___GT_t_biomarket$login318339(login_display__$1,inputs__$1,owner__$1,meta318340){
-return (new biomarket.login.t_biomarket$login318339(login_display__$1,inputs__$1,owner__$1,meta318340));
+biomarket.login.__GT_t_biomarket$login76652 = (function biomarket$login$login_display_$___GT_t_biomarket$login76652(login_display__$1,inputs__$1,owner__$1,meta76653){
+return (new biomarket.login.t_biomarket$login76652(login_display__$1,inputs__$1,owner__$1,meta76653));
 });
 
 }
 
-return (new biomarket.login.t_biomarket$login318339(biomarket$login$login_display,inputs,owner,null));
+return (new biomarket.login.t_biomarket$login76652(biomarket$login$login_display,inputs,owner,null));
 });
-cljs.core._add_method.call(null,biomarket.utilities.get_input,new cljs.core.Keyword(null,"password2","password2",557827521),(function (owner,p__318342){
-var map__318343 = p__318342;
-var map__318343__$1 = ((((!((map__318343 == null)))?((((map__318343.cljs$lang$protocol_mask$partition0$ & (64))) || (map__318343.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__318343):map__318343);
-var fname = cljs.core.get.call(null,map__318343__$1,new cljs.core.Keyword(null,"fname","fname",1500291491));
-var element = cljs.core.get.call(null,map__318343__$1,new cljs.core.Keyword(null,"element","element",1974019749));
+cljs.core._add_method.call(null,biomarket.utilities.get_input,new cljs.core.Keyword(null,"password2","password2",557827521),(function (owner,p__76655){
+var map__76656 = p__76655;
+var map__76656__$1 = ((((!((map__76656 == null)))?((((map__76656.cljs$lang$protocol_mask$partition0$ & (64))) || (map__76656.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__76656):map__76656);
+var fname = cljs.core.get.call(null,map__76656__$1,new cljs.core.Keyword(null,"fname","fname",1500291491));
+var element = cljs.core.get.call(null,map__76656__$1,new cljs.core.Keyword(null,"element","element",1974019749));
 var inputs = om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858));
 if(cljs.core._EQ_.call(null,cljs.core.get_in.call(null,inputs,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"password1","password1",-1551287478),new cljs.core.Keyword(null,"value","value",305978217)], null)),new cljs.core.Keyword(null,"value","value",305978217).cljs$core$IFn$_invoke$arity$1(element))){
 return om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858),cljs.core.assoc.call(null,inputs,fname,cljs.core.assoc.call(null,element,new cljs.core.Keyword(null,"invalid","invalid",412869516),null)));
@@ -251,11 +251,11 @@ return om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"input
 return om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858),cljs.core.assoc.call(null,inputs,fname,cljs.core.assoc.call(null,element,new cljs.core.Keyword(null,"invalid","invalid",412869516),cljs.core.list("Passwords don't match."))));
 }
 }));
-biomarket.login.test_username_exists = (function biomarket$login$test_username_exists(owner,p__318345){
-var map__318348 = p__318345;
-var map__318348__$1 = ((((!((map__318348 == null)))?((((map__318348.cljs$lang$protocol_mask$partition0$ & (64))) || (map__318348.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__318348):map__318348);
-var fname = cljs.core.get.call(null,map__318348__$1,new cljs.core.Keyword(null,"fname","fname",1500291491));
-var element = cljs.core.get.call(null,map__318348__$1,new cljs.core.Keyword(null,"element","element",1974019749));
+biomarket.login.test_username_exists = (function biomarket$login$test_username_exists(owner,p__76658){
+var map__76661 = p__76658;
+var map__76661__$1 = ((((!((map__76661 == null)))?((((map__76661.cljs$lang$protocol_mask$partition0$ & (64))) || (map__76661.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__76661):map__76661);
+var fname = cljs.core.get.call(null,map__76661__$1,new cljs.core.Keyword(null,"fname","fname",1500291491));
+var element = cljs.core.get.call(null,map__76661__$1,new cljs.core.Keyword(null,"element","element",1974019749));
 if(cljs.core._EQ_.call(null,fname,new cljs.core.Keyword(null,"email","email",1415816706))){
 return biomarket.login.user_exists_QMARK_.call(null,owner,new cljs.core.Keyword(null,"value","value",305978217).cljs$core$IFn$_invoke$arity$1(element));
 } else {
@@ -263,7 +263,7 @@ return null;
 }
 });
 biomarket.login.login = (function biomarket$login$login(_,owner){
-if(typeof biomarket.login.t_biomarket$login318359 !== 'undefined'){
+if(typeof biomarket.login.t_biomarket$login76672 !== 'undefined'){
 } else {
 
 /**
@@ -275,37 +275,37 @@ if(typeof biomarket.login.t_biomarket$login318359 !== 'undefined'){
  * @implements {om.core.IInitState}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.login.t_biomarket$login318359 = (function (login,_,owner,meta318360){
+biomarket.login.t_biomarket$login76672 = (function (login,_,owner,meta76673){
 this.login = login;
 this._ = _;
 this.owner = owner;
-this.meta318360 = meta318360;
+this.meta76673 = meta76673;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.login.t_biomarket$login318359.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_318361,meta318360__$1){
+biomarket.login.t_biomarket$login76672.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_76674,meta76673__$1){
 var self__ = this;
-var _318361__$1 = this;
-return (new biomarket.login.t_biomarket$login318359(self__.login,self__._,self__.owner,meta318360__$1));
+var _76674__$1 = this;
+return (new biomarket.login.t_biomarket$login76672(self__.login,self__._,self__.owner,meta76673__$1));
 });
 
-biomarket.login.t_biomarket$login318359.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_318361){
+biomarket.login.t_biomarket$login76672.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_76674){
 var self__ = this;
-var _318361__$1 = this;
-return self__.meta318360;
+var _76674__$1 = this;
+return self__.meta76673;
 });
 
-biomarket.login.t_biomarket$login318359.prototype.om$core$IInitState$ = true;
+biomarket.login.t_biomarket$login76672.prototype.om$core$IInitState$ = true;
 
-biomarket.login.t_biomarket$login318359.prototype.om$core$IInitState$init_state$arity$1 = (function (___$1){
+biomarket.login.t_biomarket$login76672.prototype.om$core$IInitState$init_state$arity$1 = (function (___$1){
 var self__ = this;
 var ___$2 = this;
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"state","state",-1988618099),new cljs.core.Keyword(null,"login","login",55217519),new cljs.core.Keyword(null,"inputs","inputs",865803858),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"username","username",1605666410),new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Email address",new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"title","title",636505583),"Email",new cljs.core.Keyword(null,"name","name",1843675177),"username",new cljs.core.Keyword(null,"input-type","input-type",856973840),new cljs.core.Keyword(null,"no-icon","no-icon",-1734606666),new cljs.core.Keyword(null,"invalid","invalid",412869516),false], null),new cljs.core.Keyword(null,"password","password",417022471),new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"value","value",305978217),"",new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Password",new cljs.core.Keyword(null,"type","type",1174270348),"password",new cljs.core.Keyword(null,"title","title",636505583),"Password",new cljs.core.Keyword(null,"name","name",1843675177),"password",new cljs.core.Keyword(null,"input-type","input-type",856973840),new cljs.core.Keyword(null,"no-icon","no-icon",-1734606666),new cljs.core.Keyword(null,"invalid","invalid",412869516),false], null)], null)], null);
 });
 
-biomarket.login.t_biomarket$login318359.prototype.om$core$IWillMount$ = true;
+biomarket.login.t_biomarket$login76672.prototype.om$core$IWillMount$ = true;
 
-biomarket.login.t_biomarket$login318359.prototype.om$core$IWillMount$will_mount$arity$1 = (function (___$1){
+biomarket.login.t_biomarket$login76672.prototype.om$core$IWillMount$will_mount$arity$1 = (function (___$1){
 var self__ = this;
 var ___$2 = this;
 biomarket.utilities.register_loop.call(null,self__.owner,new cljs.core.Keyword(null,"state","state",-1988618099),((function (___$2){
@@ -317,10 +317,10 @@ return om.core.set_state_BANG_.call(null,self__.owner,new cljs.core.Keyword(null
 );
 
 return biomarket.utilities.register_loop.call(null,self__.owner,new cljs.core.Keyword("biomarket.login","inputd","biomarket.login/inputd",-1574274302),((function (___$2){
-return (function (o,p__318362){
-var map__318363 = p__318362;
-var map__318363__$1 = ((((!((map__318363 == null)))?((((map__318363.cljs$lang$protocol_mask$partition0$ & (64))) || (map__318363.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__318363):map__318363);
-var data = cljs.core.get.call(null,map__318363__$1,new cljs.core.Keyword(null,"data","data",-232669377));
+return (function (o,p__76675){
+var map__76676 = p__76675;
+var map__76676__$1 = ((((!((map__76676 == null)))?((((map__76676.cljs$lang$protocol_mask$partition0$ & (64))) || (map__76676.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__76676):map__76676);
+var data = cljs.core.get.call(null,map__76676__$1,new cljs.core.Keyword(null,"data","data",-232669377));
 biomarket.utilities.get_input.call(null,o,data);
 
 return biomarket.login.test_username_exists.call(null,o,data);
@@ -328,45 +328,45 @@ return biomarket.login.test_username_exists.call(null,o,data);
 );
 });
 
-biomarket.login.t_biomarket$login318359.prototype.om$core$IWillUnmount$ = true;
+biomarket.login.t_biomarket$login76672.prototype.om$core$IWillUnmount$ = true;
 
-biomarket.login.t_biomarket$login318359.prototype.om$core$IWillUnmount$will_unmount$arity$1 = (function (___$1){
+biomarket.login.t_biomarket$login76672.prototype.om$core$IWillUnmount$will_unmount$arity$1 = (function (___$1){
 var self__ = this;
 var ___$2 = this;
 return biomarket.utilities.unsubscribe.call(null,self__.owner,new cljs.core.Keyword("biomarket.login","inputd","biomarket.login/inputd",-1574274302),new cljs.core.Keyword(null,"state","state",-1988618099));
 });
 
-biomarket.login.t_biomarket$login318359.prototype.om$core$IRenderState$ = true;
+biomarket.login.t_biomarket$login76672.prototype.om$core$IRenderState$ = true;
 
-biomarket.login.t_biomarket$login318359.prototype.om$core$IRenderState$render_state$arity$2 = (function (___$1,p__318365){
+biomarket.login.t_biomarket$login76672.prototype.om$core$IRenderState$render_state$arity$2 = (function (___$1,p__76678){
 var self__ = this;
-var map__318366 = p__318365;
-var map__318366__$1 = ((((!((map__318366 == null)))?((((map__318366.cljs$lang$protocol_mask$partition0$ & (64))) || (map__318366.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__318366):map__318366);
-var inputs = cljs.core.get.call(null,map__318366__$1,new cljs.core.Keyword(null,"inputs","inputs",865803858));
-var state = cljs.core.get.call(null,map__318366__$1,new cljs.core.Keyword(null,"state","state",-1988618099));
+var map__76679 = p__76678;
+var map__76679__$1 = ((((!((map__76679 == null)))?((((map__76679.cljs$lang$protocol_mask$partition0$ & (64))) || (map__76679.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__76679):map__76679);
+var inputs = cljs.core.get.call(null,map__76679__$1,new cljs.core.Keyword(null,"inputs","inputs",865803858));
+var state = cljs.core.get.call(null,map__76679__$1,new cljs.core.Keyword(null,"state","state",-1988618099));
 var ___$2 = this;
 return React.DOM.div({"className": "pure-g", "style": {"padding-top": "15em"}},React.DOM.div({"className": "pure-u-1"},React.DOM.div({"className": "pure-u-1-3"}),((cljs.core._EQ_.call(null,state,new cljs.core.Keyword(null,"login","login",55217519)))?om.core.build.call(null,biomarket.login.login_display,inputs):om.core.build.call(null,biomarket.login.register_display,inputs)),React.DOM.div({"className": "pure-u-1-3"})));
 });
 
-biomarket.login.t_biomarket$login318359.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"login","login",1695749046,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"_","_",-1201019570,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"_","_",-1201019570,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta318360","meta318360",-1834717702,null)], null);
+biomarket.login.t_biomarket$login76672.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"login","login",1695749046,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"_","_",-1201019570,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"_","_",-1201019570,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta76673","meta76673",-1907612160,null)], null);
 });
 
-biomarket.login.t_biomarket$login318359.cljs$lang$type = true;
+biomarket.login.t_biomarket$login76672.cljs$lang$type = true;
 
-biomarket.login.t_biomarket$login318359.cljs$lang$ctorStr = "biomarket.login/t_biomarket$login318359";
+biomarket.login.t_biomarket$login76672.cljs$lang$ctorStr = "biomarket.login/t_biomarket$login76672";
 
-biomarket.login.t_biomarket$login318359.cljs$lang$ctorPrWriter = (function (this__26325__auto__,writer__26326__auto__,opt__26327__auto__){
-return cljs.core._write.call(null,writer__26326__auto__,"biomarket.login/t_biomarket$login318359");
+biomarket.login.t_biomarket$login76672.cljs$lang$ctorPrWriter = (function (this__26418__auto__,writer__26419__auto__,opt__26420__auto__){
+return cljs.core._write.call(null,writer__26419__auto__,"biomarket.login/t_biomarket$login76672");
 });
 
-biomarket.login.__GT_t_biomarket$login318359 = (function biomarket$login$login_$___GT_t_biomarket$login318359(login__$1,___$1,owner__$1,meta318360){
-return (new biomarket.login.t_biomarket$login318359(login__$1,___$1,owner__$1,meta318360));
+biomarket.login.__GT_t_biomarket$login76672 = (function biomarket$login$login_$___GT_t_biomarket$login76672(login__$1,___$1,owner__$1,meta76673){
+return (new biomarket.login.t_biomarket$login76672(login__$1,___$1,owner__$1,meta76673));
 });
 
 }
 
-return (new biomarket.login.t_biomarket$login318359(biomarket$login$login,_,owner,cljs.core.PersistentArrayMap.EMPTY));
+return (new biomarket.login.t_biomarket$login76672(biomarket$login$login,_,owner,cljs.core.PersistentArrayMap.EMPTY));
 });
 biomarket.login.init = (function biomarket$login$init(){
 return om.core.root.call(null,biomarket.login.login,null,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"target","target",253001721),document.getElementById("app"),new cljs.core.Keyword(null,"shared","shared",-384145993),cljs.core.deref.call(null,biomarket.server.app_state)], null));

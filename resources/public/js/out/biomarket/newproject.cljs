@@ -79,13 +79,13 @@
                   (dom/label
                    nil
                    "Scientific"
-                   (om/build skills/skill-tags [(filter #(= (:type %) "bskill") skills)
+                   (om/build skills/skill-tags [{:skills (filter #(= (:type %) "bskill") skills)}
                                                 (:selected selected)
                                                 ::selected]))
                   (dom/label
                    nil
                    "IT"
-                   (om/build skills/skill-tags [(filter #(= (:type %) "cskill") skills)
+                   (om/build skills/skill-tags [{:skills (filter #(= (:type %) "cskill") skills)}
                                                 (:selected selected)
                                                 ::selected]))
                   (dom/span #js {:className "help-block"}

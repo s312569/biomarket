@@ -59,8 +59,7 @@
 
 (defn get-data
   [owner {:keys [type] :as m} rf]
-  ((:chsk-send! @app-state)
-   [::get m] 5000 rf))
+  ((:chsk-send! @app-state) [::get m] 5000 rf))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; publishing events

@@ -10,7 +10,7 @@
             [biomarket.dashboard :refer [dashboard]]
             [biomarket.projects :refer [projects-view-control]]
             [biomarket.find :refer [find-view]]
-            [biomarket.server :as serve]
+            [biomarket.server :as server]
             [biomarket.jobs :refer [jobs-view]]
             [biomarket.profile :refer [profile-view]])
   (:import [goog History]
@@ -80,12 +80,12 @@
     om/IWillMount
     (will-mount [_]
       (ut/register-loop owner ::navigation (fn [o {:keys [data]}]
-                                            (om/set-state! o :current data))))
+                                             (om/set-state! o :current data))))
     om/IWillUnmount
     (will-unmount [_]
       (ut/unsubscribe owner ::navigation))
     om/IRenderState
-    (render-state [_ {:keys [current nav-items]}]
+    (render-state [_ {:keys [user current nav-items]}]
       (dom/div
        #js {:text-align "center"}
        (om/build header current)
@@ -106,4 +106,4 @@
   (om/root app-control
            nil
            {:target (. js/document (getElementById "app"))
-            :shared @serve/app-state}))
+            :shared @server/app-state}))

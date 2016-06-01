@@ -17,7 +17,7 @@
 ;; display skills as tags
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- skill-tags
+(defn skill-tags
   [[project selected tag] owner]
   (om/component
    (apply dom/div
