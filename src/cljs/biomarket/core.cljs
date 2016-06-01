@@ -10,7 +10,9 @@
             [biomarket.dashboard :refer [dashboard]]
             [biomarket.projects :refer [projects-view-control]]
             [biomarket.find :refer [find-view]]
-            [biomarket.server :as serve])
+            [biomarket.server :as serve]
+            [biomarket.jobs :refer [jobs-view]]
+            [biomarket.profile :refer [profile-view]])
   (:import [goog History]
            [goog.history EventType]))
 
@@ -90,8 +92,8 @@
        (dom/div #js {:style #js {:padding-top "20px"}} " ")
        (condp = current
          ::dash (om/build dashboard nil)
-         ::profile "Profile"
-         ::jobs "Jobs"
+         ::profile (om/build profile-view nil)
+         ::jobs (om/build jobs-view nil)
          ::find (om/build find-view nil)
          ::projects (om/build projects-view-control nil)
          ::logout (set! (.-location js/document) "/logout"))))))

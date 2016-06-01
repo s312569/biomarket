@@ -59,31 +59,18 @@
   (GET "/login" [] (login-or-register))
   (GET "/user" request
        (friend/authorize #{:user} (app-view)))
+  (GET "/error" request
+       (friend/authorize #{:user} (response "Error - something went wrong!")))
   (GET "/logout" req
        (friend/logout* (redirect (str (:context req) "/"))))
-  (POST "/new-project" req
-        (friend/authorize #{:user} (response (db/save-project req))))
-  (POST "/bids" req
-        (friend/authorize #{:user} (response (db/get-bids req))))
-  (POST "/save-bid" req
-        (friend/authorize #{:user} (response (db/save-bid req))))
-  (POST "/projects" req
-        (friend/authorize #{:user} (response (db/get-projects req))))
-  (POST "/skills" req
-        (let [p (:body req)]
-          (friend/authorize #{:user} (response (db/get-skills p)))))
   (POST "/signup" {params :params :as req}
         (new-user params req))
-  (POST "/comments" req
-        (friend/authorize #{:user} (response (db/get-comments req))))
-  (POST "/save-comment" req
-        (friend/authorize #{:user} (response (db/save-comment req))))
   (POST "/user-exists" req
         (let [p (:body req)]
           (response (db/user-exists p))))
   ;; websockets
-  (GET  "/chsk" req ((:ring-ajax-get-or-ws-handshake @wss/websocket) req))
-  (POST "/chsk" req ((:ring-ajax-post @wss/websocket) req))
+  (GET  "/chsk" req (:ring-ajax-get-or-ws-handshake @wss/websocket req))
+  (POST "/chsk" req (:ring-ajax-post @wss/websocket req))
   (route/resources "/")
   (route/not-found "Not Found"))
 

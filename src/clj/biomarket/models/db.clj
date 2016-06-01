@@ -11,7 +11,8 @@
             [clojurewerkz.money.format :as fm]
             [clojurewerkz.money.currencies :as cu]
             [clojurewerkz.money.amounts :refer [amount-of]]
-            [clj-time.jdbc])
+            [clj-time.jdbc]
+            [biomarket.server :as server])
   (:import [org.apache.commons.codec.binary Base64]
            [org.postgresql.util PGobject]))
 
@@ -121,7 +122,8 @@
 (defn new-user
   [m]
   {:status "success"
-   :result (insert! :users m)})
+   :result (insert! :users (assoc m
+                                  :joined (t/now)))})
 
 (defn login-get-user
   [username]
@@ -134,73 +136,99 @@
                                          :roles #{:user}})
                               {})))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; skills server calls
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defmethod server/get-data :user-data
+  [{:keys [username]}]
+  (let [d (first (db/query spec ["select * from users where email = ?" username]))]
+    {:type :user-data
+     :data (update-in d [:joined] #(parse-date %))}))
 
-(defn get-skills
-  [m]
-  {:status "success"
-   :result (db/query spec ["select * from skills"])})
+(defmethod server/save-data :name-update
+  [{:keys [username first last middle]}]
+  (let [r (atom nil)]
+    (try (db/execute! spec ["update users set first=?,last=?,middle=? where email=?"
+                            first last middle username])
+         (reset! r {:status :success})
+         (catch Exception e
+           (reset! r
+                   {:status :failure :reason (.getMessage (.getNextException e))}))
+         (finally
+           @r))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; bid server calls
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- bids
-  [user pid]
-  (let [all-bids (db/query spec ["select * from bids where pid = ?" pid]
-                           :row-fn fix-times)
-        user-bids (db/query spec ["select * from bids where username = ? and pid = ?" user pid]
-                            :row-fn fix-times)]
-    {:bids all-bids :user-bids user-bids}))
-
-(defn get-bids
-  [{:keys [session body]}]
-  {:status "success"
-   :result (bids (get-session-user session) (:pid body))})
-
-(defn save-bid
-  [{:keys [session body]}]
-  (let [bid (-> (insert! :bids (merge body
-                                      {:time (t/now)
-                                       :amount (moneystring->bigdec (:amount body))
-                                       :username (get-session-user session)}))
-                first :id)]
-    {:status "success"
-     :result (bids (get-session-user session) (:pid body))}))
+(defmethod server/save-data :address-update
+  [{:keys [username address1 address2 address3]}]
+  (println (str address1 " - " address2))
+  (let [r (atom nil)]
+    (try (db/execute! spec ["update users set address1=?,address2=?,address3=? where email=?"
+                            address1 address2 address3 username])
+         (reset! r {:status :success})
+         (catch Exception e
+           (reset! r
+                   {:status :failure :reason (.getMessage (.getNextException e))}))
+         (finally
+           @r))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; comment server calls
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- comments
-  [user pid]
-  (db/query spec ["select * from bidcomments where username = ? and pid = ?"
-                  user pid]
-            :row-fn fix-times))
-
-(defn get-comments
-  [{:keys [session body]}]
-  {:status "success"
-   :result (comments (get-session-user session) (:pid body))})
-
-(defn save-comment
-  [{:keys [session body]}]
-  (let [cid (-> (insert! :bidcomments (merge body
-                                             {:time (t/now)
-                                              :username (get-session-user session)}))
-                first :id)]
-    {:status "success"
-     :result (comments (get-session-user session) (:pid body))}))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; project server calls
+;; skills
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- project-skills
   [id]
   (db/query spec ["select id,name,type from skills,skillproj where skillproj.sid=skills.id and skillproj.pid=?" id]))
+
+(defmethod server/get-data :all-skills
+  [{:keys [username]}]
+  (let [d (db/query spec ["select * from skills"])]
+    {:type :all-skills
+     :data d}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; bid
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(declare project)
+
+(defn- bids
+  [pid]
+  (db/query spec ["select * from bids where pid = ?" pid]
+            :row-fn fix-times))
+
+(defmethod server/save-data :bid
+  [{:keys [amount username pid] :as data}]
+  (insert! :bids (-> (dissoc data :type)
+                     (merge {:time (t/now)
+                             :amount (moneystring->bigdec amount)})))
+  (server/broadcast-update! {:type :project :data (project username pid)}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; comment server calls
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod server/get-data :comments
+  [{:keys [pid username username2]}]
+  (let [d (db/query spec ["select * from comments where (pid = ? and sender = ? and receiver = ?) or (pid = ? and sender = ? and receiver = ?);"
+                          pid username username2 pid username2 username]
+                    :row-fn fix-times)]
+    {:type :comments
+     :data d}))
+
+(defmethod server/save-data :comment
+  [{:keys [comment receiver username pid] :as data}]
+  (let [cid (-> (insert! :comments {:time (t/now)
+                                    :sender username
+                                    :receiver receiver
+                                    :read false
+                                    :pid pid
+                                    :comment comment})
+                first :id)
+        d (db/query spec ["select * from comments where id = ?" cid]
+                    :row-fn fix-times
+                    :result-set-fn first)]
+    (server/broadcast-update! {:type :comment
+                               :data d})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; project server calls
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- calculate-times
   [rows]
@@ -209,56 +237,108 @@
        (map #(update-in % [:biddead] (fn [x] (parse-date x))))
        (map #(update-in % [:projdead] (fn [x] (parse-date x))))))
 
+(defn- project
+  [user id]
+  (->> (db/query spec ["select * from projects where id = ?" id]
+                 :row-fn (fn [x] (assoc x :skills (project-skills (:id x)))))
+       calculate-times
+       (map #(assoc % :bids (bids (:id %))))
+       first))
+
+(defn- expire-projects
+  []
+  (let [expired (db/query spec ["select * from projects where status = 'open' and biddead < ?" (t/now)])]
+    (map #(db/execute! spec ["update in projects set status = 'expired' where id = ?"
+                             (:id %)])
+         expired)))
+
 (defn- projects
-  [q user]
-  (->> (db/query spec q :row-fn (fn [x] (assoc x :skills (project-skills (:id x)))))
-       calculate-times))
+  [q]
+  (expire-projects)
+  (->> (db/query spec q :row-fn
+                 (fn [x] (assoc x :skills (project-skills (:id x)))))
+       calculate-times
+       (map #(assoc % :bids (bids (:id %))))))
 
-(defmulti get-projects (fn [{:keys [session body]}] (:query-type body)))
+(defn- jobs
+  [status username]
+  (projects ["select distinct projects.*,bids.username as buser from projects join bids on projects.id=bids.pid and projects.status = ? and bids.username = ?" status username]))
 
-(defmethod get-projects "expired-projects"
-  [{:keys [session body]}]
-  (let [user (get-in session [:cemerick.friend/identity :current])]
-    {:status "success"
-     :result (->> (projects ["select * from projects where username = ? and biddead < ?"
-                             user (t/now)]
-                            user)
-                  (map #(update-in % [:status] (fn [_] :expired))))}))
+(defmethod server/get-data :open-jobs
+  [{:keys [status username] :as m}]
+  (let [d (jobs status username)]
+    (println (str "***************** " (count d)))
+    {:type :projects :data (jobs status username)}))
 
-(defmethod get-projects "all-projects"
-  [{:keys [body session]}]
-  (let [user (get-in session [:cemerick.friend/identity :current])]
-    {:status "success"
-     :result (projects ["select * from projects where status = ? and biddead > ?"
-                        (name (:status body)) (t/now)]
-                       user)}))
+(defmethod server/get-data :active-jobs
+  [{:keys [status username] :as m}]
+  {:type :projects :data (jobs status username)})
 
-(defmethod get-projects "user-projects"
-  [{:keys [session body]}]
-  (let [user (get-in session [:cemerick.friend/identity :current])]
-    {:status "success"
-     :result (projects ["select * from projects where username = ? and biddead > ?"
-                        user (t/now)]
-                       user)}))
+(defmethod server/get-data :completed-jobs
+  [{:keys [status username] :as m}]
+  {:type :projects :data (jobs status username)})
 
-(defn save-project
-  [r]
-  (let [m (-> (assoc (:body r) :username (get-in r [:session :cemerick.friend/identity
-                                                    :current]))
-              (update-in [:hours] #(Integer/parseInt %))
+(defmethod server/get-data :all-projects
+  [{:keys [status username] :as m}]
+  (let [d (projects ["select * from projects where status = ? and biddead > ? and username <> ?" (name status) (t/now) username])]
+    {:type :projects
+     :data d}))
+
+(defmethod server/get-data :expired-projects
+  [{:keys [username]}]
+  (let [d (projects ["select * from projects where username = ? and biddead < ? and status <> 'deleted'" username (t/now)])]
+    {:type :projects
+     :data (map #(update-in % [:status] (fn [_] "expired")) d)}))
+
+(defmethod server/get-data :user-projects
+  [{:keys [username]}]
+  (let [d (projects ["select * from projects where username = ? and biddead > ? and status <> 'deleted'" username (t/now)])]
+    {:type :projects
+     :data d}))
+
+(defmethod server/get-data :deleted-projects
+  [{:keys [username]}]
+  (let [d (projects ["select * from projects where username = ? and status = 'deleted'"
+                     username])]
+    {:type :projects
+     :data d}))
+
+(defmethod server/get-data :default
+  [{:keys [status username]}]
+  (let [d (projects ["select * from projects where status = ? and username = ? and biddead > ?" status username (t/now)])]
+    {:type :projects
+     :data d}))
+
+(defmethod server/save-data :new-project
+  [{:keys [amount username pid] :as data}]
+  (let [m (-> (update-in data [:hours] #(Integer/parseInt %))
               (update-in [:budget] #(Integer/parseInt %))
               (update-in [:biddead] set-datetime)
               (update-in [:projdead] set-datetime)
               (assoc :status "open")
               (select-keys [:title :description :hours :budget :basis
                             :username :biddead :projdead :status]))
-        sk (get-in r [:body :skills])]
-    {:status "success"
-     :result (let [pid (-> (insert! :projects m) first :id)]
-               (if (seq sk)
-                 (apply db/insert! spec :skillproj
-                        (map #(hash-map :sid % :pid pid) sk)))
-               pid)}))
+        sk (:skills data)]
+    (let [pid (-> (insert! :projects m) first :id)]
+      (if (seq sk)
+        (apply db/insert! spec :skillproj
+               (map #(hash-map :sid % :pid pid) sk))))))
+
+(defmethod server/save-data :delete-project
+  [{:keys [username id] :as data}]
+  (let [a (db/execute! spec ["update projects set status = 'deleted' where id = ? and username = ?" id username])
+        proj (first (projects ["select * from projects where id=?" id]))]
+    (server/broadcast-update! {:type :amend-project-status :data proj})))
+
+(defmethod server/save-data :undelete-project
+  [{:keys [username id] :as data}]
+  (let [proj (first (db/query spec ["select * from projects where id =?" id]))
+        status (if (t/after? (:biddead proj) (t/now)) "open" "expired")]
+    (db/execute! spec ["update projects set status = ? where id = ?"
+                       status id])
+    (server/broadcast-update!
+     {:type :amend-project-status
+      :data (first (projects ["select * from projects where id=?" id]))})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tables
@@ -276,8 +356,21 @@
                             [:first :varchar "NOT NULL"]
                             [:last :varchar "NOT NULL"]
                             [:email :varchar "NOT NULL"]
-                            [:address :varchar]
+                            [:joined :timestamp "NOT NULL"]
+                            [:address1 :varchar]
+                            [:address2 :varchar]
+                            [:address3 :varchar]
+                            [:country :varchar]
+                            [:city :varchar]
+                            [:postcode :varchar]
+                            [:phone :varchar]
+                            [:middle :varchar]
                             [:password :varchar "NOT NULL"]))
+        (db/db-do-commands spec
+                          (db/create-table-ddl
+                           :skilluser
+                           [:sid :integer "NOT NULL"]
+                           [:uid :integer "NOT NULL"]))
         (db/db-do-commands spec
                            (db/create-table-ddl
                             :skills
@@ -304,10 +397,11 @@
                             [:status :varchar "NOT NULL"]))
         (db/db-do-commands spec
                            (db/create-table-ddl
-                            :bidcomments
+                            :comments
                             [:id :serial "PRIMARY KEY"]
                             [:comment :varchar "NOT NULL"]
-                            [:username :varchar "NOT NULL"]
+                            [:sender :varchar "NOT NULL"]
+                            [:receiver :varchar "NOT NULL"]
                             [:read :boolean "NOT NULL" "DEFAULT 'false'"]
                             [:time :timestamp "NOT NULL"]
                             [:pid :integer "NOT NULL"]))
@@ -329,4 +423,4 @@
           (db/db-do-commands spec
                              (db/drop-table-ddl %))
           (catch Exception _))
-       '(:users :skills :skillproj :projects :bids :bidcomments)))
+       '(:users :skilluser :skills :skillproj :projects :bids :comments)))

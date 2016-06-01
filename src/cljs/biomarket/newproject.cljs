@@ -8,7 +8,9 @@
             [clojure.string :as str]
             [cljs-time.core :as time]
             [cljs-time.format :as tf]
-            [biomarket.utilities :refer [log] :as ut])
+            [biomarket.utilities :refer [log] :as ut]
+            [biomarket.server :as server]
+            [biomarket.skills :as skills])
   (:import [goog History]
            [goog.history EventType]))
 
@@ -38,28 +40,19 @@
 ;; server calls
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- get-skills
-  [owner]
-  (let [h (fn [{:keys [status result]}]
-            (if (and (= "success" status) result)
-              (om/set-state! owner :skills result)))]
-    (ut/post-params "/skills" {} h)))
-
 (defn save-data
   [owner]
-  (let [h (fn [{:keys [status result]}]
-            (if (= status "success")
-              (ut/pub-info owner ::saved result)))]
-    (if (all-good? owner)
-      (ut/post-params "/new-project"
-                      (merge (->> (map (fn [[k v]] (vector k (:value v)))
-                                       (om/get-state owner :inputs))
-                                  (into {}))
-                             {:basis (:value (om/get-state owner :basis))
-                              :skills
-                              (keys
-                               (:selected (om/get-state owner :selected-skills)))})
-                      h))))
+  (when (all-good? owner)
+    (server/save-data {:type :new-project
+                       :data
+                       (merge (->> (map (fn [[k v]] (vector k (:value v)))
+                                        (om/get-state owner :inputs))
+                                   (into {}))
+                              {:basis (:value (om/get-state owner :basis))
+                               :skills
+                               (keys
+                                (:selected (om/get-state owner :selected-skills)))})})
+    (ut/pub-info owner ::saved :saved)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; skills
@@ -73,7 +66,8 @@
       {:skills nil})
     om/IWillMount
     (will-mount [_]
-      (get-skills owner))
+      (server/get-data owner {:type :all-skills}
+                       #(om/set-state! owner :skills (:data %))))
     om/IRenderState
     (render-state [_ {:keys [skills]}]
       (dom/div
@@ -85,15 +79,15 @@
                   (dom/label
                    nil
                    "Scientific"
-                   (om/build ut/skill-tags [(filter #(= (:type %) "bskill") skills)
-                                            (:selected selected)
-                                            ::selected]))
+                   (om/build skills/skill-tags [(filter #(= (:type %) "bskill") skills)
+                                                (:selected selected)
+                                                ::selected]))
                   (dom/label
                    nil
                    "IT"
-                   (om/build ut/skill-tags [(filter #(= (:type %) "cskill") skills)
-                                            (:selected selected)
-                                            ::selected]))
+                   (om/build skills/skill-tags [(filter #(= (:type %) "cskill") skills)
+                                                (:selected selected)
+                                                ::selected]))
                   (dom/span #js {:className "help-block"}
                             (if (:invalid selected)
                               (first (:invalid selected)))))))))

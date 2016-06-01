@@ -21,8 +21,8 @@
   (-> e .-target .-value))
 
 (defn log
-  [s]
-  (.log js/console (str s)))
+  [& s]
+  (.log js/console (apply str s)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; time
@@ -31,6 +31,12 @@
 (defn datestring->readable
   [string]
   (let [rfc (f/formatters :rfc822)
+        f (f/formatters :basic-date-time)]
+    (->> (f/parse f string) (f/unparse rfc))))
+
+(defn ds->date-hour-minute
+  [string]
+  (let [rfc (f/formatters :date-hour-minute)
         f (f/formatters :basic-date-time)]
     (->> (f/parse f string) (f/unparse rfc))))
 
@@ -52,8 +58,42 @@
              :keywords? true}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; input validation tests
+;; loop management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(declare get-input)
+
+(defmulti loop-manager (fn [o d & args] (:action (:data d))))
+(defmulti broadcast-loop-manager (fn [o d] (:type d)))
+
+(defmethod loop-manager :input-update
+  [owner {:keys [data]} & _]
+  (get-input owner data))
+
+(defmethod loop-manager :submitted
+  [owner {:keys [data]} func]
+  (func))
+
+(defmethod broadcast-loop-manager :project
+  [owner {:keys [data]}]
+  (om/set-state! owner :project (assoc data :view-type (om/get-state owner :view-type))))
+
+(defmethod broadcast-loop-manager :comment
+  [owner {:keys [data]}]
+  (om/set-state! owner :comments (conj (om/get-state owner :comments) data)))
+
+(defmethod broadcast-loop-manager :amend-project-status
+  [owner {:keys [data]}]
+  (let [status->view #({"open" :open-projects "expired" :expired-projects
+                        "completed" :completed-projects "active" :active-projects
+                        "deleted" :deleted-projects} %)
+        cv (om/get-state owner :view)
+        projs (om/get-state owner :projects)]
+    (if (or (= cv (status->view (:status data))))
+      (om/set-state! owner :projects
+                     (conj projs
+                           (assoc data :view-type (om/get-state :view-type))))
+      (om/set-state! owner :projects (remove #(= (:id data) (:id %)) projs)))))
 
 (defn pub-info
   [owner topic data]
@@ -61,16 +101,17 @@
         {:topic topic :data data}))
 
 (defn register-loop
-  [owner topic func]
-  (let [c (chan)
-        nc (:notif-chan (om/get-shared owner))
-        events (sub nc topic c)]
-    (go
-      (loop [e (<! events)]
-        (when-not (= (:data e) :end)
-          (func owner e)
-          (recur (<! events)))
-        (unsub nc topic c)))))
+  ([owner topic] (register-loop owner topic loop-manager))
+  ([owner topic func]
+   (let [c (chan)
+         nc (:notif-chan (om/get-shared owner))
+         events (sub nc topic c)]
+     (go
+       (loop [e (<! events)]
+         (when-not (= (:data e) :end)
+           (func owner e)
+           (recur (<! events)))
+         (unsub nc topic c))))))
 
 (defn unsubscribe
   [owner & topics]
@@ -78,9 +119,82 @@
     (doseq [t topics]
       (put! pc {:topic t :data :end}))))
 
+(defn register-broadcast-loop
+  [owner topic chan]
+  (let [nc (:notif-chan (om/get-shared owner))
+        events (sub nc topic chan)]
+    (go
+      (loop [e (<! events)]
+        (when-not (= (:data e) :end)
+          (broadcast-loop-manager owner e)
+          (recur (<! events)))
+        (unsub nc topic chan)))))
+
+(defn unsub-broadcast-loop
+  [owner topic chan]
+  (let [nc (:notif-chan (om/get-shared owner))]
+    (unsub nc topic chan)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; bottom links
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- show-default
+  [_ owner]
+  (om/component
+   (dom/div nil)))
+
+(defn bottom-skel
+  [{:keys [links widget] :as project} owner]
+  (om/component
+   (let [visible (:bottom-view project)]
+     (dom/div
+      #js {:className "container-fluid"}
+      (dom/div
+       #js {:className "row"}
+       (dom/div
+        #js {:className "col-md-12"}
+        (apply
+         dom/div
+         #js {:className "btn-group" :role "group"}
+         (map (fn [[tag ele]]
+                (dom/a
+                 #js {:className (if (= visible tag)
+                                   "btn btn-default btn-sm active"
+                                   "btn btn-default btn-sm")
+                      :onClick #(pub-info owner (:id project)
+                                          {:action :show-bottom
+                                           :bottom-view
+                                           (if (= visible tag) :default tag)})}
+                 (first ele)))
+              links))))
+      (condp = visible
+        :default (dom/div #js {:className "row"}
+                          (dom/div #js {:className "col-md-12"}
+                                   (om/build show-default nil)))
+        (om/build (second (visible links))
+                  (if (seq (drop 2 (visible links)))
+                    (vec (cons project (drop 2 (visible links))))
+                    project)))))))
+
+(defmulti bottom (fn [p] (:view-type p)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; components
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn split-projects
+  [projects]
+  (let [pn (count projects)
+        n (if (= 0 (mod pn 2))
+            (quot pn 2)
+            (+ 1 (quot pn 2)))]
+    (partition-all n projects)))
+
+(defn color-span
+  [text color]
+  (dom/span #js {:style #js {:color color
+                             :font-weight "bold"}} text))
 
 (defn- more-less-text
   [text owner]
@@ -163,96 +277,16 @@
                 value))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; action links
+;; tables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- show-default
-  [_ owner]
-  (om/component
-   (dom/div nil "")))
-
-(defn bottom-links
-  [[project {:keys [links visible oc-tag bid-widget]}] owner]
-  (om/component
-   (dom/div
-    #js {:style #js {:padding-top "10px"}}
-    (dom/div
-     #js {:className "row"}
-     (dom/div
-      #js {:className "col-md-4"}
-      (apply
-       dom/div
-       #js {:className "btn-group" :role "group"}
-       (map (fn [[tag ele]]
-              (dom/a
-               #js {:className (if (= visible tag)
-                                 "btn btn-default active"
-                                 "btn btn-default")
-                    :onClick #(pub-info owner oc-tag
-                                        {:action :change-view
-                                         :view (if (= visible tag) :default tag)})}
-               (first ele)))
-            links)))
-     (if bid-widget
-       (dom/div
-        #js {:className "col-md-8"
-             :style #js {:text-align "right"}}
-        (om/build bid-widget project))))
-    (condp = visible
-      :default (om/build show-default nil)
-      (om/build (second (visible links)) project)))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; project info
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defmulti table-info (fn [project] (:status project)))
-
-(defn- alert-table-info
-  [& fields]
-  (apply dom/div #js {:style #js {:color "red"}} fields))
-
-(defn- average-bid
-  [project]
-  (if (seq (:bids project))
-    (str "$"
-         (pprint/cl-format nil "~$"
-                           (/ (reduce + (map :amount (:bids project)))
-                              (count (:bids project)))))
-    "No bids yet"))
-
-(defn color-span
-  [text color]
-  (dom/span #js {:style #js {:color color
-                             :font-weight "bold"}} text))
-
-(defmethod table-info "expired"
-  [project]
-  (let [f #(color-span % "green")]
-    {"Status" (alert-table-info (dom/div nil "Bidding") (dom/div nil "Expired"))
-     "Bidding ended" (alert-table-info (str (:bidmin project) " ago"))
-     "Project deadline" (f (:projmin project))
-     "Bids" (f (count (:bids project)))
-     "Average bid (USD)" (f (average-bid project))
-     "Budget (USD)" (f (str "$" (:budget project)))}))
-
-(defmethod table-info :default
-  [project]
-  (let [f #(color-span % "green")]
-    {"Status" (f (str/capitalize (:status project)))
-     "Bidding ends" (f (:bidmin project))
-     "Project deadline" (f (:projmin project))
-     "Bids" (f (count (:bids project)))
-     "Average bid" (f (average-bid project))
-     "Budget" (f (str "$" (:budget project)))}))
 
 (defn make-a-table
-  [{:keys [data tparam]}]
+  [{:keys [data tparam]} owner]
   (om/component
-   (let [tjs (clj->js (merge {:className "table"} tparam))]
+   (let [tjs (clj->js (merge {:className "table"
+                              :style {:margin "0px"}} tparam))]
      (dom/div
-      #js {:style #js {:background-color "white"
-                       :margin "10px"}}
+      #js {:style #js {:background-color "white"}}
       (dom/table
        tjs
        (dom/thead nil
@@ -270,170 +304,30 @@
                                  (vals x))))
                    data)))))))
 
-(defn info-table
-  [project owner]
-  (om/component
-   (let [data (table-info project)]
-     (om/build make-a-table {:data (list data)}))))
-
-;; right panel info
-
-(defmulti panel-right-info (fn [p] (:view-type p)))
-
-(defmethod panel-right-info :find
-  [p]
-  (let [s (str (apply str
-                      (interpose " " (take 2 (str/split (:bidmin p) #"\s+"))))
-               " left")]
-    (dom/h4 nil (dom/span #js {:className "label label-danger"} s))))
-
-(defmethod panel-right-info :default
-  [p]
-  (let [bc (count (:bids p))]
-    (dom/h4 nil (dom/span #js {:className "label label-danger"}
-                          (if (= bc 1) "1 bid" (str bc " bids"))))))
-
-;; labels
-
-(defn- label
-  [class text]
-  (dom/span
-   #js {:style #js {:padding-right "10px"}}
-   (dom/span #js {:className class}
-             text)))
-
-(defn- best-bid
-  [bids]
-  (->> (group-by :username bids)
-       vals
-       (map #(first (sort-by :time > %)))
-       (sort-by :amount)
-       first))
-
-(defmulti title-labels (fn [x] (:view-type x)))
-
-(defmethod title-labels :default
-  [project]
-  (om/component
-   (dom/h4
-    #js {:style #js {:font-weight "bold"}}
-    (dom/span #js {:style #js {:padding-right "10px"}}
-              (str (:title project) "  "))
-    (let [best (best-bid (:bids project))]
-      (if best
-        (label "label label-success" (str "Best bid: $" (:amount best)))
-        (label "label label-danger" "No bids yet!"))))))
-
-(defmethod title-labels :find
-  [project]
-  (om/component
-   (dom/h4
-    #js {:style #js {:font-weight "bold"}}
-    (dom/span #js {:style #js {:padding-right "10px"}}
-              (str (:title project) "  "))
-    (let [ub (first (sort-by :time > (:user-bids project)))
-          best (best-bid (:bids project))]
-      (cond (and ub (>= (:amount best) (:amount ub)))
-            (dom/span nil
-                      (label "label label-success" (str "Best bid: $" (:amount best)))
-                      (label "label label-success" (str "Your bid: $" (:amount ub))))
-            (and ub (< (:amount best) (:amount ub)))
-            (dom/span nil
-                      (label "label label-success" (str "Best bid: $" (:amount best)))
-                      (label "label label-danger" (str "Your bid: $" (:amount ub))))
-            best
-            (label "label label-danger" (str "Best bid: $" (:amount best)))
-            :else
-            (label "label label-danger" "No bids yet!"))))))
-
-;; the panel
-
-(defn project-panel
-  [[project blinks] owner]
-  (om/component
-   (dom/div
-    #js {:className "panel panel-default"
-         :style #js {:text-align "left"}}
-    (dom/div
-     #js {:className "panel-heading"}
-     (dom/div
-      #js {:className "row"}
-      (dom/div #js {:className "col-md-10"}
-               (om/build title-labels project))
-      (dom/div #js {:className "col-md-2" :style #js {:text-align "right"}}
-               (panel-right-info project))))
-    (dom/div
-     #js {:className "panel-body"}
-     (om/build more-less-text (:description project))
-     (dom/div #js {:style #js {:padding-top "20px"}} (om/build info-table project)))
-    (dom/div
-     #js {:className "panel-footer"}
-     (om/build bottom-links [project blinks])))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; tables
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn fixed-head-table
-  [{:keys [data tparam]}]
-  (om/component
-   (dom/table
-    #js {:style #js {:cellspacing "0" :cellpadding "0" :border "0"
-                     :width "100%" :padding-top "20px"}}
-    (dom/tr
-     nil
-     (dom/td
-      nil
-      (dom/table
-       #js {:style #js {:cellspacing "0" :cellpadding "1" :border "0"
-                        :width "100%"}}
-       (apply dom/tr nil
-              (map #(dom/th
-                     #js {:style #js {:width "50%"}}
-                     %)
-                   (keys (first data)))))))
-    (dom/tr
-     nil
-     (dom/td
-      nil
-      (dom/div
-       #js {:style #js {:max-height "277px" :overflow-y "auto" :width "100%"
-                        :min-height "50px"}}
-       (apply dom/table
-              #js {:className "table"
-                   :style #js {:cellspacing "0" :cellpadding "1" :border "0"
-                               :background-color "white"}}
-              (map (fn [x]
-                     (apply dom/tr nil
-                            (map #(dom/td
-                                   #js {:style #js {:text-align "center"}}
-                                   %)
-                                 (vals x))))
-                   data))))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; skills
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- skill-tags
-  [[skills selected tag] owner]
-  (om/component
-   (apply dom/div
-          #js {:className "tags"}
-          (map #(dom/span
-                 #js {:style #js {:padding-right "10px"}}
-                 (dom/a
-                  #js {:className (if (selected (:id %))
-                                    "color2"
-                                    "color1")
-                       :onClick (if tag (fn [_] (pub-info owner tag %)))
-                       :style #js {:cursor "pointer"}}
-                  (:name %)))
-               skills))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; inputs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; new functions
+
+(defn capture-return
+  [func]
+  (fn [x] (when (= 13 (.-which x))
+            (func)
+            false)))
+
+(defn on-change-function
+  [owner tag fname element e]
+  (pub-info owner tag
+            {:action :input-update
+             :fname fname
+             :element (assoc element :value (-> e .-target .-value))}))
+
+(defn on-submit-function
+  [owner tag]
+  (pub-info owner tag {:action :submitted}))
+
+;; end new functions
 
 (defmulti get-input (fn [owner {:keys [fname element]} & args] fname))
 
@@ -508,12 +402,6 @@
   [js owner]
   (om/component
    (apply dom/div js)))
-
-(defn on-change-function
-  [owner tag fname element e]
-  (pub-info owner tag
-            {:fname fname
-             :element (assoc element :value (-> e .-target .-value))}))
 
 (defn input
   [[fname element tag] owner]

@@ -8,70 +8,212 @@
             [clojure.string :as str]
             [cljs-time.core :as t]
             [cljs-time.format :as f]
-            [biomarket.utilities :refer [log] :as ut])
+            [biomarket.utilities :as ut]
+            [biomarket.server :as server]
+            [biomarket.comments :as com]
+            [biomarket.skills :as skills]
+            [biomarket.dropdown :as dd])
   (:import [goog History]
            [goog.history EventType]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; server calls
+;; utilities
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- submit-bid
-  [owner bid pid]
-  (let [h (fn [{:keys [status result]}]
-            (if (= "success" status)
-              (om/set-state! owner :bids result)))]
-    (ut/post-params "/save-bid" {:pid pid :amount (:value bid)} h)))
+(defn best-bid
+  [bids]
+  (->> (group-by :username bids)
+       vals
+       (map #(first (sort-by :time > %)))
+       (sort-by :amount)
+       first))
 
-(defn bid-server-call
-  [owner pid]
-  (let [h (fn [{:keys [status result]}]
-            (when (= "success" status)
-              (om/set-state! owner :bids result)))]
-    (ut/post-params "/bids" {:pid pid} h)))
+(defn sort-best-bids
+  [project]
+  (sort-by #(:amount %) <
+           (->> (group-by :username (:bids project))
+                vals
+                (map #(sort-by :time > %))
+                (map first))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; all bids
+;; show bids 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn show-table
+  [data owner]
+  (om/component
+    (dom/table
+        #js {:className "table table-striped table hover"}
+      (dom/thead
+       nil
+       (apply dom/tr nil
+              (map #(dom/th #js {:style #js {:text-align "center"}} %)
+                   (keys (first data)))))
+      (apply dom/tbody
+             nil
+             (map (fn [x]
+                    (apply dom/tr nil
+                           (map #(dom/td
+                                  #js {:style #js {:text-align "center"
+                                                   :border "0"}}
+                                  %)
+                                (vals x))))
+                  data)))))
 
 (defn- show-bids
   [project owner]
-  (om/component
-   (let [user (-> (:user-bids project) first :username)
-         fg (fn [bid-user text]
-              (if (= bid-user user)
-                (ut/color-span text "red")
-                (ut/color-span text "green")))]
-     (let [data (map (fn [x]
-                       (let [u (:username x)]
-                         {"User" (fg u (:username x))
-                          "Amount" (fg u (str "$" (:amount x)))
-                          "Time"  (fg u (ut/datestring->readable (:time x)))}))
-                     (sort-by :time > (:bids project)))]
-       (om/build ut/make-a-table {:striped true
-                                  :data data
-                                  :hover true})))))
-
-(defn bid-history
-  [bids]
-  (om/component
-   (dom/div
-    #js {:style #js {:text-align "center"}}
-    (dom/label nil "Bid history")
-    (if-not (seq bids)
-      (dom/div #js {:className "well"} "No bid history yet")
-      (let [f #(dom/span #js {:style #js {:font-size "small"}} %)
-            data (map (fn [x]
-                        {"Amount" (f (str "$" (:amount x)))
-                         "Time" (f (ut/datestring->readable (:time x)))})
-                      (sort-by :time > bids))]
-        (om/build ut/fixed-head-table
-                  {:data data
-                   :tparams
-                   {:className "table table-striped table-hover"}}))))))
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:cp 0})
+    om/IRenderState
+    (render-state [_ {:keys [cp]}]
+      (let [user (-> (:user-bids project) first :username)
+            fg (fn [bid-user text]
+                 (if (= bid-user user)
+                   (ut/color-span text "red")
+                   (ut/color-span text "green")))]
+        (if (seq (:bids project))
+          (let [data (map (fn [x]
+                            (let [u (:username x)]
+                              {"User" (fg u (apply str (take 8 (:username x))))
+                               "Amount" (fg u (str "$" (:amount x)))
+                               "Time"  (fg u (ut/ds->date-hour-minute (:time x)))}))
+                          (->> (sort-by :time > (:bids project))
+                               (drop cp)
+                               (take 4)))]
+            (dom/div
+             nil
+             (dom/div
+              #js {:className "row"}
+              (dom/div
+               #js {:className "col-md-12"
+                    :style #js {:min-height "200px"}}
+               (om/build show-table data)))
+             (dom/div
+              #js {:className "row"}
+              (dom/div
+               #js {:className "col-md-6"}
+               (if (> cp 0)
+                 (dom/a #js {:onClick
+                             #(om/set-state! owner :cp (- cp 4))}
+                        "Previous")))
+              (dom/div
+               #js {:className "col-md-6"
+                    :style #js {:text-align "right"}}
+               (if (> (count (:bids project)) (+ 4 cp))
+                 (dom/a #js {:onClick
+                             #(om/set-state! owner :cp (+ 4 cp))}
+                        "Next")))))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; bid update widget
+;; bid view
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod ut/bottom :bid-view
+  [p]
+  (let [links {:discussion ["Discussion" com/comments (:buser p)]
+               :skills ["Skills" skills/skill-tags {}]}]
+    (dom/div
+     nil
+     (dom/hr nil)
+     (om/build ut/bottom-skel (assoc p :links links)))))
+
+(defn bid-view-header
+  [project owner]
+  (om/component
+   (dom/div
+    #js {:className "row"}
+    (dom/div
+     #js {:className "col-md-6"}
+     (dom/div
+      #js{:className "btn-group"}
+      (dom/a #js {:className "btn btn-default btn-sm"
+                  :onClick #(ut/pub-info owner (:id project)
+                                         {:action :bid-show :bid false})}
+             (dom/i #js {:className "fa fa-arrow-left"
+                         :style #js {:padding-right "10px"}})
+             "Back to project")
+      (dom/a #js {:className "btn btn-primary btn-sm"}
+             "Accept this bid")))
+    (dom/div #js {:className "col-md-6"
+                  :style #js {:text-align "right"}}
+             (dd/drop-down (assoc project :view-type :bid-show))))))
+
+(defn bid-table
+  [project]
+  (let [f #(ut/color-span % "green")
+        bid (:show-bid project)
+        data (list {"Amount" (f (str "$" (:amount bid)))
+                    "Basis" (f (:basis project))
+                    "Bidder" (f (apply str (take 8 (:username bid))))
+                    "Date" (f (ut/ds->date-hour-minute (:time bid)))})]
+    (om/build ut/make-a-table {:data data :tparam {}})))
+
+(defn bid-view
+  [project owner]
+  (om/component
+    (dom/div
+        #js {:className "container-fluid"
+             :style #js {:position "relative"}}
+      (dom/div
+       #js {:className "panel panel-default"}
+       (dom/div
+        #js {:className "panel-body"
+             :style #js {:min-height (str (:height project) "px")}}
+        (om/build bid-view-header project)
+        (bid-table project)
+        (ut/bottom (assoc project
+                          :buser (:username (:show-bid project))
+                          :view-type :bid-view)))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; bid management
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn bid-display
+  [project owner]
+  (om/component
+   (let [bids (:best-bids project)
+         basis (:basis project)
+         pid (:id project)]
+     (dom/table
+      #js {:className "table table-striped table-hover"}
+      (apply
+       dom/tbody
+       nil
+       (map #(dom/tr
+              nil
+              (dom/td
+               nil
+               (dom/span nil (str "$" (:amount %) " " basis " from "))
+               (dom/span nil (dom/a #js {:href "#"} (:username %))))
+              (dom/td
+               nil
+               (dom/a #js {:className "btn btn-default btn-sm"
+                           :onClick (fn [_] (ut/pub-info owner pid {:action :bid-show
+                                                                    :bid %}))}
+                      "View")))
+            bids))))))
+
+(defn bid-manage
+  [project owner]
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:best-bids (sort-best-bids project)})
+    om/IWillReceiveProps
+    (will-receive-props [_ np]
+      (om/set-state! owner :best-bids (sort-best-bids np)))
+    om/IRenderState
+    (render-state [_ {:keys [best-bids]}]
+      (dom/div
+       #js {:style #js {:padding-top "20px"}}
+       (om/build bid-display (assoc project :best-bids best-bids))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; bidding widget
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- current-bid
@@ -82,30 +224,32 @@
 
 (defn button-func
   [owner]
-  (ut/pub-info owner (om/get-state owner :pid) {:action :submit
-                                                :data (:amount (om/get-state owner :inputs))}))
+  (server/save-data
+   {:type :bid
+    :data {:pid (:id (om/get-state owner :project))
+           :amount (get-in (om/get-state owner :inputs) [:amount :value])}}))
 
 (defn- button-state
   [owner]
-  (let [cb (current-bid (:user-bids (om/get-state owner :bids)))
+  (let [cb (current-bid (:user-bids (om/get-state owner :project)))
         ab (js/parseFloat (:value (:amount (om/get-state owner :inputs))))]
     (cond (and (not cb) (not (= ab 0)))
-          [(clj->js {:className "btn btn-primary"
+          [(clj->js {:className "btn btn-primary btn-sm"
                      :onClick #(button-func owner)})
            "Submit"]
           (= ab cb)
-          [(clj->js {:className "btn btn-primary"
+          [(clj->js {:className "btn btn-primary btn-sm"
                      :disabled "disabled"})
            "Update"]
           :else
-          [(clj->js {:className "btn btn-primary"
+          [(clj->js {:className "btn btn-primary btn-sm"
                      :onClick #(button-func owner)})
            "Update"])))
 
 (defn- form-state
   [owner]
   (let [amount (:amount (om/get-state owner :inputs))
-        cb (current-bid (:user-bids (om/get-state owner :bids)))
+        cb (current-bid (:user-bids (om/get-state owner :project)))
         ab (js/parseFloat (:value amount))]
     (if (or (= ab cb) (= ab 0))
       (clj->js {:className "form-inline"
@@ -115,19 +259,16 @@
                 :onSubmit (fn [_] false)
                 :onKeyDown (fn [e] (if (= 13 (.-which e)) (button-func owner)))}))))
 
-(defn- reset-inputs
+(defn- inputs
   [owner]
-  (let [ub (seq (:user-bids (om/get-state owner :bids)))]
-    {:amount {:value (if-not ub
-                       "0"
-                       (-> (sort-by :time > ub)
-                           first :amount))
+  (let [ub (seq (:user-bids (om/get-state owner :project)))]
+    {:amount {:value (if-not ub "0" (current-bid ub))
               :type "number" :name "bid"
               :title (if-not ub
                        "Enter a bid:"
                        "Your current bid:")
               :invalid false
-              :input-type :addon :after (om/get-state owner :basis)
+              :input-type :addon :after (:basis (om/get-state owner :project))
               :before "$"}}))
 
 (defn bid-widget
@@ -138,20 +279,19 @@
       {:inputs nil
        :button-state nil
        :form-state nil
-       :pid (:id project)
-       :basis (:basis project)
-       :bids nil
+       :project project
        :bid (gensym)})
     om/IWillReceiveProps
     (will-receive-props [_ np]
-      (om/set-state! owner :bids (select-keys np [:user-bids :bids]))
-      (om/set-state! owner :inputs (reset-inputs owner))
+      (om/set-state! owner :project np)
+      (om/set-state! owner :inputs (inputs owner))
       (om/set-state! owner :button-state (button-state owner))
       (om/set-state! owner :form-state (form-state owner)))
     om/IWillMount
     (will-mount [_]
-      (om/set-state! owner :bids (select-keys project [:user-bids :bids]))
-      (om/set-state! owner :inputs (reset-inputs owner))
+      (om/set-state! owner :inputs (inputs owner))
+      (om/set-state! owner :button-state (button-state owner))
+      (om/set-state! owner :form-state (form-state owner))
       (ut/register-loop owner (om/get-state owner :bid)
                         (fn [o {:keys [data]}]
                           (ut/get-input o data)
@@ -163,20 +303,27 @@
     om/IRenderState
     (render-state [_ {:keys [inputs bid button-state form-state]}]
       (let [amount (:amount inputs)]
-        (dom/form
-         form-state
-         (dom/label #js {:className "control-label"} "Your current bid: ")
+        (dom/div
+         nil
+         (dom/hr nil)
          (dom/div
-          #js {:className "form-group"}
-          (dom/div
-           #js {:className "input-group"}
-           (dom/div #js {:className "input-group-addon"} (:before amount))
-           (dom/input #js {:className "form-control" :value (:value amount)
-                           :width "10px"
-                           :type (:type amount)
-                           :onChange #(ut/on-change-function owner (om/get-state owner :bid) :amount amount %)})
-           (dom/div #js {:className "input-group-addon"} (:after amount)))
-          (apply dom/a button-state)
-          (if (seq (:user-bids project))
-            (dom/a #js {:className "btn btn-danger"}
-                   "X"))))))))
+          #js {:style #js {:text-align "center"}}
+          (dom/form
+           form-state
+           (dom/div
+            #js {:className "form-group"}
+            (dom/label #js {:for "bid"
+                            :style #js {:padding-right "20px"}}
+                       "Your current bid:")
+            (dom/div
+             #js {:className "input-group input-group-sm"}
+             (dom/span #js {:className "input-group-addon"} "$")
+             (dom/input #js {:className "form-control"
+                             :value (:value amount)
+                             :ref "bid"
+                             :type (:type amount)
+                             :onChange
+                             #(ut/on-change-function
+                               owner (om/get-state owner :bid) :amount amount %)})
+             (dom/span #js {:className "input-group-addon"} (:basis project)))
+            (apply dom/a button-state)))))))))

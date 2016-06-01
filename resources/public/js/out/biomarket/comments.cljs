@@ -8,31 +8,13 @@
             [clojure.string :as str]
             [cljs-time.core :as time]
             [cljs-time.format :as tf]
-            [biomarket.utilities :refer [log] :as ut])
+            [biomarket.utilities :refer [log] :as ut]
+            [biomarket.server :as server])
   (:import [goog History]
            [goog.history EventType]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; server calls
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- comment-server-call
-  [owner pid]
-  (let [h (fn [{:keys [status result]}]
-            (om/set-state! owner :comments result))]
-    (ut/post-params "/comments" {:pid pid} h)))
-
-(defn- submit-comment-call
-  [owner pid]
-  (let [c (:comment (om/get-state owner :inputs))
-        h (fn [{:keys [status result]}]
-            (om/set-state! owner :comments result)
-            (om/set-state! owner :inputs (update-in (om/get-state owner :inputs) [:comment :value]
-                                                    (fn [_] ""))))]
-    (ut/post-params "save-comment" {:pid pid :comment (:value c)} h)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; comments widget
+;; subcomponents
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- show-comment
@@ -40,70 +22,114 @@
   (dom/div
    nil
    (dom/div #js {:style #js {:font-size "small" :text-align "left"
-                             :color (if (= (om/get-state owner :bidder) (:username comment))
+                             :color (if (= (om/get-state owner :bidder)
+                                           (:sender comment))
                                       "red" "green")}}
             (str "On " (ut/datestring->readable (:time comment))
-                 " " (:username comment) " said:"))
+                 " " (:sender comment) " said:"))
    (dom/div #js {:style #js {:margin "5px" :font-weight "bold"}}
             (:comment comment)
             (dom/hr nil))))
 
+(defn- comment-display-panel
+  [comments owner]
+  (reify
+    om/IDidUpdate
+    (did-update [_ _ _]
+      (let [n (om/get-node owner "cd")]
+        (aset n "scrollTop" "10000")))
+    om/IRenderState
+    (render-state [_ _]
+      (apply dom/div
+             #js {:className "panel-body"
+                  :ref "cd"
+                  :style #js {:margin "5px"
+                              :height "200"
+                              :overflow-y "scroll"
+                              :position "relative"}}
+             (if-not (seq comments)
+               (list (dom/div #js {:style #js {:text-align "center"}}
+                              "No discussion yet!")
+                     (dom/hr nil))
+               (map #(show-comment % owner)
+                    (filter #(not (= "" (str/trim (:comment %))))
+                            (sort-by :time < comments))))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; widget
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn- comment-control
-  [inputs owner]
-  (dom/div
-   #js {:className "form"}
-   (apply dom/div
-          nil
-          (map #(om/build ut/input (conj % (om/get-state owner :cid)))
-               inputs))
-   (dom/a #js {:className "btn btn-primary"
-               :onClick #(ut/pub-info owner (om/get-state owner :cid) {:action :submit})}
-          "Comment")))
+  [inputs utag owner]
+  (let [comment (:comment (om/get-state owner :inputs))
+        current-value (:value comment)
+        ut (om/get-state owner :update-topic)]
+    (dom/form
+     #js {:className "form-horizontal"
+          :onSubmit (fn [_] false)}
+     (dom/div
+      #js {:className "form-group"}
+      (dom/div #js {:className "col-sm-3"} " ")
+      (dom/div
+       #js {:className "col-sm-12"}
+       (dom/textarea #js {:className "form-control"
+                          :value current-value
+                          :placeholder "Type comment - Press return to submit"
+                          :onKeyDown (ut/capture-return
+                                      #(ut/on-submit-function owner utag))
+                          :rows "1"
+                          :onChange #(ut/on-change-function
+                                      owner utag :comment comment %)}))))))
+
+(defn- submit-func
+  [owner]
+  (let [comment (-> (get-in (om/get-state owner :inputs) [:comment :value])
+                    str/trim)
+        pid (om/get-state owner :pid)
+        receiver (om/get-state owner :receiver)
+        new-inputs (assoc-in (om/get-state owner :inputs) [:comment :value] "")]
+    (server/save-data {:type :comment :data {:comment comment
+                                             :pid pid
+                                             :receiver receiver}})
+    (om/set-state! owner :inputs new-inputs)))
 
 (defn comments
-  [project owner]
+  [[project receiver] owner]
   (reify
     om/IInitState
     (init-state [_]
-      {:inputs {:comment {:value "" :type "textarea" :rows "2" :name "comment"
-                          :input-type :no-icon :invalid false
-                          :title ""
-                          :submitf #(ut/pub-info owner (om/get-state owner :cid) {:action :submit})}}
-       :bidee (:username project)
-       :cid (gensym)
-       :comments nil})
+      {:inputs {:comment {:value "" :invalid false}}
+       :pid (:id project)
+       :receiver (or receiver (:username project))
+       :update-topic (gensym)
+       :comments []
+       :broadcast-chan (chan)})
     om/IWillMount
     (will-mount [_]
-      (ut/register-loop owner (om/get-state owner :cid)
-                        (fn [o {:keys [data]}]
-                          (condp = (:action data)
-                            :submit (submit-comment-call owner (:id project))
-                            (ut/get-input o data))))
-      (comment-server-call owner (:id project)))
+      (let [pid (om/get-state owner :pid)
+            bct {:comment pid}
+            bc (om/get-state owner :broadcast-chan)
+            ut (om/get-state owner :update-topic)
+            receiver (om/get-state owner :receiver)]
+        (ut/register-loop owner ut (fn [o d] (ut/loop-manager o d #(submit-func o))))
+        (ut/register-broadcast-loop owner bct bc)
+        (server/get-data owner {:type :comments :pid pid :username2 receiver}
+                         #(om/set-state! owner :comments (:data %)))))
+    om/IWillUnmount
+    (will-unmount [_]
+      (let [bct {:comment (om/get-state owner :pid)}
+            bc (om/get-state owner :broadcast-chan)
+            ut (om/get-state owner :update-topic)]
+        (ut/unsub-broadcast-loop owner bct bc)
+        (ut/unsubscribe owner ut)))
     om/IRenderState
-    (render-state [_ {:keys [inputs cid comments]}]
+    (render-state [_ {:keys [inputs update-topic comments]}]
       (dom/div
        #js {:style #js {:margin-top "10px"}}
        (dom/label nil "Discussion")
        (dom/div
-        #js {:className "panel panel-default"
-             :style #js {:min-height "100%"}}
-        (apply dom/div
-               #js {:className "panel-body"
-                    :ref "comments"
-                    :style #js {:margin "5px"
-                                :max-height "200"
-                                :overflow-y "scroll"
-                                :position "relative"
-                                :bottom "0"}}
-               (if-not (seq comments)
-                 (list (dom/div #js {:style #js {:text-align "center"}}
-                                "No discussion yet!")
-                       (dom/hr nil))
-                 (map #(show-comment % owner)
-                      (filter #(not (= "" (str/trim (:comment %))))
-                              (sort-by :time < comments)))))
-        (dom/div
-         #js {:className "panel-footer"}
-         (comment-control inputs owner)))))))
+        #js {:className "panel panel-default" :style #js {:min-height "100%"}}
+        (om/build comment-display-panel comments)
+        (dom/div #js {:className "panel-footer"}
+                 (comment-control inputs update-topic owner)))))))
 
