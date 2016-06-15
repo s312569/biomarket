@@ -15,23 +15,23 @@ biomarket.dropdown.undelete_project = (function biomarket$dropdown$undelete_proj
 return biomarket.server.save_data.call(null,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"type","type",1174270348),new cljs.core.Keyword(null,"undelete-project","undelete-project",-1653906236),new cljs.core.Keyword(null,"data","data",-232669377),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"id","id",-1388402092),new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$1(p)], null)], null));
 });
 biomarket.dropdown.drop_down_skel = (function biomarket$dropdown$drop_down_skel(var_args){
-var args83177 = [];
-var len__26938__auto___83180 = arguments.length;
-var i__26939__auto___83181 = (0);
+var args29008 = [];
+var len__26938__auto___29011 = arguments.length;
+var i__26939__auto___29012 = (0);
 while(true){
-if((i__26939__auto___83181 < len__26938__auto___83180)){
-args83177.push((arguments[i__26939__auto___83181]));
+if((i__26939__auto___29012 < len__26938__auto___29011)){
+args29008.push((arguments[i__26939__auto___29012]));
 
-var G__83182 = (i__26939__auto___83181 + (1));
-i__26939__auto___83181 = G__83182;
+var G__29013 = (i__26939__auto___29012 + (1));
+i__26939__auto___29012 = G__29013;
 continue;
 } else {
 }
 break;
 }
 
-var G__83179 = args83177.length;
-switch (G__83179) {
+var G__29010 = args29008.length;
+switch (G__29010) {
 case 0:
 return biomarket.dropdown.drop_down_skel.cljs$core$IFn$_invoke$arity$0();
 
@@ -41,7 +41,7 @@ return biomarket.dropdown.drop_down_skel.cljs$core$IFn$_invoke$arity$2((argument
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args83177.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args29008.length)].join('')));
 
 }
 });

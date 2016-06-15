@@ -17,7 +17,7 @@ biomarket.comments.show_comment = (function biomarket$comments$show_comment(comm
 return React.DOM.div(null,React.DOM.div({"style": {"font-size": "small", "text-align": "left", "color": ((cljs.core._EQ_.call(null,om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"bidder","bidder",1514778257)),new cljs.core.Keyword(null,"sender","sender",1557303285).cljs$core$IFn$_invoke$arity$1(comment)))?"red":"green")}},[cljs.core.str("On "),cljs.core.str(biomarket.utilities.datestring__GT_readable.call(null,new cljs.core.Keyword(null,"time","time",1385887882).cljs$core$IFn$_invoke$arity$1(comment))),cljs.core.str(" "),cljs.core.str(new cljs.core.Keyword(null,"sender","sender",1557303285).cljs$core$IFn$_invoke$arity$1(comment)),cljs.core.str(" said:")].join('')),React.DOM.div({"style": {"margin": "5px", "font-weight": "bold"}},new cljs.core.Keyword(null,"comment","comment",532206069).cljs$core$IFn$_invoke$arity$1(comment),React.DOM.hr(null)));
 });
 biomarket.comments.comment_display_panel = (function biomarket$comments$comment_display_panel(comments,owner){
-if(typeof biomarket.comments.t_biomarket$comments83191 !== 'undefined'){
+if(typeof biomarket.comments.t_biomarket$comments29022 !== 'undefined'){
 } else {
 
 /**
@@ -27,38 +27,38 @@ if(typeof biomarket.comments.t_biomarket$comments83191 !== 'undefined'){
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.comments.t_biomarket$comments83191 = (function (comment_display_panel,comments,owner,meta83192){
+biomarket.comments.t_biomarket$comments29022 = (function (comment_display_panel,comments,owner,meta29023){
 this.comment_display_panel = comment_display_panel;
 this.comments = comments;
 this.owner = owner;
-this.meta83192 = meta83192;
+this.meta29023 = meta29023;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.comments.t_biomarket$comments83191.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_83193,meta83192__$1){
+biomarket.comments.t_biomarket$comments29022.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_29024,meta29023__$1){
 var self__ = this;
-var _83193__$1 = this;
-return (new biomarket.comments.t_biomarket$comments83191(self__.comment_display_panel,self__.comments,self__.owner,meta83192__$1));
+var _29024__$1 = this;
+return (new biomarket.comments.t_biomarket$comments29022(self__.comment_display_panel,self__.comments,self__.owner,meta29023__$1));
 });
 
-biomarket.comments.t_biomarket$comments83191.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_83193){
+biomarket.comments.t_biomarket$comments29022.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_29024){
 var self__ = this;
-var _83193__$1 = this;
-return self__.meta83192;
+var _29024__$1 = this;
+return self__.meta29023;
 });
 
-biomarket.comments.t_biomarket$comments83191.prototype.om$core$IDidUpdate$ = true;
+biomarket.comments.t_biomarket$comments29022.prototype.om$core$IDidUpdate$ = true;
 
-biomarket.comments.t_biomarket$comments83191.prototype.om$core$IDidUpdate$did_update$arity$3 = (function (_,___$1,___$2){
+biomarket.comments.t_biomarket$comments29022.prototype.om$core$IDidUpdate$did_update$arity$3 = (function (_,___$1,___$2){
 var self__ = this;
 var ___$3 = this;
 var n = om.core.get_node.call(null,self__.owner,"cd");
 return (n["scrollTop"] = "10000");
 });
 
-biomarket.comments.t_biomarket$comments83191.prototype.om$core$IRenderState$ = true;
+biomarket.comments.t_biomarket$comments29022.prototype.om$core$IRenderState$ = true;
 
-biomarket.comments.t_biomarket$comments83191.prototype.om$core$IRenderState$render_state$arity$2 = (function (_,___$1){
+biomarket.comments.t_biomarket$comments29022.prototype.om$core$IRenderState$render_state$arity$2 = (function (_,___$1){
 var self__ = this;
 var ___$2 = this;
 return cljs.core.apply.call(null,om.dom.div,{"className": "panel-body", "ref": "cd", "style": {"margin": "5px", "height": "200", "overflow-y": "scroll", "position": "relative"}},((cljs.core.not.call(null,cljs.core.seq.call(null,self__.comments)))?(function (){var x__26702__auto__ = React.DOM.div({"style": {"text-align": "center"}},"No discussion yet!");
@@ -66,35 +66,35 @@ return cljs.core._conj.call(null,(function (){var x__26702__auto____$1 = React.D
 return cljs.core._conj.call(null,cljs.core.List.EMPTY,x__26702__auto____$1);
 })(),x__26702__auto__);
 })():cljs.core.map.call(null,((function (___$2){
-return (function (p1__83186_SHARP_){
-return biomarket.comments.show_comment.call(null,p1__83186_SHARP_,self__.owner);
+return (function (p1__29017_SHARP_){
+return biomarket.comments.show_comment.call(null,p1__29017_SHARP_,self__.owner);
 });})(___$2))
 ,cljs.core.filter.call(null,((function (___$2){
-return (function (p1__83187_SHARP_){
-return !(cljs.core._EQ_.call(null,"",clojure.string.trim.call(null,new cljs.core.Keyword(null,"comment","comment",532206069).cljs$core$IFn$_invoke$arity$1(p1__83187_SHARP_))));
+return (function (p1__29018_SHARP_){
+return !(cljs.core._EQ_.call(null,"",clojure.string.trim.call(null,new cljs.core.Keyword(null,"comment","comment",532206069).cljs$core$IFn$_invoke$arity$1(p1__29018_SHARP_))));
 });})(___$2))
 ,cljs.core.sort_by.call(null,new cljs.core.Keyword(null,"time","time",1385887882),cljs.core._LT_,self__.comments)))));
 });
 
-biomarket.comments.t_biomarket$comments83191.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"comment-display-panel","comment-display-panel",-1346116709,null),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"private","private",-558947994),true,new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"comments","comments",1347185104,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"comments","comments",1347185104,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta83192","meta83192",594921563,null)], null);
+biomarket.comments.t_biomarket$comments29022.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"comment-display-panel","comment-display-panel",-1346116709,null),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"private","private",-558947994),true,new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"comments","comments",1347185104,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"comments","comments",1347185104,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta29023","meta29023",1886586171,null)], null);
 });
 
-biomarket.comments.t_biomarket$comments83191.cljs$lang$type = true;
+biomarket.comments.t_biomarket$comments29022.cljs$lang$type = true;
 
-biomarket.comments.t_biomarket$comments83191.cljs$lang$ctorStr = "biomarket.comments/t_biomarket$comments83191";
+biomarket.comments.t_biomarket$comments29022.cljs$lang$ctorStr = "biomarket.comments/t_biomarket$comments29022";
 
-biomarket.comments.t_biomarket$comments83191.cljs$lang$ctorPrWriter = (function (this__26474__auto__,writer__26475__auto__,opt__26476__auto__){
-return cljs.core._write.call(null,writer__26475__auto__,"biomarket.comments/t_biomarket$comments83191");
+biomarket.comments.t_biomarket$comments29022.cljs$lang$ctorPrWriter = (function (this__26474__auto__,writer__26475__auto__,opt__26476__auto__){
+return cljs.core._write.call(null,writer__26475__auto__,"biomarket.comments/t_biomarket$comments29022");
 });
 
-biomarket.comments.__GT_t_biomarket$comments83191 = (function biomarket$comments$comment_display_panel_$___GT_t_biomarket$comments83191(comment_display_panel__$1,comments__$1,owner__$1,meta83192){
-return (new biomarket.comments.t_biomarket$comments83191(comment_display_panel__$1,comments__$1,owner__$1,meta83192));
+biomarket.comments.__GT_t_biomarket$comments29022 = (function biomarket$comments$comment_display_panel_$___GT_t_biomarket$comments29022(comment_display_panel__$1,comments__$1,owner__$1,meta29023){
+return (new biomarket.comments.t_biomarket$comments29022(comment_display_panel__$1,comments__$1,owner__$1,meta29023));
 });
 
 }
 
-return (new biomarket.comments.t_biomarket$comments83191(biomarket$comments$comment_display_panel,comments,owner,cljs.core.PersistentArrayMap.EMPTY));
+return (new biomarket.comments.t_biomarket$comments29022(biomarket$comments$comment_display_panel,comments,owner,cljs.core.PersistentArrayMap.EMPTY));
 });
 biomarket.comments.comment_control = (function biomarket$comments$comment_control(inputs,utag,owner){
 var comment = new cljs.core.Keyword(null,"comment","comment",532206069).cljs$core$IFn$_invoke$arity$1(om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858)));
@@ -109,8 +109,8 @@ return (function (){
 return biomarket.utilities.on_submit_function.call(null,owner,utag);
 });})(comment,current_value,ut))
 ), "rows": "1", "onChange": ((function (comment,current_value,ut){
-return (function (p1__83194_SHARP_){
-return biomarket.utilities.on_change_function.call(null,owner,utag,new cljs.core.Keyword(null,"comment","comment",532206069),comment,p1__83194_SHARP_);
+return (function (p1__29025_SHARP_){
+return biomarket.utilities.on_change_function.call(null,owner,utag,new cljs.core.Keyword(null,"comment","comment",532206069),comment,p1__29025_SHARP_);
 });})(comment,current_value,ut))
 }))));
 });
@@ -123,11 +123,11 @@ biomarket.server.save_data.call(null,new cljs.core.PersistentArrayMap(null, 2, [
 
 return om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858),new_inputs);
 });
-biomarket.comments.comments = (function biomarket$comments$comments(p__83196,owner){
-var vec__83204 = p__83196;
-var project = cljs.core.nth.call(null,vec__83204,(0),null);
-var receiver = cljs.core.nth.call(null,vec__83204,(1),null);
-if(typeof biomarket.comments.t_biomarket$comments83205 !== 'undefined'){
+biomarket.comments.comments = (function biomarket$comments$comments(p__29027,owner){
+var vec__29035 = p__29027;
+var project = cljs.core.nth.call(null,vec__29035,(0),null);
+var receiver = cljs.core.nth.call(null,vec__29035,(1),null);
+if(typeof biomarket.comments.t_biomarket$comments29036 !== 'undefined'){
 } else {
 
 /**
@@ -139,36 +139,36 @@ if(typeof biomarket.comments.t_biomarket$comments83205 !== 'undefined'){
  * @implements {om.core.IInitState}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.comments.t_biomarket$comments83205 = (function (comments,p__83196,owner,vec__83204,project,receiver,meta83206){
+biomarket.comments.t_biomarket$comments29036 = (function (comments,p__29027,owner,vec__29035,project,receiver,meta29037){
 this.comments = comments;
-this.p__83196 = p__83196;
+this.p__29027 = p__29027;
 this.owner = owner;
-this.vec__83204 = vec__83204;
+this.vec__29035 = vec__29035;
 this.project = project;
 this.receiver = receiver;
-this.meta83206 = meta83206;
+this.meta29037 = meta29037;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.comments.t_biomarket$comments83205.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = ((function (vec__83204,project,receiver){
-return (function (_83207,meta83206__$1){
+biomarket.comments.t_biomarket$comments29036.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = ((function (vec__29035,project,receiver){
+return (function (_29038,meta29037__$1){
 var self__ = this;
-var _83207__$1 = this;
-return (new biomarket.comments.t_biomarket$comments83205(self__.comments,self__.p__83196,self__.owner,self__.vec__83204,self__.project,self__.receiver,meta83206__$1));
-});})(vec__83204,project,receiver))
+var _29038__$1 = this;
+return (new biomarket.comments.t_biomarket$comments29036(self__.comments,self__.p__29027,self__.owner,self__.vec__29035,self__.project,self__.receiver,meta29037__$1));
+});})(vec__29035,project,receiver))
 ;
 
-biomarket.comments.t_biomarket$comments83205.prototype.cljs$core$IMeta$_meta$arity$1 = ((function (vec__83204,project,receiver){
-return (function (_83207){
+biomarket.comments.t_biomarket$comments29036.prototype.cljs$core$IMeta$_meta$arity$1 = ((function (vec__29035,project,receiver){
+return (function (_29038){
 var self__ = this;
-var _83207__$1 = this;
-return self__.meta83206;
-});})(vec__83204,project,receiver))
+var _29038__$1 = this;
+return self__.meta29037;
+});})(vec__29035,project,receiver))
 ;
 
-biomarket.comments.t_biomarket$comments83205.prototype.om$core$IInitState$ = true;
+biomarket.comments.t_biomarket$comments29036.prototype.om$core$IInitState$ = true;
 
-biomarket.comments.t_biomarket$comments83205.prototype.om$core$IInitState$init_state$arity$1 = ((function (vec__83204,project,receiver){
+biomarket.comments.t_biomarket$comments29036.prototype.om$core$IInitState$init_state$arity$1 = ((function (vec__29035,project,receiver){
 return (function (_){
 var self__ = this;
 var ___$1 = this;
@@ -179,12 +179,12 @@ return or__25868__auto__;
 return new cljs.core.Keyword(null,"username","username",1605666410).cljs$core$IFn$_invoke$arity$1(self__.project);
 }
 })(),new cljs.core.Keyword(null,"update-topic","update-topic",-406732688),cljs.core.gensym.call(null),new cljs.core.Keyword(null,"comments","comments",-293346423),cljs.core.PersistentVector.EMPTY,new cljs.core.Keyword(null,"broadcast-chan","broadcast-chan",723781718),cljs.core.async.chan.call(null)], null);
-});})(vec__83204,project,receiver))
+});})(vec__29035,project,receiver))
 ;
 
-biomarket.comments.t_biomarket$comments83205.prototype.om$core$IWillMount$ = true;
+biomarket.comments.t_biomarket$comments29036.prototype.om$core$IWillMount$ = true;
 
-biomarket.comments.t_biomarket$comments83205.prototype.om$core$IWillMount$will_mount$arity$1 = ((function (vec__83204,project,receiver){
+biomarket.comments.t_biomarket$comments29036.prototype.om$core$IWillMount$will_mount$arity$1 = ((function (vec__29035,project,receiver){
 return (function (_){
 var self__ = this;
 var ___$1 = this;
@@ -193,29 +193,29 @@ var bct = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,
 var bc = om.core.get_state.call(null,self__.owner,new cljs.core.Keyword(null,"broadcast-chan","broadcast-chan",723781718));
 var ut = om.core.get_state.call(null,self__.owner,new cljs.core.Keyword(null,"update-topic","update-topic",-406732688));
 var receiver__$1 = om.core.get_state.call(null,self__.owner,new cljs.core.Keyword(null,"receiver","receiver",1768630781));
-biomarket.utilities.register_loop.call(null,self__.owner,ut,((function (pid,bct,bc,ut,receiver__$1,___$1,vec__83204,project,receiver){
+biomarket.utilities.register_loop.call(null,self__.owner,ut,((function (pid,bct,bc,ut,receiver__$1,___$1,vec__29035,project,receiver){
 return (function (o,d){
-return biomarket.utilities.loop_manager.call(null,o,d,((function (pid,bct,bc,ut,receiver__$1,___$1,vec__83204,project,receiver){
+return biomarket.utilities.loop_manager.call(null,o,d,((function (pid,bct,bc,ut,receiver__$1,___$1,vec__29035,project,receiver){
 return (function (){
 return biomarket.comments.submit_func.call(null,o);
-});})(pid,bct,bc,ut,receiver__$1,___$1,vec__83204,project,receiver))
+});})(pid,bct,bc,ut,receiver__$1,___$1,vec__29035,project,receiver))
 );
-});})(pid,bct,bc,ut,receiver__$1,___$1,vec__83204,project,receiver))
+});})(pid,bct,bc,ut,receiver__$1,___$1,vec__29035,project,receiver))
 );
 
 biomarket.utilities.register_broadcast_loop.call(null,self__.owner,bct,bc);
 
-return biomarket.server.get_data.call(null,self__.owner,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"type","type",1174270348),new cljs.core.Keyword(null,"comments","comments",-293346423),new cljs.core.Keyword(null,"pid","pid",1018387698),pid,new cljs.core.Keyword(null,"username2","username2",799725987),receiver__$1], null),((function (pid,bct,bc,ut,receiver__$1,___$1,vec__83204,project,receiver){
-return (function (p1__83195_SHARP_){
-return om.core.set_state_BANG_.call(null,self__.owner,new cljs.core.Keyword(null,"comments","comments",-293346423),new cljs.core.Keyword(null,"data","data",-232669377).cljs$core$IFn$_invoke$arity$1(p1__83195_SHARP_));
-});})(pid,bct,bc,ut,receiver__$1,___$1,vec__83204,project,receiver))
+return biomarket.server.get_data.call(null,self__.owner,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"type","type",1174270348),new cljs.core.Keyword(null,"comments","comments",-293346423),new cljs.core.Keyword(null,"pid","pid",1018387698),pid,new cljs.core.Keyword(null,"username2","username2",799725987),receiver__$1], null),((function (pid,bct,bc,ut,receiver__$1,___$1,vec__29035,project,receiver){
+return (function (p1__29026_SHARP_){
+return om.core.set_state_BANG_.call(null,self__.owner,new cljs.core.Keyword(null,"comments","comments",-293346423),new cljs.core.Keyword(null,"data","data",-232669377).cljs$core$IFn$_invoke$arity$1(p1__29026_SHARP_));
+});})(pid,bct,bc,ut,receiver__$1,___$1,vec__29035,project,receiver))
 );
-});})(vec__83204,project,receiver))
+});})(vec__29035,project,receiver))
 ;
 
-biomarket.comments.t_biomarket$comments83205.prototype.om$core$IWillUnmount$ = true;
+biomarket.comments.t_biomarket$comments29036.prototype.om$core$IWillUnmount$ = true;
 
-biomarket.comments.t_biomarket$comments83205.prototype.om$core$IWillUnmount$will_unmount$arity$1 = ((function (vec__83204,project,receiver){
+biomarket.comments.t_biomarket$comments29036.prototype.om$core$IWillUnmount$will_unmount$arity$1 = ((function (vec__29035,project,receiver){
 return (function (_){
 var self__ = this;
 var ___$1 = this;
@@ -225,49 +225,49 @@ var ut = om.core.get_state.call(null,self__.owner,new cljs.core.Keyword(null,"up
 biomarket.utilities.unsub_broadcast_loop.call(null,self__.owner,bct,bc);
 
 return biomarket.utilities.unsubscribe.call(null,self__.owner,ut);
-});})(vec__83204,project,receiver))
+});})(vec__29035,project,receiver))
 ;
 
-biomarket.comments.t_biomarket$comments83205.prototype.om$core$IRenderState$ = true;
+biomarket.comments.t_biomarket$comments29036.prototype.om$core$IRenderState$ = true;
 
-biomarket.comments.t_biomarket$comments83205.prototype.om$core$IRenderState$render_state$arity$2 = ((function (vec__83204,project,receiver){
-return (function (_,p__83208){
+biomarket.comments.t_biomarket$comments29036.prototype.om$core$IRenderState$render_state$arity$2 = ((function (vec__29035,project,receiver){
+return (function (_,p__29039){
 var self__ = this;
-var map__83209 = p__83208;
-var map__83209__$1 = ((((!((map__83209 == null)))?((((map__83209.cljs$lang$protocol_mask$partition0$ & (64))) || (map__83209.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__83209):map__83209);
-var inputs = cljs.core.get.call(null,map__83209__$1,new cljs.core.Keyword(null,"inputs","inputs",865803858));
-var update_topic = cljs.core.get.call(null,map__83209__$1,new cljs.core.Keyword(null,"update-topic","update-topic",-406732688));
-var comments__$1 = cljs.core.get.call(null,map__83209__$1,new cljs.core.Keyword(null,"comments","comments",-293346423));
+var map__29040 = p__29039;
+var map__29040__$1 = ((((!((map__29040 == null)))?((((map__29040.cljs$lang$protocol_mask$partition0$ & (64))) || (map__29040.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__29040):map__29040);
+var inputs = cljs.core.get.call(null,map__29040__$1,new cljs.core.Keyword(null,"inputs","inputs",865803858));
+var update_topic = cljs.core.get.call(null,map__29040__$1,new cljs.core.Keyword(null,"update-topic","update-topic",-406732688));
+var comments__$1 = cljs.core.get.call(null,map__29040__$1,new cljs.core.Keyword(null,"comments","comments",-293346423));
 var ___$1 = this;
 return React.DOM.div({"style": {"margin-top": "10px"}},React.DOM.label(null,"Discussion"),React.DOM.div({"className": "panel panel-default", "style": {"min-height": "100%"}},om.core.build.call(null,biomarket.comments.comment_display_panel,comments__$1),React.DOM.div({"className": "panel-footer"},biomarket.comments.comment_control.call(null,inputs,update_topic,self__.owner))));
-});})(vec__83204,project,receiver))
+});})(vec__29035,project,receiver))
 ;
 
-biomarket.comments.t_biomarket$comments83205.getBasis = ((function (vec__83204,project,receiver){
+biomarket.comments.t_biomarket$comments29036.getBasis = ((function (vec__29035,project,receiver){
 return (function (){
-return new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"comments","comments",1347185104,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"receiver","receiver",-885804988,null)], null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"p__83196","p__83196",-828865845,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"vec__83204","vec__83204",-499054693,null),new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"receiver","receiver",-885804988,null),new cljs.core.Symbol(null,"meta83206","meta83206",-1271949877,null)], null);
-});})(vec__83204,project,receiver))
+return new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"comments","comments",1347185104,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"receiver","receiver",-885804988,null)], null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"p__29027","p__29027",470516566,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"vec__29035","vec__29035",-2005385849,null),new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"receiver","receiver",-885804988,null),new cljs.core.Symbol(null,"meta29037","meta29037",-938796469,null)], null);
+});})(vec__29035,project,receiver))
 ;
 
-biomarket.comments.t_biomarket$comments83205.cljs$lang$type = true;
+biomarket.comments.t_biomarket$comments29036.cljs$lang$type = true;
 
-biomarket.comments.t_biomarket$comments83205.cljs$lang$ctorStr = "biomarket.comments/t_biomarket$comments83205";
+biomarket.comments.t_biomarket$comments29036.cljs$lang$ctorStr = "biomarket.comments/t_biomarket$comments29036";
 
-biomarket.comments.t_biomarket$comments83205.cljs$lang$ctorPrWriter = ((function (vec__83204,project,receiver){
+biomarket.comments.t_biomarket$comments29036.cljs$lang$ctorPrWriter = ((function (vec__29035,project,receiver){
 return (function (this__26474__auto__,writer__26475__auto__,opt__26476__auto__){
-return cljs.core._write.call(null,writer__26475__auto__,"biomarket.comments/t_biomarket$comments83205");
-});})(vec__83204,project,receiver))
+return cljs.core._write.call(null,writer__26475__auto__,"biomarket.comments/t_biomarket$comments29036");
+});})(vec__29035,project,receiver))
 ;
 
-biomarket.comments.__GT_t_biomarket$comments83205 = ((function (vec__83204,project,receiver){
-return (function biomarket$comments$comments_$___GT_t_biomarket$comments83205(comments__$1,p__83196__$1,owner__$1,vec__83204__$1,project__$1,receiver__$1,meta83206){
-return (new biomarket.comments.t_biomarket$comments83205(comments__$1,p__83196__$1,owner__$1,vec__83204__$1,project__$1,receiver__$1,meta83206));
-});})(vec__83204,project,receiver))
+biomarket.comments.__GT_t_biomarket$comments29036 = ((function (vec__29035,project,receiver){
+return (function biomarket$comments$comments_$___GT_t_biomarket$comments29036(comments__$1,p__29027__$1,owner__$1,vec__29035__$1,project__$1,receiver__$1,meta29037){
+return (new biomarket.comments.t_biomarket$comments29036(comments__$1,p__29027__$1,owner__$1,vec__29035__$1,project__$1,receiver__$1,meta29037));
+});})(vec__29035,project,receiver))
 ;
 
 }
 
-return (new biomarket.comments.t_biomarket$comments83205(biomarket$comments$comments,p__83196,owner,vec__83204,project,receiver,cljs.core.PersistentArrayMap.EMPTY));
+return (new biomarket.comments.t_biomarket$comments29036(biomarket$comments$comments,p__29027,owner,vec__29035,project,receiver,cljs.core.PersistentArrayMap.EMPTY));
 });
 
 //# sourceMappingURL=comments.js.map
