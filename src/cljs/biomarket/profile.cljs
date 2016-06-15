@@ -86,6 +86,47 @@
              (dom/div nil etext (edit-icon owner))
              (dom/div nil v (edit-icon owner)))))))))
 
+(defn text-area
+  [[ut inputs etext sfunc] owner]
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:editing false
+       :inputs inputs})
+    om/IWillMount
+    (will-mount [_]
+      (ut/register-loop owner ut))
+    om/IWillUnmount
+    (will-unmount [_]
+      (ut/unsubscribe owner ut))
+    om/IRenderState
+    (render-state [_ {:keys [inputs editing]}]
+      (let [[k element] (first inputs)]
+        (dom/div
+         nil
+         (if editing
+           (dom/div
+            nil
+            (dom/textarea #js {:placeholder (:placeholder element)
+                               :value (:value element)
+                               :rows "10"
+                               :style #js {:width "100%" :margin-top "10px"}
+                               :onChange #(ut/on-change-function owner ut k element %)})
+            (dom/a #js {:className "btn btn-primary"
+                        :onClick #(sfunc owner)}
+                   "Save"))
+           (if (blank? (:value element))
+             (dom/div
+              #js {:style #js {:padding-top "10px"}}
+              (dom/a #js {:onClick #(om/set-state! owner :editing true)
+                          :style #js {:padding-top "10px"}}
+                     etext))
+             (dom/div
+              #js {:style #js {:padding-top "10px"}}
+              (dom/span #js {:style #js {:white-space "pre-line"}}
+                        (:value element))
+              (edit-icon owner)))))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; heading
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -234,15 +275,88 @@
 
 (defn phone
   [user]
-  (let [sfunc (fn [owner]
-                (let [i (om/get-state owner :inputs)]
-                  (submit owner {:type :phone-update :data {:phone (:value (:phone i))}})))
+  (let [sfunc
+        (fn [owner]
+          (let [i (om/get-state owner :inputs)]
+            (submit owner {:type :phone-update :data {:phone (:value (:phone i))}})))
         inputs {:phone {:value (:phone user) :invalid nil :placeholder "Phone"}}]
     (om/build simple-input [::phone-update inputs "No phone information provided." sfunc])))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; email
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn email
+  [user]
+  (let [sfunc (fn [owner] nil)
+        inputs {:email {:value (:email user) :invalid nil :placeholder "Email"}}]
+    (om/build simple-input [::email-update inputs "No email information provided." sfunc])))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; skills
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- button
+  [owner etag editing us]
+  (if-not editing
+    (if us
+      (dom/span nil
+                (dom/i #js {:className "fa fa-pencil-square-o"
+                            :onClick #(om/set-state!
+                                       owner etag (not (om/get-state owner etag)))}))
+      (dom/span
+       nil
+       (dom/a #js {:onClick #(om/set-state!
+                              owner etag (not (om/get-state owner etag)))
+                   :style #js {:cursor "pointer"}}
+              "Add some skills!")))
+    (dom/span nil
+              (dom/a
+               #js {:className "btn btn-primary"
+                    :onClick #(om/set-state!
+                               owner etag (not (om/get-state owner etag)))}
+               "Done"))))
+
+(defn- show-skills
+  [owner tag]
+  (let [etag (condp = tag "bskill" :editing-b "cskill" :editing-c)
+        all-skills (om/get-state owner :all-skills)]
+    (let [us (seq (sort-by :name (filter #(= (:type %) tag) (:user-skills all-skills))))
+          selected (->> (map :id (:user-skills all-skills))
+                        set)]
+      (dom/div
+       #js {:style #js {:padding-top "10px"}}
+       (dom/label
+        nil
+        (condp = tag "bskill" "Bioinformatic skills" "cskill" "IT skills"))
+       (if-not (om/get-state owner etag)
+         (dom/div
+          nil
+          (om/build skill-tags [{:skills us} selected nil true])
+          (button owner etag false us))
+         (dom/div
+          #js {:style #js {:padding-top "10px"}}
+          (om/build skill-tags [{:skills (filter #(= (:type %) tag)
+                                                 (sort-by :name
+                                                          (concat
+                                                           (:user-skills all-skills)
+                                                           (:other-skills all-skills))))}
+                                selected
+                                ::tag-clicked
+                                true])
+          (button owner etag true us)))))))
+
+(defn- save-tag
+  [owner tag]
+  (let [skills (om/get-state owner :all-skills)
+        uid (om/get-state owner :uid)]
+    (if ((-> (map :id (:user-skills skills)) set) (:id tag))
+      (server/save-data {:type :remove-skill :data {:id (:id tag) :uid uid}})
+      (server/save-data {:type :add-skill :data {:id (:id tag) :uid uid}}))))
+
+(defmethod ut/broadcast-loop-manager :skills
+  [owner {:keys [data]}]
+  (om/set-state! owner :all-skills data))
 
 (defn skills
   [user owner]
@@ -250,20 +364,33 @@
     om/IInitState
     (init-state [_]
       {:all-skills nil
-       :editing false})
+       :uid (:id user)
+       :broadcast-chan (chan)
+       :editing-b false
+       :editing-c false})
     om/IWillMount
     (will-mount [_]
-      (server/get-data owner {:type :all-skills}
-                       #(om/set-state! owner :all-skills (:data %))))
+      (server/get-data owner {:type :user-skills :id (:id user)}
+                       #(om/set-state! owner :all-skills (:data %)))
+      (ut/register-loop owner ::tag-clicked (fn [o e]
+                                              (save-tag o (:data e))))
+      (ut/register-broadcast-loop owner {:skills (:id user)}
+                                  (om/get-state owner :broadcast-chan)))
+    om/IWillUnmount
+    (will-unmount [_]
+      (ut/unsub-broadcast-loop owner {:skills (:id user)}
+                               (om/get-state owner :broadcast-chan))
+      (ut/unsubscribe ::tag-clicked))
     om/IRenderState
     (render-state [_ {:keys [all-skills editing]}]
-      (when-not false
+      (if-not all-skills
+        (om/build ut/waiting nil)
         (dom/div
          nil
-         (dom/a #js {:onClick #(om/set-state! owner :editing true)}
-                "Add some skills")
-         (if editing
-           (om/build skill-tags [{:skills (filter #(= (:type %) "bskill") all-skills)} {}])))))))
+         (dom/h3 #js {:style #js {:padding "0px 0px 0px 0px"}} "Skills")
+         (dom/hr #js {:style #js {:margin "0px"}})
+         (show-skills owner "bskill")
+         (show-skills owner "cskill"))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; profile picture
@@ -274,10 +401,129 @@
   (om/component
    (dom/div
     nil
-    (dom/img #js {:src "img/human.png"
-                  :style #js {:margin "5px"}})
-    (dom/a #js {:className "btn btn-default"}
-           "Upload a picture."))))
+    (dom/table
+     nil
+     (dom/tbody
+      nil
+      (dom/tr nil
+              (dom/td
+               #js {:style #js {:text-align "center"}}
+               (dom/img #js {:src "img/human.png"
+                             :style #js {:margin "5px"}})))
+      (dom/tr
+       nil
+       (dom/td
+        #js {:style #js {:text-align "center"
+                         :padding-bottom "20px"}}
+        (dom/a #js {:className "btn btn-default"}
+               "Upload a picture."))))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; details
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn details
+  [user]
+  (let [pad "15px"]
+    (dom/table
+     nil
+     (dom/tbody
+      nil
+      (dom/tr
+       nil
+       (dom/td #js {:style #js {:vertical-align "top"
+                                :padding-bottom pad}}
+               (dom/h4 #js {:style #js {:display "inline"}} "Address:"))
+       (dom/td #js {:style #js {:padding-left "30px"
+                                :padding-bottom pad}}
+               (om/build address user)))
+      (dom/tr
+       nil
+       (dom/td #js {:style #js {:vertical-align "top"
+                                :padding-bottom pad}}
+               (dom/h4 #js {:style #js {:display "inline"}} "City:"))
+       (dom/td #js {:style #js {:padding-left "30px"
+                                :padding-bottom pad}}
+               (city user)))
+      (dom/tr
+       nil
+       (dom/td #js {:style #js {:vertical-align "top"
+                                :padding-bottom pad}}
+               (dom/h4 #js {:style #js {:display "inline"}} "Country:"))
+       (dom/td #js {:style #js {:padding-left "30px"
+                                :padding-bottom pad}}
+               (country user)))
+      (dom/tr
+       nil
+       (dom/td #js {:style #js {:vertical-align "top"
+                                :padding-bottom pad}}
+               (dom/h4 #js {:style #js {:display "inline"}} "Postcode:"))
+       (dom/td #js {:style #js {:padding-left "30px"
+                                :padding-bottom pad}}
+               (postcode user)))
+      (dom/tr
+       nil
+       (dom/td #js {:style #js {:vertical-align "top"
+                                :padding-bottom pad}}
+               (dom/h4 #js {:style #js {:display "inline"}} "Phone:"))
+       (dom/td #js {:style #js {:padding-left "30px"
+                                :padding-bottom pad}}
+               (phone user)))
+      (dom/tr
+       nil
+       (dom/td #js {:style #js {:vertical-align "top"
+                                :padding-bottom pad}}
+               (dom/h4 #js {:style #js {:display "inline"}} "Email:"))
+       (dom/td #js {:style #js {:padding-left "30px"
+                                :padding-bottom pad}}
+               (email user)))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; about
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn about
+  [user]
+  (let [sfunc (fn [owner]
+                (let [i (om/get-state owner :inputs)]
+                  (submit owner {:type :synopsis-update
+                                 :data {:synopsis (get-in i [:synopsis :value])}})))
+        inputs {:synopsis {:value (:synopsis user)
+                           :invalid nil
+                           :placeholder "Synopsis"}}]
+    (dom/div
+     nil
+     (dom/h3 #js {:style #js {:padding "0px"}} "Career synopsis")
+     (dom/hr #js {:style #js {:margin "0px"}})
+     (om/build text-area
+               [::synopsis-update
+                inputs
+                "Tell us something about your career and skills"
+                sfunc]))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; publications
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn publications
+  [user]
+  (let [sfunc (fn [owner]
+                (let [i (om/get-state owner :inputs)]
+                  (submit owner {:type :publication-update
+                                 :data {:publications
+                                        (get-in i [:publications :value])}})))
+        inputs {:publications {:value (:publications user)
+                               :invalid nil
+                               :placeholder "Publications"}}]
+    (dom/div
+     nil
+     (dom/h3 #js {:style #js {:padding "0px"}} "Publications")
+     (dom/hr #js {:style #js {:margin "0px"}})
+     (om/build text-area
+               [::publication-update
+                inputs
+                "Add some publications"
+                sfunc]))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; profile view
@@ -304,50 +550,25 @@
         (dom/div
          #js {:className "panel panel-default"}
          (dom/div
-          #js {:className "panel-body"}
+          #js {:className "panel-body"
+               :style #js {:padding "20px"}}
           (om/build heading user)
           (dom/div
-           #js {:className "row"}
+           #js {:className "container-fluid"}
            (dom/div
-            #js {:className "col-md-3"}
-            (om/build profile-pic user))
-           (dom/div
-            #js {:className "col-md-4"}
-            (dom/table
-             #js {:style #js {:border-spacing "20px"
-                              :border-collapse "separate"}}
-             (dom/tbody
-              nil
-              (dom/tr
-               nil
-               (dom/td #js {:style #js {:vertical-align "top"}}
-                       (dom/h3 #js {:style #js {:display "inline"}} "Address:"))
-               (dom/td #js {:style #js {:padding-left "30px"}} (om/build address user)))
-              (dom/tr
-               nil
-               (dom/td #js {:style #js {:vertical-align "top"}}
-                       (dom/h3 #js {:style #js {:display "inline"}} "City:"))
-               (dom/td #js {:style #js {:padding-left "30px"}}
-                       (city user)))
-              (dom/tr
-               nil
-               (dom/td #js {:style #js {:vertical-align "top"}}
-                       (dom/h3 #js {:style #js {:display "inline"}} "Country:"))
-               (dom/td #js {:style #js {:padding-left "30px"}}
-                       (country user)))
-              (dom/tr
-               nil
-               (dom/td #js {:style #js {:vertical-align "top"}}
-                       (dom/h3 #js {:style #js {:display "inline"}} "Postcode:"))
-               (dom/td #js {:style #js {:padding-left "30px"}}
-                       (postcode user)))
-              (dom/tr
-               nil
-               (dom/td #js {:style #js {:vertical-align "top"}}
-                       (dom/h3 #js {:style #js {:display "inline"}} "Phone:"))
-               (dom/td #js {:style #js {:padding-left "30px"}}
-                       (phone user))))))
-           (dom/div
-            #js {:className "col-md-5"}
-            (dom/h3 nil "Skills:")
-            (om/build skills user)))))))))
+            #js {:className "row"}
+            (dom/div
+             #js {:className "col-md-3"}
+             (om/build profile-pic user))
+            (dom/div
+             #js {:className "col-md-9"}
+             (details user)))
+           (dom/div #js {:className "row"}
+                    (dom/div #js {:className "col-md-12"}
+                             (om/build skills user)))
+           (dom/div #js {:className "row"}
+                    (dom/div #js {:className "col-md-12"}
+                             (about user)))
+           (dom/div #js {:className "row"}
+                    (dom/div #js {:className "col-md-12"}
+                             (publications user))))))))))

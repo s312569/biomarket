@@ -15,14 +15,14 @@ taoensso.sente.interfaces.sch_open_QMARK_ = (function taoensso$sente$interfaces$
 if((!((server_ch == null))) && (!((server_ch.taoensso$sente$interfaces$IServerChan$sch_open_QMARK_$arity$1 == null)))){
 return server_ch.taoensso$sente$interfaces$IServerChan$sch_open_QMARK_$arity$1(server_ch);
 } else {
-var x__26475__auto__ = (((server_ch == null))?null:server_ch);
-var m__26476__auto__ = (taoensso.sente.interfaces.sch_open_QMARK_[goog.typeOf(x__26475__auto__)]);
-if(!((m__26476__auto__ == null))){
-return m__26476__auto__.call(null,server_ch);
+var x__26472__auto__ = (((server_ch == null))?null:server_ch);
+var m__26473__auto__ = (taoensso.sente.interfaces.sch_open_QMARK_[goog.typeOf(x__26472__auto__)]);
+if(!((m__26473__auto__ == null))){
+return m__26473__auto__.call(null,server_ch);
 } else {
-var m__26476__auto____$1 = (taoensso.sente.interfaces.sch_open_QMARK_["_"]);
-if(!((m__26476__auto____$1 == null))){
-return m__26476__auto____$1.call(null,server_ch);
+var m__26473__auto____$1 = (taoensso.sente.interfaces.sch_open_QMARK_["_"]);
+if(!((m__26473__auto____$1 == null))){
+return m__26473__auto____$1.call(null,server_ch);
 } else {
 throw cljs.core.missing_protocol.call(null,"IServerChan.sch-open?",server_ch);
 }
@@ -38,14 +38,14 @@ taoensso.sente.interfaces.sch_close_BANG_ = (function taoensso$sente$interfaces$
 if((!((server_ch == null))) && (!((server_ch.taoensso$sente$interfaces$IServerChan$sch_close_BANG_$arity$1 == null)))){
 return server_ch.taoensso$sente$interfaces$IServerChan$sch_close_BANG_$arity$1(server_ch);
 } else {
-var x__26475__auto__ = (((server_ch == null))?null:server_ch);
-var m__26476__auto__ = (taoensso.sente.interfaces.sch_close_BANG_[goog.typeOf(x__26475__auto__)]);
-if(!((m__26476__auto__ == null))){
-return m__26476__auto__.call(null,server_ch);
+var x__26472__auto__ = (((server_ch == null))?null:server_ch);
+var m__26473__auto__ = (taoensso.sente.interfaces.sch_close_BANG_[goog.typeOf(x__26472__auto__)]);
+if(!((m__26473__auto__ == null))){
+return m__26473__auto__.call(null,server_ch);
 } else {
-var m__26476__auto____$1 = (taoensso.sente.interfaces.sch_close_BANG_["_"]);
-if(!((m__26476__auto____$1 == null))){
-return m__26476__auto____$1.call(null,server_ch);
+var m__26473__auto____$1 = (taoensso.sente.interfaces.sch_close_BANG_["_"]);
+if(!((m__26473__auto____$1 == null))){
+return m__26473__auto____$1.call(null,server_ch);
 } else {
 throw cljs.core.missing_protocol.call(null,"IServerChan.sch-close!",server_ch);
 }
@@ -61,14 +61,14 @@ taoensso.sente.interfaces._sch_send_BANG_ = (function taoensso$sente$interfaces$
 if((!((server_ch == null))) && (!((server_ch.taoensso$sente$interfaces$IServerChan$_sch_send_BANG_$arity$3 == null)))){
 return server_ch.taoensso$sente$interfaces$IServerChan$_sch_send_BANG_$arity$3(server_ch,msg,close_after_send_QMARK_);
 } else {
-var x__26475__auto__ = (((server_ch == null))?null:server_ch);
-var m__26476__auto__ = (taoensso.sente.interfaces._sch_send_BANG_[goog.typeOf(x__26475__auto__)]);
-if(!((m__26476__auto__ == null))){
-return m__26476__auto__.call(null,server_ch,msg,close_after_send_QMARK_);
+var x__26472__auto__ = (((server_ch == null))?null:server_ch);
+var m__26473__auto__ = (taoensso.sente.interfaces._sch_send_BANG_[goog.typeOf(x__26472__auto__)]);
+if(!((m__26473__auto__ == null))){
+return m__26473__auto__.call(null,server_ch,msg,close_after_send_QMARK_);
 } else {
-var m__26476__auto____$1 = (taoensso.sente.interfaces._sch_send_BANG_["_"]);
-if(!((m__26476__auto____$1 == null))){
-return m__26476__auto____$1.call(null,server_ch,msg,close_after_send_QMARK_);
+var m__26473__auto____$1 = (taoensso.sente.interfaces._sch_send_BANG_["_"]);
+if(!((m__26473__auto____$1 == null))){
+return m__26473__auto____$1.call(null,server_ch,msg,close_after_send_QMARK_);
 } else {
 throw cljs.core.missing_protocol.call(null,"IServerChan.-sch-send!",server_ch);
 }
@@ -81,23 +81,23 @@ throw cljs.core.missing_protocol.call(null,"IServerChan.-sch-send!",server_ch);
  * when called.
  */
 taoensso.sente.interfaces.sch_send_BANG_ = (function taoensso$sente$interfaces$sch_send_BANG_(var_args){
-var args35487 = [];
-var len__26882__auto___35490 = arguments.length;
-var i__26883__auto___35491 = (0);
+var args35484 = [];
+var len__26879__auto___35487 = arguments.length;
+var i__26880__auto___35488 = (0);
 while(true){
-if((i__26883__auto___35491 < len__26882__auto___35490)){
-args35487.push((arguments[i__26883__auto___35491]));
+if((i__26880__auto___35488 < len__26879__auto___35487)){
+args35484.push((arguments[i__26880__auto___35488]));
 
-var G__35492 = (i__26883__auto___35491 + (1));
-i__26883__auto___35491 = G__35492;
+var G__35489 = (i__26880__auto___35488 + (1));
+i__26880__auto___35488 = G__35489;
 continue;
 } else {
 }
 break;
 }
 
-var G__35489 = args35487.length;
-switch (G__35489) {
+var G__35486 = args35484.length;
+switch (G__35486) {
 case 2:
 return taoensso.sente.interfaces.sch_send_BANG_.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -107,7 +107,7 @@ return taoensso.sente.interfaces.sch_send_BANG_.cljs$core$IFn$_invoke$arity$3((a
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args35487.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args35484.length)].join('')));
 
 }
 });
@@ -144,14 +144,14 @@ taoensso.sente.interfaces.ring_req__GT_server_ch_resp = (function taoensso$sente
 if((!((server_ch_adapter == null))) && (!((server_ch_adapter.taoensso$sente$interfaces$IServerChanAdapter$ring_req__GT_server_ch_resp$arity$3 == null)))){
 return server_ch_adapter.taoensso$sente$interfaces$IServerChanAdapter$ring_req__GT_server_ch_resp$arity$3(server_ch_adapter,ring_req,callbacks_map);
 } else {
-var x__26475__auto__ = (((server_ch_adapter == null))?null:server_ch_adapter);
-var m__26476__auto__ = (taoensso.sente.interfaces.ring_req__GT_server_ch_resp[goog.typeOf(x__26475__auto__)]);
-if(!((m__26476__auto__ == null))){
-return m__26476__auto__.call(null,server_ch_adapter,ring_req,callbacks_map);
+var x__26472__auto__ = (((server_ch_adapter == null))?null:server_ch_adapter);
+var m__26473__auto__ = (taoensso.sente.interfaces.ring_req__GT_server_ch_resp[goog.typeOf(x__26472__auto__)]);
+if(!((m__26473__auto__ == null))){
+return m__26473__auto__.call(null,server_ch_adapter,ring_req,callbacks_map);
 } else {
-var m__26476__auto____$1 = (taoensso.sente.interfaces.ring_req__GT_server_ch_resp["_"]);
-if(!((m__26476__auto____$1 == null))){
-return m__26476__auto____$1.call(null,server_ch_adapter,ring_req,callbacks_map);
+var m__26473__auto____$1 = (taoensso.sente.interfaces.ring_req__GT_server_ch_resp["_"]);
+if(!((m__26473__auto____$1 == null))){
+return m__26473__auto____$1.call(null,server_ch_adapter,ring_req,callbacks_map);
 } else {
 throw cljs.core.missing_protocol.call(null,"IServerChanAdapter.ring-req->server-ch-resp",server_ch_adapter);
 }
@@ -171,14 +171,14 @@ taoensso.sente.interfaces.pack = (function taoensso$sente$interfaces$pack(_,x){
 if((!((_ == null))) && (!((_.taoensso$sente$interfaces$IPacker$pack$arity$2 == null)))){
 return _.taoensso$sente$interfaces$IPacker$pack$arity$2(_,x);
 } else {
-var x__26475__auto__ = (((_ == null))?null:_);
-var m__26476__auto__ = (taoensso.sente.interfaces.pack[goog.typeOf(x__26475__auto__)]);
-if(!((m__26476__auto__ == null))){
-return m__26476__auto__.call(null,_,x);
+var x__26472__auto__ = (((_ == null))?null:_);
+var m__26473__auto__ = (taoensso.sente.interfaces.pack[goog.typeOf(x__26472__auto__)]);
+if(!((m__26473__auto__ == null))){
+return m__26473__auto__.call(null,_,x);
 } else {
-var m__26476__auto____$1 = (taoensso.sente.interfaces.pack["_"]);
-if(!((m__26476__auto____$1 == null))){
-return m__26476__auto____$1.call(null,_,x);
+var m__26473__auto____$1 = (taoensso.sente.interfaces.pack["_"]);
+if(!((m__26473__auto____$1 == null))){
+return m__26473__auto____$1.call(null,_,x);
 } else {
 throw cljs.core.missing_protocol.call(null,"IPacker.pack",_);
 }
@@ -190,14 +190,14 @@ taoensso.sente.interfaces.unpack = (function taoensso$sente$interfaces$unpack(_,
 if((!((_ == null))) && (!((_.taoensso$sente$interfaces$IPacker$unpack$arity$2 == null)))){
 return _.taoensso$sente$interfaces$IPacker$unpack$arity$2(_,x);
 } else {
-var x__26475__auto__ = (((_ == null))?null:_);
-var m__26476__auto__ = (taoensso.sente.interfaces.unpack[goog.typeOf(x__26475__auto__)]);
-if(!((m__26476__auto__ == null))){
-return m__26476__auto__.call(null,_,x);
+var x__26472__auto__ = (((_ == null))?null:_);
+var m__26473__auto__ = (taoensso.sente.interfaces.unpack[goog.typeOf(x__26472__auto__)]);
+if(!((m__26473__auto__ == null))){
+return m__26473__auto__.call(null,_,x);
 } else {
-var m__26476__auto____$1 = (taoensso.sente.interfaces.unpack["_"]);
-if(!((m__26476__auto____$1 == null))){
-return m__26476__auto____$1.call(null,_,x);
+var m__26473__auto____$1 = (taoensso.sente.interfaces.unpack["_"]);
+if(!((m__26473__auto____$1 == null))){
+return m__26473__auto____$1.call(null,_,x);
 } else {
 throw cljs.core.missing_protocol.call(null,"IPacker.unpack",_);
 }
@@ -234,8 +234,8 @@ taoensso.sente.interfaces.EdnPacker.cljs$lang$type = true;
 
 taoensso.sente.interfaces.EdnPacker.cljs$lang$ctorStr = "taoensso.sente.interfaces/EdnPacker";
 
-taoensso.sente.interfaces.EdnPacker.cljs$lang$ctorPrWriter = (function (this__26418__auto__,writer__26419__auto__,opt__26420__auto__){
-return cljs.core._write.call(null,writer__26419__auto__,"taoensso.sente.interfaces/EdnPacker");
+taoensso.sente.interfaces.EdnPacker.cljs$lang$ctorPrWriter = (function (this__26415__auto__,writer__26416__auto__,opt__26417__auto__){
+return cljs.core._write.call(null,writer__26416__auto__,"taoensso.sente.interfaces/EdnPacker");
 });
 
 taoensso.sente.interfaces.__GT_EdnPacker = (function taoensso$sente$interfaces$__GT_EdnPacker(){

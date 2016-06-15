@@ -178,6 +178,15 @@
   [{:keys [username phone] :as m}]
   (user-data-save ["update users set phone=? where email=?" phone username]))
 
+(defmethod server/save-data :synopsis-update
+  [{:keys [username synopsis] :as m}]
+  (user-data-save ["update users set synopsis=? where email=?" synopsis username]))
+
+(defmethod server/save-data :publication-update
+  [{:keys [username publications] :as m}]
+  (user-data-save ["update users set publications=? where email=?"
+                   publications username]))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; skills
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -186,11 +195,34 @@
   [id]
   (db/query spec ["select id,name,type from skills,skillproj where skillproj.sid=skills.id and skillproj.pid=?" id]))
 
+(defn- get-user-skills
+  [id]
+  (let [ns (db/query spec ["select t1.id,t1.name,t1.type from skills t1 left join skilluser t2 on t1.id=t2.sid and t2.uid=? where t2.uid is NULL" id])
+        ms (db/query spec ["select t1.id,t1.name,t1.type from skills t1 left join skilluser t2 on t1.id=t2.sid where t2.uid=?" id])]
+    {:user-skills ms :other-skills ns}))
+
+(defmethod server/get-data :user-skills
+  [{:keys [username id]}]
+  {:type :all-skills
+   :data (get-all-skills id)})
+
 (defmethod server/get-data :all-skills
   [{:keys [username]}]
-  (let [d (db/query spec ["select * from skills"])]
-    {:type :all-skills
-     :data d}))
+  (let [s (db/query spec ["select * from skills"])]
+    {:type :skills
+     :data s}))
+
+(defmethod server/save-data :remove-skill
+  [{:keys [username id uid]}]
+  (let [d (db/execute! spec ["delete from skilluser where uid=? and sid=?" uid id])]
+    (server/broadcast-update! {:type :skills
+                               :data (assoc (get-all-skills uid) :uid uid)})))
+
+(defmethod server/save-data :add-skill
+  [{:keys [username id uid]}]
+  (let [d (insert! :skilluser {:sid id :uid uid})]
+    (server/broadcast-update! {:type :skills
+                               :data (assoc (get-all-skills uid) :uid uid)})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bid
@@ -278,7 +310,6 @@
 (defmethod server/get-data :open-jobs
   [{:keys [status username] :as m}]
   (let [d (jobs status username)]
-    (println (str "***************** " (count d)))
     {:type :projects :data (jobs status username)}))
 
 (defmethod server/get-data :active-jobs
@@ -376,7 +407,9 @@
                             [:postcode :varchar]
                             [:phone :varchar]
                             [:middle :varchar]
-                            [:password :varchar "NOT NULL"]))
+                            [:password :varchar "NOT NULL"]
+                            [:synopsis :text]
+                            [:publications :text]))
         (db/db-do-commands spec
                           (db/create-table-ddl
                            :skilluser

@@ -81,6 +81,11 @@
   (put! (:pub-chan @app-state)
         {:topic {:comment (:pid data)} :type type :data data}))
 
+(defmethod publish-update :skills
+  [{:keys [type data]}]
+  (put! (:pub-chan @app-state)
+        {:topic {:skills (:uid data)} :type type :data (dissoc data :uid)}))
+
 (defmethod publish-update :amend-project-status
   [{:keys [type data]}]
   (put! (:pub-chan @app-state)

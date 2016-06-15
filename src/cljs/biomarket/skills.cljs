@@ -18,18 +18,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn skill-tags
-  [[project selected tag] owner]
+  [[project selected tag inline] owner]
   (om/component
-   (apply dom/div
-          #js {:className "tags"
-               :style #js {:padding-top "20px"}}
+   (apply (if inline dom/span dom/div)
+          #js {:className "tags"}
           (map #(dom/span
                  #js {:style #js {:padding-right "10px"}}
                  (dom/a
                   #js {:className (if (selected (:id %))
                                     "color2"
                                     "color1")
-                       :onClick (if tag (fn [_] (ut/pub-info owner tag %)))
+                       :onClick (if tag (fn [_]
+                                          (ut/pub-info owner tag %)))
                        :style #js {:cursor "pointer"}}
                   (:name %)))
                (:skills project)))))
