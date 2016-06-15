@@ -153,21 +153,24 @@
       (dom/div
        #js {:className "row"}
        (dom/div
-        #js {:className "col-md-12"}
+        #js {:className "col-md-6"}
         (apply
          dom/div
          #js {:className "btn-group" :role "group"}
          (map (fn [[tag ele]]
                 (dom/a
                  #js {:className (if (= visible tag)
-                                   "btn btn-default btn-sm active"
-                                   "btn btn-default btn-sm")
+                                   "btn btn-default active"
+                                   "btn btn-default")
                       :onClick #(pub-info owner (:id project)
                                           {:action :show-bottom
                                            :bottom-view
                                            (if (= visible tag) :default tag)})}
                  (first ele)))
-              links))))
+              links)))
+       (dom/div
+        #js {:className "col-md-6"}
+        (if widget (apply om/build (first widget) (rest widget)))))
       (condp = visible
         :default (dom/div #js {:className "row"}
                           (dom/div #js {:className "col-md-12"}
@@ -300,22 +303,24 @@
                               :style {:margin "0px"}} tparam))]
      (dom/div
       #js {:style #js {:background-color "white"}}
-      (dom/table
-       tjs
-       (dom/thead nil
-                  (apply dom/tr nil
-                         (map #(dom/th
-                                #js {:style #js {:text-align "center"}}
-                                %)
-                              (keys (first data)))))
-       (apply dom/tbody nil
-              (map (fn [x]
-                     (apply dom/tr nil
-                            (map #(dom/td
-                                   #js {:style #js {:text-align "center"}}
-                                   %)
-                                 (vals x))))
-                   data)))))))
+      (dom/div
+       #js {:className "table-responsive"}
+       (dom/table
+        tjs
+        (dom/thead nil
+                   (apply dom/tr nil
+                          (map #(dom/th
+                                 #js {:style #js {:text-align "center"}}
+                                 %)
+                               (keys (first data)))))
+        (apply dom/tbody nil
+               (map (fn [x]
+                      (apply dom/tr nil
+                             (map #(dom/td
+                                    #js {:style #js {:text-align "center"}}
+                                    %)
+                                  (vals x))))
+                    data))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; inputs

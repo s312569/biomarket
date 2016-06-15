@@ -233,18 +233,18 @@
   [owner]
   (let [cb (current-bid (:user-bids (om/get-state owner :project)))
         ab (js/parseFloat (:value (:amount (om/get-state owner :inputs))))]
-    (cond (and (not cb) (not (= ab 0)))
+    (cond (not cb)
           [(clj->js {:className "btn btn-primary"
                      :onClick #(button-func owner)})
-           "Submit"]
+           "Make a bid"]
           (= ab cb)
           [(clj->js {:className "btn btn-primary"
                      :disabled "disabled"})
-           "Update"]
+           "Update Bid"]
           :else
           [(clj->js {:className "btn btn-primary"
                      :onClick #(button-func owner)})
-           "Update"])))
+           "Update Bid"])))
 
 (defn- form-state
   [owner]
@@ -304,16 +304,13 @@
     (render-state [_ {:keys [inputs bid button-state form-state]}]
       (let [amount (:amount inputs)]
         (dom/div
-         nil
-         (dom/hr nil)
-         (dom/div
-          #js {:style #js {:text-align "left"}}
-          (dom/form
-           form-state
-           (dom/label #js {:style #js {:padding-right "20px"}}
-                      (str "Your current bid:"))
-           (dom/span
-            #js {:className "form-group input-group"}
+         #js {:style #js {:text-align "right"}}
+         (dom/form
+          form-state
+          (dom/div
+           #js {:className "form-group"}
+           (dom/div
+            #js {:className "input-group"}
             (dom/div #js {:className "input-group-addon"} "$")
             (dom/input #js {:className "form-control"
                             :value (:value amount)
@@ -321,6 +318,6 @@
                             :type (:type amount)
                             :onChange
                             #(ut/on-change-function
-                              owner (om/get-state owner :bid) :amount amount %)
-                            :style #js {:width "30%"}})
-            (apply dom/a button-state)))))))))
+                              owner (om/get-state owner :bid) :amount amount %)})
+            (dom/div #js {:className "input-group-addon"} (:basis project))))
+          (apply dom/a button-state)))))))

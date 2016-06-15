@@ -10,6 +10,7 @@
             [cljs-time.format :as tf]
             [biomarket.utilities :refer [log] :as ut]
             [biomarket.server :as server]
+            [biomarket.projectdisplay :as pd]
             [biomarket.skills :as skills])
   (:import [goog History]
            [goog.history EventType]))
@@ -286,6 +287,6 @@
     (render-state [_ {:keys [basis inputs nav selected-skills]}]
       (dom/div
        nil
-       (om/build new-project-nav nav)
+       (pd/project-nav owner)
        (om/build new-project [inputs selected-skills basis])
-       (om/build new-project-nav nav)))))
+       (pd/project-nav owner)))))

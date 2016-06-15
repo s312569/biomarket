@@ -19,7 +19,7 @@
 (defn update-projects
   [owner]
   (let [view (om/get-state owner :view)
-        status (second (view (om/get-state owner :inputs)))]
+        status (second (view (om/get-state owner :views)))]
     (server/get-data owner {:type view :status status}
                      #(om/set-state! owner :projects (:data %)))))
 
@@ -43,39 +43,23 @@
   [owner]
   (dom/div
    nil
-   (dom/div
-    #js {:style #js {:position "fixed"
-                     :zIndex 100000
-                     :width "75%"
-                     :left "50%"
-                     :margin-left "-37.5%"}}
-    (dom/div
-     #js {:className "panel panel-default"}
-     (dom/div
-      #js {:className "panel-heading"}
-      (dom/div
-       #js {:className "row"}
-       (dom/div
-        #js {:className "col-md-10"}
-        (apply dom/div #js {:className "btn-group" :role "group"}
-               (map (fn [[k [text dbstatus]]]
-                      (dom/a
-                       #js {:className (if (= (om/get-state owner :view) k)
-                                         "btn btn-default btn-sm active"
-                                         "btn btn-default btn-sm")
-                            :onClick (fn [_]
-                                       (ut/pub-info owner (om/get-state owner :ut) k))}
-                       text))
-                    (om/get-state owner :inputs))))
-       (dom/div
-        #js {:className "col-md-2" :style #js {:text-align "right"}}
-        (apply dom/div nil (map #(dom/a #js {:className "btn btn-primary btn-sm"
-                                             :onClick (second %)}
-                                        (first %))
-                                (om/get-state owner :nav))))))))
-   (dom/div
-    #js {:style #js {:height "60px"}}
-    "")))
+   (apply
+    dom/ul
+    #js {:className "nav nav-pills nav-justified"}
+    (concat (map (fn [[k [text dbstatus]]]
+                   (dom/li
+                    #js {:className (if (= (om/get-state owner :view) k) "active")
+                         :role "presentation"
+                         :onClick (fn [_]
+                                    (ut/pub-info owner (om/get-state owner :ut) k))}
+                    (dom/a #js {:href "#"} text)))
+                 (om/get-state owner :views))
+            (if (om/get-state owner :nav)
+              (map #(dom/li
+                     #js {:role "presentation"
+                          :onClick (second %)}
+                     (dom/a #js {:href "#"} (first %)))
+                   (om/get-state owner :nav)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bottom links

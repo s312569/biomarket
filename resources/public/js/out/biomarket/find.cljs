@@ -36,22 +36,17 @@
   (let [links {:skills ["Matched skills" show-skills]
                :bids ["Show bids" bid/show-bids]
                :discussion ["Discussion" com/comments nil]}]
-    (dom/div
-     nil
-     (dom/div
-      #js {:className "row"}
+    (if (seq (:bids p))
       (dom/div
-       #js {:className "col-md-12"}
-       (om/build bid/bid-widget p)))
-     (if (seq (:bids p))
-       (dom/div
-        nil
-        (dom/hr nil)
-        (om/build ut/bottom-skel (assoc p :links links)))
-       (dom/div
-        nil
-        (dom/hr nil)
-        (om/build ut/bottom-skel (assoc p :links (dissoc links :bids :discussion))))))))
+       nil
+       (dom/hr nil)
+       (om/build ut/bottom-skel (assoc p :links links :widget [bid/bid-widget p])))
+      (dom/div
+       nil
+       (dom/hr nil)
+       (om/build ut/bottom-skel (assoc p
+                                       :links (dissoc links :bids :discussion)
+                                       :widget [bid/bid-widget p]))))))
 
 (defn- find-view
   [_ owner]
@@ -68,28 +63,22 @@
                              (om/set-state! owner :projects))))
     om/IRenderState
     (render-state [_ {:keys [projects bottoms]}]
-      (let [ps (ut/split-projects projects)]
-        (dom/div
-         nil
-         (if (seq projects)
-           (dom/div
-            #js {:className "container-fluid"}
-            (dom/div
-             #js {:className "row"}
-             (apply
-              dom/div
-              #js {:className "col-md-6"}
-              (map #(om/build pd/project-summary [% :found-projects])
-                   (first ps)))
-             (apply
-              dom/div
-              #js {:className "col-md-6"}
-              (map #(om/build pd/project-summary [% :found-projects])
-                   (second ps)))))
-           (dom/div
-            #js {:style #js {:padding-top "30px"
-                             :text-align "center"}}
-            (str "No projects found"))))))))
+      (dom/div
+       nil
+       (if (seq projects)
+         (dom/div
+          #js {:className "container-fluid"}
+          (dom/div
+           #js {:className "row"}
+           (apply
+            dom/div
+            #js {:className "col-md-12"}
+            (map #(om/build pd/project-summary [% :found-projects])
+                 projects))))
+         (dom/div
+          #js {:style #js {:padding-top "30px"
+                           :text-align "center"}}
+          (str "No projects found")))))))
 
 
 

@@ -21,18 +21,11 @@
   [p]
   (let [links {:bids ["Bid history" bid/show-bids]
                :comments ["Discussion" com/comments (:username p)]}]
-    (dom/div
-     nil
-     (dom/div
-      #js {:className "row"}
+    (if (seq (:bids p))
       (dom/div
-       #js {:className "col-md-12"}
-       (om/build bid/bid-widget p)))
-     (if (seq (:bids p))
-       (dom/div
-        nil
-        (dom/hr nil)
-        (om/build ut/bottom-skel (assoc p :links links)))))))
+       nil
+       (dom/hr nil)
+       (om/build ut/bottom-skel (assoc p :links links :widget [bid/bid-widget p]))))))
 
 (defn- jobs-view
   [_ owner]
@@ -41,9 +34,9 @@
     (init-state [_]
       {:projects []
        :view :open-jobs
-       :inputs {:open-jobs ["Bidding" "open"]
-                :active-jobs ["Active jobs" "active"]
-                :completed-jobs ["Completed jobs" "completed"]}
+       :views {:open-jobs ["Bidding" "open"]
+               :active-jobs ["Active jobs" "active"]
+               :completed-jobs ["Completed jobs" "completed"]}
        :ut (gensym)
        :broadcast-chan (chan)})
     om/IDidMount
@@ -54,28 +47,22 @@
       (pd/navigation-unmount owner))
     om/IRenderState
     (render-state [_ {:keys [projects inputs view]}]
-      (let [ps (ut/split-projects projects)]
-        (dom/div
-         nil
-         (pd/project-nav owner)
-         (dom/div #js {:style #js {:padding-top "10px"}})
-         (if (seq projects)
-           (dom/div
-            #js {:className "container-fluid"}
-            (dom/div
-             #js {:className "row"}
-             (apply
-              dom/div
-              #js {:className "col-md-6"}
-              (map #(om/build pd/project-summary [% view])
-                   (first ps)))
-             (apply
-              dom/div
-              #js {:className "col-md-6"}
-              (map #(om/build pd/project-summary [% view])
-                   (second ps)))))
-           (dom/div
-            #js {:style #js {:padding-top "30px"
-                             :text-align "center"}}
-            (str "You have no " (first (view inputs))
-                 " projects."))))))))
+      (dom/div
+       nil
+       (pd/project-nav owner)
+       (dom/div #js {:style #js {:padding-top "10px"}})
+       (if (seq projects)
+         (dom/div
+          #js {:className "container-fluid"}
+          (dom/div
+           #js {:className "row"}
+           (apply
+            dom/div
+            #js {:className "col-md-12"}
+            (map #(om/build pd/project-summary [% view])
+                 projects))))
+         (dom/div
+          #js {:style #js {:padding-top "30px"
+                           :text-align "center"}}
+          (str "You have no " (first (view inputs))
+               " projects.")))))))
