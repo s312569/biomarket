@@ -66,7 +66,8 @@
           (map #(dom/li
                  #js {:className (if (= current (second %)) "active")}
                  (dom/a
-                  #js {:onClick (fn [_] (ut/pub-info owner ::navigation (second %)))
+                  #js {:onClick (fn [_]
+                                  (ut/pub-info owner ::navigation (second %)))
                        :style #js {:cursor "pointer"}}
                   (first %)))
                nav-items))))))))

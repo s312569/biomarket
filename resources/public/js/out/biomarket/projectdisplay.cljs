@@ -81,23 +81,6 @@
 ;; bottom links
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod ut/bottom :open-jobs
-  [p]
-  (let [links {:bids ["Bid history" bid/show-bids]
-               :comments ["Discussion" com/comments (:username p)]}]
-    (dom/div
-     nil
-     (dom/div
-      #js {:className "row"}
-      (dom/div
-       #js {:className "col-md-12"}
-       (om/build bid/bid-widget p)))
-     (if (seq (:bids p))
-       (dom/div
-        nil
-        (dom/hr nil)
-        (om/build ut/bottom-skel (assoc p :links links)))))))
-
 (defmethod ut/bottom :default
   [p]
   (if (seq (:bids p))

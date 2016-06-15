@@ -42,7 +42,7 @@
     (will-unmount [_]
       (pd/navigation-unmount owner))
     om/IRenderState
-    (render-state [_ {:keys [nav projects inputs view bottoms ut]}]
+    (render-state [_ {:keys [projects view]}]
       (let [ps (ut/split-projects projects)]
         (dom/div
          nil

@@ -204,7 +204,7 @@
 (defmethod server/get-data :user-skills
   [{:keys [username id]}]
   {:type :all-skills
-   :data (get-all-skills id)})
+   :data (get-user-skills id)})
 
 (defmethod server/get-data :all-skills
   [{:keys [username]}]
@@ -216,13 +216,13 @@
   [{:keys [username id uid]}]
   (let [d (db/execute! spec ["delete from skilluser where uid=? and sid=?" uid id])]
     (server/broadcast-update! {:type :skills
-                               :data (assoc (get-all-skills uid) :uid uid)})))
+                               :data (assoc (get-user-skills uid) :uid uid)})))
 
 (defmethod server/save-data :add-skill
   [{:keys [username id uid]}]
   (let [d (insert! :skilluser {:sid id :uid uid})]
     (server/broadcast-update! {:type :skills
-                               :data (assoc (get-all-skills uid) :uid uid)})))
+                               :data (assoc (get-user-skills uid) :uid uid)})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bid

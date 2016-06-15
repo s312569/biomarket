@@ -16,18 +16,18 @@ biomarket.projectdisplay.update_projects = (function biomarket$projectdisplay$up
 var view = om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"view","view",1247994814));
 var status = cljs.core.second.call(null,view.call(null,om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858))));
 return biomarket.server.get_data.call(null,owner,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"type","type",1174270348),view,new cljs.core.Keyword(null,"status","status",-1997798413),status], null),((function (view,status){
-return (function (p1__64748_SHARP_){
-return om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"projects","projects",-364845983),new cljs.core.Keyword(null,"data","data",-232669377).cljs$core$IFn$_invoke$arity$1(p1__64748_SHARP_));
+return (function (p1__50673_SHARP_){
+return om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"projects","projects",-364845983),new cljs.core.Keyword(null,"data","data",-232669377).cljs$core$IFn$_invoke$arity$1(p1__50673_SHARP_));
 });})(view,status))
 );
 });
 biomarket.projectdisplay.navigation_mount = (function biomarket$projectdisplay$navigation_mount(owner){
 biomarket.projectdisplay.update_projects.call(null,owner);
 
-biomarket.utilities.register_loop.call(null,owner,om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"ut","ut",-719415558)),(function (o,p__64752){
-var map__64753 = p__64752;
-var map__64753__$1 = ((((!((map__64753 == null)))?((((map__64753.cljs$lang$protocol_mask$partition0$ & (64))) || (map__64753.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__64753):map__64753);
-var data = cljs.core.get.call(null,map__64753__$1,new cljs.core.Keyword(null,"data","data",-232669377));
+biomarket.utilities.register_loop.call(null,owner,om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"ut","ut",-719415558)),(function (o,p__50677){
+var map__50678 = p__50677;
+var map__50678__$1 = ((((!((map__50678 == null)))?((((map__50678.cljs$lang$protocol_mask$partition0$ & (64))) || (map__50678.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__50678):map__50678);
+var data = cljs.core.get.call(null,map__50678__$1,new cljs.core.Keyword(null,"data","data",-232669377));
 om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"view","view",1247994814),data);
 
 return biomarket.projectdisplay.update_projects.call(null,owner);
@@ -41,25 +41,21 @@ biomarket.utilities.unsubscribe.call(null,owner,om.core.get_state.call(null,owne
 return biomarket.utilities.unsub_broadcast_loop.call(null,owner,new cljs.core.Keyword(null,"amend-project-status","amend-project-status",-1452060792),om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"broadcast-chan","broadcast-chan",723781718)));
 });
 biomarket.projectdisplay.project_nav = (function biomarket$projectdisplay$project_nav(owner){
-return React.DOM.div(null,React.DOM.div({"style": {"position": "fixed", "zIndex": (100000), "width": "75%", "left": "50%", "margin-left": "-37.5%"}},React.DOM.div({"className": "panel panel-default"},React.DOM.div({"className": "panel-heading"},React.DOM.div({"className": "row"},React.DOM.div({"className": "col-md-10"},cljs.core.apply.call(null,om.dom.div,{"className": "btn-group", "role": "group"},cljs.core.map.call(null,(function (p__64759){
-var vec__64760 = p__64759;
-var k = cljs.core.nth.call(null,vec__64760,(0),null);
-var vec__64761 = cljs.core.nth.call(null,vec__64760,(1),null);
-var text = cljs.core.nth.call(null,vec__64761,(0),null);
-var dbstatus = cljs.core.nth.call(null,vec__64761,(1),null);
-return React.DOM.a({"className": ((cljs.core._EQ_.call(null,om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"view","view",1247994814)),k))?"btn btn-default btn-sm active":"btn btn-default btn-sm"), "onClick": ((function (vec__64760,k,vec__64761,text,dbstatus){
+return React.DOM.div(null,React.DOM.div({"style": {"position": "fixed", "zIndex": (100000), "width": "75%", "left": "50%", "margin-left": "-37.5%"}},React.DOM.div({"className": "panel panel-default"},React.DOM.div({"className": "panel-heading"},React.DOM.div({"className": "row"},React.DOM.div({"className": "col-md-10"},cljs.core.apply.call(null,om.dom.div,{"className": "btn-group", "role": "group"},cljs.core.map.call(null,(function (p__50684){
+var vec__50685 = p__50684;
+var k = cljs.core.nth.call(null,vec__50685,(0),null);
+var vec__50686 = cljs.core.nth.call(null,vec__50685,(1),null);
+var text = cljs.core.nth.call(null,vec__50686,(0),null);
+var dbstatus = cljs.core.nth.call(null,vec__50686,(1),null);
+return React.DOM.a({"className": ((cljs.core._EQ_.call(null,om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"view","view",1247994814)),k))?"btn btn-default btn-sm active":"btn btn-default btn-sm"), "onClick": ((function (vec__50685,k,vec__50686,text,dbstatus){
 return (function (_){
 return biomarket.utilities.pub_info.call(null,owner,om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"ut","ut",-719415558)),k);
-});})(vec__64760,k,vec__64761,text,dbstatus))
+});})(vec__50685,k,vec__50686,text,dbstatus))
 },text);
-}),om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858))))),React.DOM.div({"className": "col-md-2", "style": {"text-align": "right"}},cljs.core.apply.call(null,om.dom.div,null,cljs.core.map.call(null,(function (p1__64755_SHARP_){
-return React.DOM.a({"className": "btn btn-primary btn-sm", "onClick": cljs.core.second.call(null,p1__64755_SHARP_)},cljs.core.first.call(null,p1__64755_SHARP_));
+}),om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"inputs","inputs",865803858))))),React.DOM.div({"className": "col-md-2", "style": {"text-align": "right"}},cljs.core.apply.call(null,om.dom.div,null,cljs.core.map.call(null,(function (p1__50680_SHARP_){
+return React.DOM.a({"className": "btn btn-primary btn-sm", "onClick": cljs.core.second.call(null,p1__50680_SHARP_)},cljs.core.first.call(null,p1__50680_SHARP_));
 }),om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"nav","nav",719540477))))))))),React.DOM.div({"style": {"height": "60px"}},""));
 });
-cljs.core._add_method.call(null,biomarket.utilities.bottom,new cljs.core.Keyword(null,"open-jobs","open-jobs",-1691637335),(function (p){
-var links = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"bids","bids",-1493194652),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["Bid history",biomarket.bids.show_bids], null),new cljs.core.Keyword(null,"comments","comments",-293346423),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, ["Discussion",biomarket.comments.comments,new cljs.core.Keyword(null,"username","username",1605666410).cljs$core$IFn$_invoke$arity$1(p)], null)], null);
-return React.DOM.div(null,React.DOM.div({"className": "row"},React.DOM.div({"className": "col-md-12"},om.core.build.call(null,biomarket.bids.bid_widget,p))),((cljs.core.seq.call(null,new cljs.core.Keyword(null,"bids","bids",-1493194652).cljs$core$IFn$_invoke$arity$1(p)))?React.DOM.div(null,React.DOM.hr(null),om.core.build.call(null,biomarket.utilities.bottom_skel,cljs.core.assoc.call(null,p,new cljs.core.Keyword(null,"links","links",-654507394),links))):null));
-}));
 cljs.core._add_method.call(null,biomarket.utilities.bottom,new cljs.core.Keyword(null,"default","default",-1987822328),(function (p){
 if(cljs.core.seq.call(null,new cljs.core.Keyword(null,"bids","bids",-1493194652).cljs$core$IFn$_invoke$arity$1(p))){
 return React.DOM.div(null,React.DOM.hr(null),om.core.build.call(null,biomarket.utilities.bottom_skel,cljs.core.assoc.call(null,p,new cljs.core.Keyword(null,"links","links",-654507394),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"bids","bids",-1493194652),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["Bids",biomarket.bids.bid_manage], null)], null))));
@@ -69,36 +65,36 @@ return null;
 }));
 if(typeof biomarket.projectdisplay.table_info !== 'undefined'){
 } else {
-biomarket.projectdisplay.table_info = (function (){var method_table__26734__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
-var prefer_table__26735__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
-var method_cache__26736__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
-var cached_hierarchy__26737__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
-var hierarchy__26738__auto__ = cljs.core.get.call(null,cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"hierarchy","hierarchy",-1053470341),cljs.core.get_global_hierarchy.call(null));
-return (new cljs.core.MultiFn(cljs.core.symbol.call(null,"biomarket.projectdisplay","table-info"),((function (method_table__26734__auto__,prefer_table__26735__auto__,method_cache__26736__auto__,cached_hierarchy__26737__auto__,hierarchy__26738__auto__){
+biomarket.projectdisplay.table_info = (function (){var method_table__26793__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
+var prefer_table__26794__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
+var method_cache__26795__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
+var cached_hierarchy__26796__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
+var hierarchy__26797__auto__ = cljs.core.get.call(null,cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"hierarchy","hierarchy",-1053470341),cljs.core.get_global_hierarchy.call(null));
+return (new cljs.core.MultiFn(cljs.core.symbol.call(null,"biomarket.projectdisplay","table-info"),((function (method_table__26793__auto__,prefer_table__26794__auto__,method_cache__26795__auto__,cached_hierarchy__26796__auto__,hierarchy__26797__auto__){
 return (function (project){
 return new cljs.core.Keyword(null,"view-type","view-type",-1848894559).cljs$core$IFn$_invoke$arity$1(project);
-});})(method_table__26734__auto__,prefer_table__26735__auto__,method_cache__26736__auto__,cached_hierarchy__26737__auto__,hierarchy__26738__auto__))
-,new cljs.core.Keyword(null,"default","default",-1987822328),hierarchy__26738__auto__,method_table__26734__auto__,prefer_table__26735__auto__,method_cache__26736__auto__,cached_hierarchy__26737__auto__));
+});})(method_table__26793__auto__,prefer_table__26794__auto__,method_cache__26795__auto__,cached_hierarchy__26796__auto__,hierarchy__26797__auto__))
+,new cljs.core.Keyword(null,"default","default",-1987822328),hierarchy__26797__auto__,method_table__26793__auto__,prefer_table__26794__auto__,method_cache__26795__auto__,cached_hierarchy__26796__auto__));
 })();
 }
 biomarket.projectdisplay.alert_table_info = (function biomarket$projectdisplay$alert_table_info(var_args){
-var args__26886__auto__ = [];
-var len__26879__auto___64763 = arguments.length;
-var i__26880__auto___64764 = (0);
+var args__26945__auto__ = [];
+var len__26938__auto___50688 = arguments.length;
+var i__26939__auto___50689 = (0);
 while(true){
-if((i__26880__auto___64764 < len__26879__auto___64763)){
-args__26886__auto__.push((arguments[i__26880__auto___64764]));
+if((i__26939__auto___50689 < len__26938__auto___50688)){
+args__26945__auto__.push((arguments[i__26939__auto___50689]));
 
-var G__64765 = (i__26880__auto___64764 + (1));
-i__26880__auto___64764 = G__64765;
+var G__50690 = (i__26939__auto___50689 + (1));
+i__26939__auto___50689 = G__50690;
 continue;
 } else {
 }
 break;
 }
 
-var argseq__26887__auto__ = ((((0) < args__26886__auto__.length))?(new cljs.core.IndexedSeq(args__26886__auto__.slice((0)),(0),null)):null);
-return biomarket.projectdisplay.alert_table_info.cljs$core$IFn$_invoke$arity$variadic(argseq__26887__auto__);
+var argseq__26946__auto__ = ((((0) < args__26945__auto__.length))?(new cljs.core.IndexedSeq(args__26945__auto__.slice((0)),(0),null)):null);
+return biomarket.projectdisplay.alert_table_info.cljs$core$IFn$_invoke$arity$variadic(argseq__26946__auto__);
 });
 
 biomarket.projectdisplay.alert_table_info.cljs$core$IFn$_invoke$arity$variadic = (function (fields){
@@ -107,8 +103,8 @@ return cljs.core.apply.call(null,om.dom.div,{"style": {"color": "red"}},fields);
 
 biomarket.projectdisplay.alert_table_info.cljs$lang$maxFixedArity = (0);
 
-biomarket.projectdisplay.alert_table_info.cljs$lang$applyTo = (function (seq64762){
-return biomarket.projectdisplay.alert_table_info.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null,seq64762));
+biomarket.projectdisplay.alert_table_info.cljs$lang$applyTo = (function (seq50687){
+return biomarket.projectdisplay.alert_table_info.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null,seq50687));
 });
 biomarket.projectdisplay.average_bid = (function biomarket$projectdisplay$average_bid(project){
 if(cljs.core.seq.call(null,new cljs.core.Keyword(null,"bids","bids",-1493194652).cljs$core$IFn$_invoke$arity$1(project))){
@@ -118,31 +114,31 @@ return null;
 }
 });
 cljs.core._add_method.call(null,biomarket.projectdisplay.table_info,new cljs.core.Keyword(null,"expired-projects","expired-projects",-250517250),(function (project){
-var f = (function (p1__64766_SHARP_){
-return biomarket.utilities.color_span.call(null,p1__64766_SHARP_,"green");
+var f = (function (p1__50691_SHARP_){
+return biomarket.utilities.color_span.call(null,p1__50691_SHARP_,"green");
 });
-return new cljs.core.PersistentArrayMap(null, 5, ["Bidding ended",biomarket.projectdisplay.alert_table_info.call(null,[cljs.core.str(new cljs.core.Keyword(null,"bidmin","bidmin",-2558125).cljs$core$IFn$_invoke$arity$1(project)),cljs.core.str(" ago")].join('')),"Project deadline",f.call(null,new cljs.core.Keyword(null,"projmin","projmin",-724900279).cljs$core$IFn$_invoke$arity$1(project)),"Bids",f.call(null,cljs.core.count.call(null,new cljs.core.Keyword(null,"bids","bids",-1493194652).cljs$core$IFn$_invoke$arity$1(project))),"Average bid (USD)",f.call(null,(function (){var or__25809__auto__ = biomarket.projectdisplay.average_bid.call(null,project);
-if(cljs.core.truth_(or__25809__auto__)){
-return or__25809__auto__;
+return new cljs.core.PersistentArrayMap(null, 5, ["Bidding ended",biomarket.projectdisplay.alert_table_info.call(null,[cljs.core.str(new cljs.core.Keyword(null,"bidmin","bidmin",-2558125).cljs$core$IFn$_invoke$arity$1(project)),cljs.core.str(" ago")].join('')),"Project deadline",f.call(null,new cljs.core.Keyword(null,"projmin","projmin",-724900279).cljs$core$IFn$_invoke$arity$1(project)),"Bids",f.call(null,cljs.core.count.call(null,new cljs.core.Keyword(null,"bids","bids",-1493194652).cljs$core$IFn$_invoke$arity$1(project))),"Average bid (USD)",f.call(null,(function (){var or__25868__auto__ = biomarket.projectdisplay.average_bid.call(null,project);
+if(cljs.core.truth_(or__25868__auto__)){
+return or__25868__auto__;
 } else {
 return "No bids received";
 }
 })()),"Budget (USD)",f.call(null,[cljs.core.str("$"),cljs.core.str(new cljs.core.Keyword(null,"budget","budget",-405386281).cljs$core$IFn$_invoke$arity$1(project))].join(''))], null);
 }));
 cljs.core._add_method.call(null,biomarket.projectdisplay.table_info,new cljs.core.Keyword(null,"default","default",-1987822328),(function (project){
-var f = (function (p1__64767_SHARP_){
-return biomarket.utilities.color_span.call(null,p1__64767_SHARP_,"green");
+var f = (function (p1__50692_SHARP_){
+return biomarket.utilities.color_span.call(null,p1__50692_SHARP_,"green");
 });
-return new cljs.core.PersistentArrayMap(null, 5, ["Bidding ends",f.call(null,new cljs.core.Keyword(null,"bidmin","bidmin",-2558125).cljs$core$IFn$_invoke$arity$1(project)),"Project deadline",f.call(null,new cljs.core.Keyword(null,"projmin","projmin",-724900279).cljs$core$IFn$_invoke$arity$1(project)),"Bids",f.call(null,cljs.core.count.call(null,new cljs.core.Keyword(null,"bids","bids",-1493194652).cljs$core$IFn$_invoke$arity$1(project))),"Average bid",f.call(null,(function (){var or__25809__auto__ = biomarket.projectdisplay.average_bid.call(null,project);
-if(cljs.core.truth_(or__25809__auto__)){
-return or__25809__auto__;
+return new cljs.core.PersistentArrayMap(null, 5, ["Bidding ends",f.call(null,new cljs.core.Keyword(null,"bidmin","bidmin",-2558125).cljs$core$IFn$_invoke$arity$1(project)),"Project deadline",f.call(null,new cljs.core.Keyword(null,"projmin","projmin",-724900279).cljs$core$IFn$_invoke$arity$1(project)),"Bids",f.call(null,cljs.core.count.call(null,new cljs.core.Keyword(null,"bids","bids",-1493194652).cljs$core$IFn$_invoke$arity$1(project))),"Average bid",f.call(null,(function (){var or__25868__auto__ = biomarket.projectdisplay.average_bid.call(null,project);
+if(cljs.core.truth_(or__25868__auto__)){
+return or__25868__auto__;
 } else {
 return "No bids yet";
 }
 })()),"Budget",f.call(null,[cljs.core.str("$"),cljs.core.str(new cljs.core.Keyword(null,"budget","budget",-405386281).cljs$core$IFn$_invoke$arity$1(project))].join(''))], null);
 }));
 biomarket.projectdisplay.info_table = (function biomarket$projectdisplay$info_table(project,owner){
-if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay64771 !== 'undefined'){
+if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay50696 !== 'undefined'){
 } else {
 
 /**
@@ -151,76 +147,76 @@ if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay64771 !== 'undefine
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.projectdisplay.t_biomarket$projectdisplay64771 = (function (info_table,project,owner,meta64772){
+biomarket.projectdisplay.t_biomarket$projectdisplay50696 = (function (info_table,project,owner,meta50697){
 this.info_table = info_table;
 this.project = project;
 this.owner = owner;
-this.meta64772 = meta64772;
+this.meta50697 = meta50697;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.projectdisplay.t_biomarket$projectdisplay64771.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_64773,meta64772__$1){
+biomarket.projectdisplay.t_biomarket$projectdisplay50696.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_50698,meta50697__$1){
 var self__ = this;
-var _64773__$1 = this;
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64771(self__.info_table,self__.project,self__.owner,meta64772__$1));
+var _50698__$1 = this;
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50696(self__.info_table,self__.project,self__.owner,meta50697__$1));
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64771.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_64773){
+biomarket.projectdisplay.t_biomarket$projectdisplay50696.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_50698){
 var self__ = this;
-var _64773__$1 = this;
-return self__.meta64772;
+var _50698__$1 = this;
+return self__.meta50697;
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64771.prototype.om$core$IRender$ = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50696.prototype.om$core$IRender$ = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64771.prototype.om$core$IRender$render$arity$1 = (function (this__36754__auto__){
+biomarket.projectdisplay.t_biomarket$projectdisplay50696.prototype.om$core$IRender$render$arity$1 = (function (this__28842__auto__){
 var self__ = this;
-var this__36754__auto____$1 = this;
+var this__28842__auto____$1 = this;
 var data = biomarket.projectdisplay.table_info.call(null,self__.project);
-return om.core.build.call(null,biomarket.utilities.make_a_table,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"data","data",-232669377),(function (){var x__26643__auto__ = data;
-return cljs.core._conj.call(null,cljs.core.List.EMPTY,x__26643__auto__);
+return om.core.build.call(null,biomarket.utilities.make_a_table,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"data","data",-232669377),(function (){var x__26702__auto__ = data;
+return cljs.core._conj.call(null,cljs.core.List.EMPTY,x__26702__auto__);
 })()], null));
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64771.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"info-table","info-table",-2047867662,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta64772","meta64772",-1187374292,null)], null);
+biomarket.projectdisplay.t_biomarket$projectdisplay50696.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"info-table","info-table",-2047867662,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"meta50697","meta50697",-1272771902,null)], null);
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64771.cljs$lang$type = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50696.cljs$lang$type = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64771.cljs$lang$ctorStr = "biomarket.projectdisplay/t_biomarket$projectdisplay64771";
+biomarket.projectdisplay.t_biomarket$projectdisplay50696.cljs$lang$ctorStr = "biomarket.projectdisplay/t_biomarket$projectdisplay50696";
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64771.cljs$lang$ctorPrWriter = (function (this__26415__auto__,writer__26416__auto__,opt__26417__auto__){
-return cljs.core._write.call(null,writer__26416__auto__,"biomarket.projectdisplay/t_biomarket$projectdisplay64771");
+biomarket.projectdisplay.t_biomarket$projectdisplay50696.cljs$lang$ctorPrWriter = (function (this__26474__auto__,writer__26475__auto__,opt__26476__auto__){
+return cljs.core._write.call(null,writer__26475__auto__,"biomarket.projectdisplay/t_biomarket$projectdisplay50696");
 });
 
-biomarket.projectdisplay.__GT_t_biomarket$projectdisplay64771 = (function biomarket$projectdisplay$info_table_$___GT_t_biomarket$projectdisplay64771(info_table__$1,project__$1,owner__$1,meta64772){
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64771(info_table__$1,project__$1,owner__$1,meta64772));
+biomarket.projectdisplay.__GT_t_biomarket$projectdisplay50696 = (function biomarket$projectdisplay$info_table_$___GT_t_biomarket$projectdisplay50696(info_table__$1,project__$1,owner__$1,meta50697){
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50696(info_table__$1,project__$1,owner__$1,meta50697));
 });
 
 }
 
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64771(biomarket$projectdisplay$info_table,project,owner,null));
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50696(biomarket$projectdisplay$info_table,project,owner,null));
 });
 biomarket.projectdisplay.label = (function biomarket$projectdisplay$label(class$,text){
 return React.DOM.span({"style": {"padding-right": "10px"}},React.DOM.span({"className": class$},text));
 });
 if(typeof biomarket.projectdisplay.title_labels !== 'undefined'){
 } else {
-biomarket.projectdisplay.title_labels = (function (){var method_table__26734__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
-var prefer_table__26735__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
-var method_cache__26736__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
-var cached_hierarchy__26737__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
-var hierarchy__26738__auto__ = cljs.core.get.call(null,cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"hierarchy","hierarchy",-1053470341),cljs.core.get_global_hierarchy.call(null));
-return (new cljs.core.MultiFn(cljs.core.symbol.call(null,"biomarket.projectdisplay","title-labels"),((function (method_table__26734__auto__,prefer_table__26735__auto__,method_cache__26736__auto__,cached_hierarchy__26737__auto__,hierarchy__26738__auto__){
+biomarket.projectdisplay.title_labels = (function (){var method_table__26793__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
+var prefer_table__26794__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
+var method_cache__26795__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
+var cached_hierarchy__26796__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);
+var hierarchy__26797__auto__ = cljs.core.get.call(null,cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"hierarchy","hierarchy",-1053470341),cljs.core.get_global_hierarchy.call(null));
+return (new cljs.core.MultiFn(cljs.core.symbol.call(null,"biomarket.projectdisplay","title-labels"),((function (method_table__26793__auto__,prefer_table__26794__auto__,method_cache__26795__auto__,cached_hierarchy__26796__auto__,hierarchy__26797__auto__){
 return (function (x){
 return new cljs.core.Keyword(null,"view-type","view-type",-1848894559).cljs$core$IFn$_invoke$arity$1(x);
-});})(method_table__26734__auto__,prefer_table__26735__auto__,method_cache__26736__auto__,cached_hierarchy__26737__auto__,hierarchy__26738__auto__))
-,new cljs.core.Keyword(null,"default","default",-1987822328),hierarchy__26738__auto__,method_table__26734__auto__,prefer_table__26735__auto__,method_cache__26736__auto__,cached_hierarchy__26737__auto__));
+});})(method_table__26793__auto__,prefer_table__26794__auto__,method_cache__26795__auto__,cached_hierarchy__26796__auto__,hierarchy__26797__auto__))
+,new cljs.core.Keyword(null,"default","default",-1987822328),hierarchy__26797__auto__,method_table__26793__auto__,prefer_table__26794__auto__,method_cache__26795__auto__,cached_hierarchy__26796__auto__));
 })();
 }
 cljs.core._add_method.call(null,biomarket.projectdisplay.title_labels,new cljs.core.Keyword(null,"default","default",-1987822328),(function (project){
-if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay64774 !== 'undefined'){
+if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay50699 !== 'undefined'){
 } else {
 
 /**
@@ -229,29 +225,29 @@ if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay64774 !== 'undefine
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.projectdisplay.t_biomarket$projectdisplay64774 = (function (project,meta64775){
+biomarket.projectdisplay.t_biomarket$projectdisplay50699 = (function (project,meta50700){
 this.project = project;
-this.meta64775 = meta64775;
+this.meta50700 = meta50700;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.projectdisplay.t_biomarket$projectdisplay64774.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_64776,meta64775__$1){
+biomarket.projectdisplay.t_biomarket$projectdisplay50699.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_50701,meta50700__$1){
 var self__ = this;
-var _64776__$1 = this;
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64774(self__.project,meta64775__$1));
+var _50701__$1 = this;
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50699(self__.project,meta50700__$1));
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64774.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_64776){
+biomarket.projectdisplay.t_biomarket$projectdisplay50699.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_50701){
 var self__ = this;
-var _64776__$1 = this;
-return self__.meta64775;
+var _50701__$1 = this;
+return self__.meta50700;
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64774.prototype.om$core$IRender$ = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50699.prototype.om$core$IRender$ = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64774.prototype.om$core$IRender$render$arity$1 = (function (this__36754__auto__){
+biomarket.projectdisplay.t_biomarket$projectdisplay50699.prototype.om$core$IRender$render$arity$1 = (function (this__28842__auto__){
 var self__ = this;
-var this__36754__auto____$1 = this;
+var this__28842__auto____$1 = this;
 return React.DOM.h4({"style": {"font-weight": "bold"}},React.DOM.span({"style": {"padding-right": "10px"}},[cljs.core.str(new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(self__.project)),cljs.core.str("  ")].join('')),(function (){var best = biomarket.bids.best_bid.call(null,new cljs.core.Keyword(null,"bids","bids",-1493194652).cljs$core$IFn$_invoke$arity$1(self__.project));
 if(cljs.core.truth_(best)){
 return biomarket.projectdisplay.label.call(null,"label label-success",[cljs.core.str("Best bid: $"),cljs.core.str(new cljs.core.Keyword(null,"amount","amount",364489504).cljs$core$IFn$_invoke$arity$1(best))].join(''));
@@ -261,28 +257,28 @@ return biomarket.projectdisplay.label.call(null,"label label-danger","No bids ye
 })());
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64774.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"meta64775","meta64775",-7887821,null)], null);
+biomarket.projectdisplay.t_biomarket$projectdisplay50699.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"meta50700","meta50700",-1823756234,null)], null);
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64774.cljs$lang$type = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50699.cljs$lang$type = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64774.cljs$lang$ctorStr = "biomarket.projectdisplay/t_biomarket$projectdisplay64774";
+biomarket.projectdisplay.t_biomarket$projectdisplay50699.cljs$lang$ctorStr = "biomarket.projectdisplay/t_biomarket$projectdisplay50699";
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64774.cljs$lang$ctorPrWriter = (function (this__26415__auto__,writer__26416__auto__,opt__26417__auto__){
-return cljs.core._write.call(null,writer__26416__auto__,"biomarket.projectdisplay/t_biomarket$projectdisplay64774");
+biomarket.projectdisplay.t_biomarket$projectdisplay50699.cljs$lang$ctorPrWriter = (function (this__26474__auto__,writer__26475__auto__,opt__26476__auto__){
+return cljs.core._write.call(null,writer__26475__auto__,"biomarket.projectdisplay/t_biomarket$projectdisplay50699");
 });
 
-biomarket.projectdisplay.__GT_t_biomarket$projectdisplay64774 = (function biomarket$projectdisplay$__GT_t_biomarket$projectdisplay64774(project__$1,meta64775){
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64774(project__$1,meta64775));
+biomarket.projectdisplay.__GT_t_biomarket$projectdisplay50699 = (function biomarket$projectdisplay$__GT_t_biomarket$projectdisplay50699(project__$1,meta50700){
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50699(project__$1,meta50700));
 });
 
 }
 
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64774(project,null));
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50699(project,null));
 }));
 cljs.core._add_method.call(null,biomarket.projectdisplay.title_labels,new cljs.core.Keyword(null,"expired-projects","expired-projects",-250517250),(function (project){
-if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay64777 !== 'undefined'){
+if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay50702 !== 'undefined'){
 } else {
 
 /**
@@ -291,29 +287,29 @@ if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay64777 !== 'undefine
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.projectdisplay.t_biomarket$projectdisplay64777 = (function (project,meta64778){
+biomarket.projectdisplay.t_biomarket$projectdisplay50702 = (function (project,meta50703){
 this.project = project;
-this.meta64778 = meta64778;
+this.meta50703 = meta50703;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.projectdisplay.t_biomarket$projectdisplay64777.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_64779,meta64778__$1){
+biomarket.projectdisplay.t_biomarket$projectdisplay50702.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_50704,meta50703__$1){
 var self__ = this;
-var _64779__$1 = this;
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64777(self__.project,meta64778__$1));
+var _50704__$1 = this;
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50702(self__.project,meta50703__$1));
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64777.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_64779){
+biomarket.projectdisplay.t_biomarket$projectdisplay50702.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_50704){
 var self__ = this;
-var _64779__$1 = this;
-return self__.meta64778;
+var _50704__$1 = this;
+return self__.meta50703;
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64777.prototype.om$core$IRender$ = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50702.prototype.om$core$IRender$ = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64777.prototype.om$core$IRender$render$arity$1 = (function (this__36754__auto__){
+biomarket.projectdisplay.t_biomarket$projectdisplay50702.prototype.om$core$IRender$render$arity$1 = (function (this__28842__auto__){
 var self__ = this;
-var this__36754__auto____$1 = this;
+var this__28842__auto____$1 = this;
 return React.DOM.h4({"style": {"font-weight": "bold"}},React.DOM.span({"style": {"padding-right": "10px"}},[cljs.core.str(new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(self__.project)),cljs.core.str("  ")].join('')),(function (){var best = biomarket.bids.best_bid.call(null,new cljs.core.Keyword(null,"bids","bids",-1493194652).cljs$core$IFn$_invoke$arity$1(self__.project));
 if(cljs.core.truth_(best)){
 return biomarket.projectdisplay.label.call(null,"label label-success",[cljs.core.str("Best bid: $"),cljs.core.str(new cljs.core.Keyword(null,"amount","amount",364489504).cljs$core$IFn$_invoke$arity$1(best))].join(''));
@@ -323,28 +319,28 @@ return biomarket.projectdisplay.label.call(null,"label label-danger","No bids");
 })());
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64777.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"meta64778","meta64778",-1746397808,null)], null);
+biomarket.projectdisplay.t_biomarket$projectdisplay50702.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"meta50703","meta50703",1229470377,null)], null);
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64777.cljs$lang$type = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50702.cljs$lang$type = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64777.cljs$lang$ctorStr = "biomarket.projectdisplay/t_biomarket$projectdisplay64777";
+biomarket.projectdisplay.t_biomarket$projectdisplay50702.cljs$lang$ctorStr = "biomarket.projectdisplay/t_biomarket$projectdisplay50702";
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64777.cljs$lang$ctorPrWriter = (function (this__26415__auto__,writer__26416__auto__,opt__26417__auto__){
-return cljs.core._write.call(null,writer__26416__auto__,"biomarket.projectdisplay/t_biomarket$projectdisplay64777");
+biomarket.projectdisplay.t_biomarket$projectdisplay50702.cljs$lang$ctorPrWriter = (function (this__26474__auto__,writer__26475__auto__,opt__26476__auto__){
+return cljs.core._write.call(null,writer__26475__auto__,"biomarket.projectdisplay/t_biomarket$projectdisplay50702");
 });
 
-biomarket.projectdisplay.__GT_t_biomarket$projectdisplay64777 = (function biomarket$projectdisplay$__GT_t_biomarket$projectdisplay64777(project__$1,meta64778){
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64777(project__$1,meta64778));
+biomarket.projectdisplay.__GT_t_biomarket$projectdisplay50702 = (function biomarket$projectdisplay$__GT_t_biomarket$projectdisplay50702(project__$1,meta50703){
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50702(project__$1,meta50703));
 });
 
 }
 
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64777(project,null));
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50702(project,null));
 }));
 cljs.core._add_method.call(null,biomarket.projectdisplay.title_labels,new cljs.core.Keyword(null,"find","find",496279456),(function (project){
-if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay64780 !== 'undefined'){
+if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay50705 !== 'undefined'){
 } else {
 
 /**
@@ -353,45 +349,45 @@ if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay64780 !== 'undefine
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.projectdisplay.t_biomarket$projectdisplay64780 = (function (project,meta64781){
+biomarket.projectdisplay.t_biomarket$projectdisplay50705 = (function (project,meta50706){
 this.project = project;
-this.meta64781 = meta64781;
+this.meta50706 = meta50706;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.projectdisplay.t_biomarket$projectdisplay64780.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_64782,meta64781__$1){
+biomarket.projectdisplay.t_biomarket$projectdisplay50705.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_50707,meta50706__$1){
 var self__ = this;
-var _64782__$1 = this;
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64780(self__.project,meta64781__$1));
+var _50707__$1 = this;
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50705(self__.project,meta50706__$1));
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64780.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_64782){
+biomarket.projectdisplay.t_biomarket$projectdisplay50705.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_50707){
 var self__ = this;
-var _64782__$1 = this;
-return self__.meta64781;
+var _50707__$1 = this;
+return self__.meta50706;
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64780.prototype.om$core$IRender$ = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50705.prototype.om$core$IRender$ = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64780.prototype.om$core$IRender$render$arity$1 = (function (this__36754__auto__){
+biomarket.projectdisplay.t_biomarket$projectdisplay50705.prototype.om$core$IRender$render$arity$1 = (function (this__28842__auto__){
 var self__ = this;
-var this__36754__auto____$1 = this;
+var this__28842__auto____$1 = this;
 return React.DOM.h4({"style": {"font-weight": "bold"}},React.DOM.span({"style": {"padding-right": "10px"}},[cljs.core.str(new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(self__.project)),cljs.core.str("  ")].join('')),(function (){var ub = cljs.core.first.call(null,cljs.core.sort_by.call(null,new cljs.core.Keyword(null,"time","time",1385887882),cljs.core._GT_,new cljs.core.Keyword(null,"user-bids","user-bids",-736079184).cljs$core$IFn$_invoke$arity$1(self__.project)));
 var best = biomarket.bids.best_bid.call(null,new cljs.core.Keyword(null,"bids","bids",-1493194652).cljs$core$IFn$_invoke$arity$1(self__.project));
-if(cljs.core.truth_((function (){var and__25797__auto__ = ub;
-if(cljs.core.truth_(and__25797__auto__)){
+if(cljs.core.truth_((function (){var and__25856__auto__ = ub;
+if(cljs.core.truth_(and__25856__auto__)){
 return (new cljs.core.Keyword(null,"amount","amount",364489504).cljs$core$IFn$_invoke$arity$1(best) >= new cljs.core.Keyword(null,"amount","amount",364489504).cljs$core$IFn$_invoke$arity$1(ub));
 } else {
-return and__25797__auto__;
+return and__25856__auto__;
 }
 })())){
 return React.DOM.span(null,biomarket.projectdisplay.label.call(null,"label label-success",[cljs.core.str("Best bid: $"),cljs.core.str(new cljs.core.Keyword(null,"amount","amount",364489504).cljs$core$IFn$_invoke$arity$1(best))].join('')),biomarket.projectdisplay.label.call(null,"label label-success",[cljs.core.str("Your bid: $"),cljs.core.str(new cljs.core.Keyword(null,"amount","amount",364489504).cljs$core$IFn$_invoke$arity$1(ub))].join('')));
 } else {
-if(cljs.core.truth_((function (){var and__25797__auto__ = ub;
-if(cljs.core.truth_(and__25797__auto__)){
+if(cljs.core.truth_((function (){var and__25856__auto__ = ub;
+if(cljs.core.truth_(and__25856__auto__)){
 return (new cljs.core.Keyword(null,"amount","amount",364489504).cljs$core$IFn$_invoke$arity$1(best) < new cljs.core.Keyword(null,"amount","amount",364489504).cljs$core$IFn$_invoke$arity$1(ub));
 } else {
-return and__25797__auto__;
+return and__25856__auto__;
 }
 })())){
 return React.DOM.span(null,biomarket.projectdisplay.label.call(null,"label label-success",[cljs.core.str("Best bid: $"),cljs.core.str(new cljs.core.Keyword(null,"amount","amount",364489504).cljs$core$IFn$_invoke$arity$1(best))].join('')),biomarket.projectdisplay.label.call(null,"label label-danger",[cljs.core.str("Your bid: $"),cljs.core.str(new cljs.core.Keyword(null,"amount","amount",364489504).cljs$core$IFn$_invoke$arity$1(ub))].join('')));
@@ -407,33 +403,33 @@ return biomarket.projectdisplay.label.call(null,"label label-danger","No bids ye
 })());
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64780.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"meta64781","meta64781",-195256122,null)], null);
+biomarket.projectdisplay.t_biomarket$projectdisplay50705.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"meta50706","meta50706",-1892727664,null)], null);
 });
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64780.cljs$lang$type = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50705.cljs$lang$type = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64780.cljs$lang$ctorStr = "biomarket.projectdisplay/t_biomarket$projectdisplay64780";
+biomarket.projectdisplay.t_biomarket$projectdisplay50705.cljs$lang$ctorStr = "biomarket.projectdisplay/t_biomarket$projectdisplay50705";
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64780.cljs$lang$ctorPrWriter = (function (this__26415__auto__,writer__26416__auto__,opt__26417__auto__){
-return cljs.core._write.call(null,writer__26416__auto__,"biomarket.projectdisplay/t_biomarket$projectdisplay64780");
+biomarket.projectdisplay.t_biomarket$projectdisplay50705.cljs$lang$ctorPrWriter = (function (this__26474__auto__,writer__26475__auto__,opt__26476__auto__){
+return cljs.core._write.call(null,writer__26475__auto__,"biomarket.projectdisplay/t_biomarket$projectdisplay50705");
 });
 
-biomarket.projectdisplay.__GT_t_biomarket$projectdisplay64780 = (function biomarket$projectdisplay$__GT_t_biomarket$projectdisplay64780(project__$1,meta64781){
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64780(project__$1,meta64781));
+biomarket.projectdisplay.__GT_t_biomarket$projectdisplay50705 = (function biomarket$projectdisplay$__GT_t_biomarket$projectdisplay50705(project__$1,meta50706){
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50705(project__$1,meta50706));
 });
 
 }
 
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64780(project,null));
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50705(project,null));
 }));
 biomarket.projectdisplay.header = (function biomarket$projectdisplay$header(p){
 return React.DOM.div({"className": "container-fluid", "style": {"margin-top": "10px"}},React.DOM.div({"className": "row"},React.DOM.div({"className": "col-md-10", "style": {"color": "#D3D3D3"}},React.DOM.i({"className": "fa fa-bullseye"}),[cljs.core.str("  Posted by "),cljs.core.str(new cljs.core.Keyword(null,"username","username",1605666410).cljs$core$IFn$_invoke$arity$1(p))].join('')),React.DOM.div({"className": "col-md-2", "style": {"text-align": "right"}},biomarket.dropdown.drop_down.call(null,p))));
 });
-cljs.core._add_method.call(null,biomarket.utilities.loop_manager,new cljs.core.Keyword(null,"bid-show","bid-show",1619367577),(function (owner,p__64783){
-var map__64784 = p__64783;
-var map__64784__$1 = ((((!((map__64784 == null)))?((((map__64784.cljs$lang$protocol_mask$partition0$ & (64))) || (map__64784.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__64784):map__64784);
-var data = cljs.core.get.call(null,map__64784__$1,new cljs.core.Keyword(null,"data","data",-232669377));
+cljs.core._add_method.call(null,biomarket.utilities.loop_manager,new cljs.core.Keyword(null,"bid-show","bid-show",1619367577),(function (owner,p__50708){
+var map__50709 = p__50708;
+var map__50709__$1 = ((((!((map__50709 == null)))?((((map__50709.cljs$lang$protocol_mask$partition0$ & (64))) || (map__50709.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__50709):map__50709);
+var data = cljs.core.get.call(null,map__50709__$1,new cljs.core.Keyword(null,"data","data",-232669377));
 if(cljs.core.truth_(new cljs.core.Keyword(null,"bid","bid",-1944960257).cljs$core$IFn$_invoke$arity$1(data))){
 om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"show-bid","show-bid",1624255408),new cljs.core.Keyword(null,"bid","bid",-1944960257).cljs$core$IFn$_invoke$arity$1(data));
 
@@ -444,10 +440,10 @@ om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"show-bid","s
 return om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"bottom-view","bottom-view",1740669585),new cljs.core.Keyword(null,"bids","bids",-1493194652));
 }
 }));
-cljs.core._add_method.call(null,biomarket.utilities.loop_manager,new cljs.core.Keyword(null,"show-bottom","show-bottom",-1162121528),(function (owner,p__64786){
-var map__64787 = p__64786;
-var map__64787__$1 = ((((!((map__64787 == null)))?((((map__64787.cljs$lang$protocol_mask$partition0$ & (64))) || (map__64787.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__64787):map__64787);
-var data = cljs.core.get.call(null,map__64787__$1,new cljs.core.Keyword(null,"data","data",-232669377));
+cljs.core._add_method.call(null,biomarket.utilities.loop_manager,new cljs.core.Keyword(null,"show-bottom","show-bottom",-1162121528),(function (owner,p__50711){
+var map__50712 = p__50711;
+var map__50712__$1 = ((((!((map__50712 == null)))?((((map__50712.cljs$lang$protocol_mask$partition0$ & (64))) || (map__50712.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__50712):map__50712);
+var data = cljs.core.get.call(null,map__50712__$1,new cljs.core.Keyword(null,"data","data",-232669377));
 return om.core.set_state_BANG_.call(null,owner,new cljs.core.Keyword(null,"bottom-view","bottom-view",1740669585),new cljs.core.Keyword(null,"bottom-view","bottom-view",1740669585).cljs$core$IFn$_invoke$arity$1(data));
 }));
 biomarket.projectdisplay.project_mount = (function biomarket$projectdisplay$project_mount(owner){
@@ -467,11 +463,11 @@ var project = om.core.get_state.call(null,owner,new cljs.core.Keyword(null,"proj
 var h = om.core.get_node.call(null,owner,[cljs.core.str(new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$2(project,"-panel"))].join(''));
 return h.clientHeight;
 });
-biomarket.projectdisplay.project_summary = (function biomarket$projectdisplay$project_summary(p__64789,owner){
-var vec__64799 = p__64789;
-var project = cljs.core.nth.call(null,vec__64799,(0),null);
-var view_type = cljs.core.nth.call(null,vec__64799,(1),null);
-if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay64800 !== 'undefined'){
+biomarket.projectdisplay.project_summary = (function biomarket$projectdisplay$project_summary(p__50714,owner){
+var vec__50724 = p__50714;
+var project = cljs.core.nth.call(null,vec__50724,(0),null);
+var view_type = cljs.core.nth.call(null,vec__50724,(1),null);
+if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay50725 !== 'undefined'){
 } else {
 
 /**
@@ -485,66 +481,66 @@ if(typeof biomarket.projectdisplay.t_biomarket$projectdisplay64800 !== 'undefine
  * @implements {om.core.IInitState}
  * @implements {cljs.core.IWithMeta}
 */
-biomarket.projectdisplay.t_biomarket$projectdisplay64800 = (function (project_summary,p__64789,owner,vec__64799,project,view_type,meta64801){
+biomarket.projectdisplay.t_biomarket$projectdisplay50725 = (function (project_summary,p__50714,owner,vec__50724,project,view_type,meta50726){
 this.project_summary = project_summary;
-this.p__64789 = p__64789;
+this.p__50714 = p__50714;
 this.owner = owner;
-this.vec__64799 = vec__64799;
+this.vec__50724 = vec__50724;
 this.project = project;
 this.view_type = view_type;
-this.meta64801 = meta64801;
+this.meta50726 = meta50726;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = ((function (vec__64799,project,view_type){
-return (function (_64802,meta64801__$1){
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = ((function (vec__50724,project,view_type){
+return (function (_50727,meta50726__$1){
 var self__ = this;
-var _64802__$1 = this;
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64800(self__.project_summary,self__.p__64789,self__.owner,self__.vec__64799,self__.project,self__.view_type,meta64801__$1));
-});})(vec__64799,project,view_type))
+var _50727__$1 = this;
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50725(self__.project_summary,self__.p__50714,self__.owner,self__.vec__50724,self__.project,self__.view_type,meta50726__$1));
+});})(vec__50724,project,view_type))
 ;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.cljs$core$IMeta$_meta$arity$1 = ((function (vec__64799,project,view_type){
-return (function (_64802){
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.cljs$core$IMeta$_meta$arity$1 = ((function (vec__50724,project,view_type){
+return (function (_50727){
 var self__ = this;
-var _64802__$1 = this;
-return self__.meta64801;
-});})(vec__64799,project,view_type))
+var _50727__$1 = this;
+return self__.meta50726;
+});})(vec__50724,project,view_type))
 ;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IInitState$ = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IInitState$ = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IInitState$init_state$arity$1 = ((function (vec__64799,project,view_type){
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IInitState$init_state$arity$1 = ((function (vec__50724,project,view_type){
 return (function (_){
 var self__ = this;
 var ___$1 = this;
 return new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"project","project",1124394579),cljs.core.assoc.call(null,self__.project,new cljs.core.Keyword(null,"view-type","view-type",-1848894559),self__.view_type,new cljs.core.Keyword(null,"bottom-view","bottom-view",1740669585),new cljs.core.Keyword(null,"default","default",-1987822328)),new cljs.core.Keyword(null,"broadcast-chan","broadcast-chan",723781718),cljs.core.async.chan.call(null),new cljs.core.Keyword(null,"view-type","view-type",-1848894559),self__.view_type,new cljs.core.Keyword(null,"show-bid","show-bid",1624255408),false,new cljs.core.Keyword(null,"bottom-view","bottom-view",1740669585),new cljs.core.Keyword(null,"default","default",-1987822328)], null);
-});})(vec__64799,project,view_type))
+});})(vec__50724,project,view_type))
 ;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IWillMount$ = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IWillMount$ = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IWillMount$will_mount$arity$1 = ((function (vec__64799,project,view_type){
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IWillMount$will_mount$arity$1 = ((function (vec__50724,project,view_type){
 return (function (_){
 var self__ = this;
 var ___$1 = this;
 return biomarket.projectdisplay.project_mount.call(null,self__.owner);
-});})(vec__64799,project,view_type))
+});})(vec__50724,project,view_type))
 ;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IWillUnmount$ = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IWillUnmount$ = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IWillUnmount$will_unmount$arity$1 = ((function (vec__64799,project,view_type){
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IWillUnmount$will_unmount$arity$1 = ((function (vec__50724,project,view_type){
 return (function (_){
 var self__ = this;
 var ___$1 = this;
 return biomarket.projectdisplay.project_unmount.call(null,self__.owner);
-});})(vec__64799,project,view_type))
+});})(vec__50724,project,view_type))
 ;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IDidUpdate$ = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IDidUpdate$ = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IDidUpdate$did_update$arity$3 = ((function (vec__64799,project,view_type){
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IDidUpdate$did_update$arity$3 = ((function (vec__50724,project,view_type){
 return (function (_,___$1,___$2){
 var self__ = this;
 var ___$3 = this;
@@ -553,69 +549,69 @@ return null;
 } else {
 return om.core.set_state_BANG_.call(null,self__.owner,new cljs.core.Keyword(null,"height","height",1025178622),biomarket.projectdisplay.get_height.call(null,self__.owner));
 }
-});})(vec__64799,project,view_type))
+});})(vec__50724,project,view_type))
 ;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IWillReceiveProps$ = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IWillReceiveProps$ = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IWillReceiveProps$will_receive_props$arity$2 = ((function (vec__64799,project,view_type){
-return (function (_,p__64803){
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IWillReceiveProps$will_receive_props$arity$2 = ((function (vec__50724,project,view_type){
+return (function (_,p__50728){
 var self__ = this;
-var vec__64804 = p__64803;
-var np = cljs.core.nth.call(null,vec__64804,(0),null);
-var nv = cljs.core.nth.call(null,vec__64804,(1),null);
+var vec__50729 = p__50728;
+var np = cljs.core.nth.call(null,vec__50729,(0),null);
+var nv = cljs.core.nth.call(null,vec__50729,(1),null);
 var ___$1 = this;
 var op = cljs.core.first.call(null,om.core.get_props.call(null,self__.owner));
 om.core.set_state_BANG_.call(null,self__.owner,new cljs.core.Keyword(null,"project","project",1124394579),cljs.core.assoc.call(null,np,new cljs.core.Keyword(null,"view-type","view-type",-1848894559),nv));
 
 return om.core.set_state_BANG_.call(null,self__.owner,new cljs.core.Keyword(null,"show-bid","show-bid",1624255408),false);
-});})(vec__64799,project,view_type))
+});})(vec__50724,project,view_type))
 ;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IRenderState$ = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IRenderState$ = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.prototype.om$core$IRenderState$render_state$arity$2 = ((function (vec__64799,project,view_type){
-return (function (_,p__64805){
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.prototype.om$core$IRenderState$render_state$arity$2 = ((function (vec__50724,project,view_type){
+return (function (_,p__50730){
 var self__ = this;
-var map__64806 = p__64805;
-var map__64806__$1 = ((((!((map__64806 == null)))?((((map__64806.cljs$lang$protocol_mask$partition0$ & (64))) || (map__64806.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__64806):map__64806);
-var project__$1 = cljs.core.get.call(null,map__64806__$1,new cljs.core.Keyword(null,"project","project",1124394579));
-var show_bid = cljs.core.get.call(null,map__64806__$1,new cljs.core.Keyword(null,"show-bid","show-bid",1624255408));
-var bottom_view = cljs.core.get.call(null,map__64806__$1,new cljs.core.Keyword(null,"bottom-view","bottom-view",1740669585));
+var map__50731 = p__50730;
+var map__50731__$1 = ((((!((map__50731 == null)))?((((map__50731.cljs$lang$protocol_mask$partition0$ & (64))) || (map__50731.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__50731):map__50731);
+var project__$1 = cljs.core.get.call(null,map__50731__$1,new cljs.core.Keyword(null,"project","project",1124394579));
+var show_bid = cljs.core.get.call(null,map__50731__$1,new cljs.core.Keyword(null,"show-bid","show-bid",1624255408));
+var bottom_view = cljs.core.get.call(null,map__50731__$1,new cljs.core.Keyword(null,"bottom-view","bottom-view",1740669585));
 var ___$1 = this;
 if(cljs.core.not.call(null,show_bid)){
 return React.DOM.div({"className": "container-fluid", "style": {"position": "relative"}},React.DOM.div({"className": "panel panel-default", "ref": [cljs.core.str(new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$2(project__$1,"-panel"))].join('')},React.DOM.div(null,biomarket.projectdisplay.header.call(null,project__$1)),React.DOM.div({"className": "panel-body"},((cljs.core.not.call(null,show_bid))?React.DOM.div(null,React.DOM.div(null,om.core.build.call(null,biomarket.projectdisplay.title_labels,project__$1)),React.DOM.div(null,om.core.build.call(null,biomarket.projectdisplay.info_table,project__$1)),om.core.build.call(null,biomarket.utilities.more_less_text,new cljs.core.Keyword(null,"description","description",-1428560544).cljs$core$IFn$_invoke$arity$1(project__$1)),biomarket.utilities.bottom.call(null,cljs.core.assoc.call(null,project__$1,new cljs.core.Keyword(null,"bottom-view","bottom-view",1740669585),bottom_view))):null))));
 } else {
 return om.core.build.call(null,biomarket.bids.bid_view,cljs.core.assoc.call(null,project__$1,new cljs.core.Keyword(null,"bottom-view","bottom-view",1740669585),bottom_view,new cljs.core.Keyword(null,"show-bid","show-bid",1624255408),show_bid,new cljs.core.Keyword(null,"height","height",1025178622),om.core.get_state.call(null,self__.owner,new cljs.core.Keyword(null,"height","height",1025178622))));
 }
-});})(vec__64799,project,view_type))
+});})(vec__50724,project,view_type))
 ;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.getBasis = ((function (vec__64799,project,view_type){
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.getBasis = ((function (vec__50724,project,view_type){
 return (function (){
-return new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"project-summary","project-summary",1896971412,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"view-type","view-type",-208363032,null)], null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"p__64789","p__64789",-249910870,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"vec__64799","vec__64799",-447323981,null),new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"view-type","view-type",-208363032,null),new cljs.core.Symbol(null,"meta64801","meta64801",-692663460,null)], null);
-});})(vec__64799,project,view_type))
+return new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.with_meta(new cljs.core.Symbol(null,"project-summary","project-summary",1896971412,null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"arglists","arglists",1661989754),cljs.core.list(new cljs.core.Symbol(null,"quote","quote",1377916282,null),cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"view-type","view-type",-208363032,null)], null),new cljs.core.Symbol(null,"owner","owner",1247919588,null)], null)))], null)),new cljs.core.Symbol(null,"p__50714","p__50714",-904706926,null),new cljs.core.Symbol(null,"owner","owner",1247919588,null),new cljs.core.Symbol(null,"vec__50724","vec__50724",-446715331,null),new cljs.core.Symbol(null,"project","project",-1530041190,null),new cljs.core.Symbol(null,"view-type","view-type",-208363032,null),new cljs.core.Symbol(null,"meta50726","meta50726",176640806,null)], null);
+});})(vec__50724,project,view_type))
 ;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.cljs$lang$type = true;
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.cljs$lang$type = true;
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.cljs$lang$ctorStr = "biomarket.projectdisplay/t_biomarket$projectdisplay64800";
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.cljs$lang$ctorStr = "biomarket.projectdisplay/t_biomarket$projectdisplay50725";
 
-biomarket.projectdisplay.t_biomarket$projectdisplay64800.cljs$lang$ctorPrWriter = ((function (vec__64799,project,view_type){
-return (function (this__26415__auto__,writer__26416__auto__,opt__26417__auto__){
-return cljs.core._write.call(null,writer__26416__auto__,"biomarket.projectdisplay/t_biomarket$projectdisplay64800");
-});})(vec__64799,project,view_type))
+biomarket.projectdisplay.t_biomarket$projectdisplay50725.cljs$lang$ctorPrWriter = ((function (vec__50724,project,view_type){
+return (function (this__26474__auto__,writer__26475__auto__,opt__26476__auto__){
+return cljs.core._write.call(null,writer__26475__auto__,"biomarket.projectdisplay/t_biomarket$projectdisplay50725");
+});})(vec__50724,project,view_type))
 ;
 
-biomarket.projectdisplay.__GT_t_biomarket$projectdisplay64800 = ((function (vec__64799,project,view_type){
-return (function biomarket$projectdisplay$project_summary_$___GT_t_biomarket$projectdisplay64800(project_summary__$1,p__64789__$1,owner__$1,vec__64799__$1,project__$1,view_type__$1,meta64801){
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64800(project_summary__$1,p__64789__$1,owner__$1,vec__64799__$1,project__$1,view_type__$1,meta64801));
-});})(vec__64799,project,view_type))
+biomarket.projectdisplay.__GT_t_biomarket$projectdisplay50725 = ((function (vec__50724,project,view_type){
+return (function biomarket$projectdisplay$project_summary_$___GT_t_biomarket$projectdisplay50725(project_summary__$1,p__50714__$1,owner__$1,vec__50724__$1,project__$1,view_type__$1,meta50726){
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50725(project_summary__$1,p__50714__$1,owner__$1,vec__50724__$1,project__$1,view_type__$1,meta50726));
+});})(vec__50724,project,view_type))
 ;
 
 }
 
-return (new biomarket.projectdisplay.t_biomarket$projectdisplay64800(biomarket$projectdisplay$project_summary,p__64789,owner,vec__64799,project,view_type,cljs.core.PersistentArrayMap.EMPTY));
+return (new biomarket.projectdisplay.t_biomarket$projectdisplay50725(biomarket$projectdisplay$project_summary,p__50714,owner,vec__50724,project,view_type,cljs.core.PersistentArrayMap.EMPTY));
 });
 
 //# sourceMappingURL=projectdisplay.js.map

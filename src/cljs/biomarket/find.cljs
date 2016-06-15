@@ -9,10 +9,10 @@
             [cljs-time.core :as t]
             [cljs-time.format :as f]
             [biomarket.utilities :as ut]
+            [biomarket.projectdisplay :as pd]
             [biomarket.bids :as bid]
             [biomarket.comments :as com]
             [biomarket.server :as server]
-            [biomarket.projectdisplay :as pd]
             [biomarket.skills :as skills])
   (:import [goog History]
            [goog.history EventType]))
@@ -31,30 +31,65 @@
 ;; view
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defmethod ut/bottom :found-projects
+  [p]
+  (let [links {:skills ["Matched skills" show-skills]
+               :bids ["Show bids" bid/show-bids]
+               :discussion ["Discussion" com/comments nil]}]
+    (dom/div
+     nil
+     (dom/div
+      #js {:className "row"}
+      (dom/div
+       #js {:className "col-md-12"}
+       (om/build bid/bid-widget p)))
+     (if (seq (:bids p))
+       (dom/div
+        nil
+        (dom/hr nil)
+        (om/build ut/bottom-skel (assoc p :links links)))
+       (dom/div
+        nil
+        (dom/hr nil)
+        (om/build ut/bottom-skel (assoc p :links (dissoc links :bids :discussion))))))))
+
 (defn- find-view
   [_ owner]
   (reify
     om/IInitState
     (init-state [_]
       {:projects []
-       :bottoms {:skills ["Matched skills" show-skills]
-                 :bids ["Show bids" bid/show-bids]
-                 :discussion ["Discussion" com/comments nil]}})
+       :view :found-projects})
     om/IWillMount
     (will-mount [_]
       (server/get-data owner {:type :all-projects :status :open}
                        #(->> (:data %)
-                             (map (fn [x] (assoc x :view-type :find)))
                              (sort-by :biddead)
                              (om/set-state! owner :projects))))
     om/IRenderState
     (render-state [_ {:keys [projects bottoms]}]
-      (dom/div
-       nil
-       (apply dom/div
-              nil
-              (map #(om/build pd/project-summary [% bottoms :find bid/bid-widget])
-                   projects))))))
+      (let [ps (ut/split-projects projects)]
+        (dom/div
+         nil
+         (if (seq projects)
+           (dom/div
+            #js {:className "container-fluid"}
+            (dom/div
+             #js {:className "row"}
+             (apply
+              dom/div
+              #js {:className "col-md-6"}
+              (map #(om/build pd/project-summary [% :found-projects])
+                   (first ps)))
+             (apply
+              dom/div
+              #js {:className "col-md-6"}
+              (map #(om/build pd/project-summary [% :found-projects])
+                   (second ps)))))
+           (dom/div
+            #js {:style #js {:padding-top "30px"
+                             :text-align "center"}}
+            (str "No projects found"))))))))
 
 
 

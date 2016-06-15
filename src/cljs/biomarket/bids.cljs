@@ -234,15 +234,15 @@
   (let [cb (current-bid (:user-bids (om/get-state owner :project)))
         ab (js/parseFloat (:value (:amount (om/get-state owner :inputs))))]
     (cond (and (not cb) (not (= ab 0)))
-          [(clj->js {:className "btn btn-primary btn-sm"
+          [(clj->js {:className "btn btn-primary"
                      :onClick #(button-func owner)})
            "Submit"]
           (= ab cb)
-          [(clj->js {:className "btn btn-primary btn-sm"
+          [(clj->js {:className "btn btn-primary"
                      :disabled "disabled"})
            "Update"]
           :else
-          [(clj->js {:className "btn btn-primary btn-sm"
+          [(clj->js {:className "btn btn-primary"
                      :onClick #(button-func owner)})
            "Update"])))
 
@@ -307,23 +307,20 @@
          nil
          (dom/hr nil)
          (dom/div
-          #js {:style #js {:text-align "center"}}
+          #js {:style #js {:text-align "left"}}
           (dom/form
            form-state
-           (dom/div
-            #js {:className "form-group"}
-            (dom/label #js {:for "bid"
-                            :style #js {:padding-right "20px"}}
-                       "Your current bid:")
-            (dom/div
-             #js {:className "input-group input-group-sm"}
-             (dom/span #js {:className "input-group-addon"} "$")
-             (dom/input #js {:className "form-control"
-                             :value (:value amount)
-                             :ref "bid"
-                             :type (:type amount)
-                             :onChange
-                             #(ut/on-change-function
-                               owner (om/get-state owner :bid) :amount amount %)})
-             (dom/span #js {:className "input-group-addon"} (:basis project)))
+           (dom/label #js {:style #js {:padding-right "20px"}}
+                      (str "Your current bid:"))
+           (dom/span
+            #js {:className "form-group input-group"}
+            (dom/div #js {:className "input-group-addon"} "$")
+            (dom/input #js {:className "form-control"
+                            :value (:value amount)
+                            :ref "bid"
+                            :type (:type amount)
+                            :onChange
+                            #(ut/on-change-function
+                              owner (om/get-state owner :bid) :amount amount %)
+                            :style #js {:width "30%"}})
             (apply dom/a button-state)))))))))

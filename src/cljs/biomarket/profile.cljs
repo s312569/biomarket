@@ -380,7 +380,7 @@
     (will-unmount [_]
       (ut/unsub-broadcast-loop owner {:skills (:id user)}
                                (om/get-state owner :broadcast-chan))
-      (ut/unsubscribe ::tag-clicked))
+      (ut/unsubscribe owner ::tag-clicked))
     om/IRenderState
     (render-state [_ {:keys [all-skills editing]}]
       (if-not all-skills

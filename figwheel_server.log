@@ -33691,3 +33691,429 @@ notifying browser that file changed:  out/biomarket/profile.js
 [0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
 notifying browser that file changed:  out/biomarket/profile.js
 [32mSuccessfully compiled "resources/public/js/app.js" in 0.687 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  resources/public/js/out/goog/deps.js
+notifying browser that file changed:  resources/public/js/out/cljs_deps.js
+notifying browser that file changed:  out/biomarket/core.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.617 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/core.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.471 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/core.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.391 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/core.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.396 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/core.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.394 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/profile.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.77 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: No such namespace: ut, could not locate ut.cljs, ut.cljc, or Closure namespace "" at line 150 /home/jason/Dropbox/biomarket/src/cljs/biomarket/utilities.cljs
+WARNING: Use of undeclared Var ut/log at line 150 /home/jason/Dropbox/biomarket/src/cljs/biomarket/utilities.cljs
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.592 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.378 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.45 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.686 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.647 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.394 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.383 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.394 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.357 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.642 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: No such namespace: com, could not locate com.cljs, com.cljc, or Closure namespace "" at line 22 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var com/comments at line 22 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.447 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  resources/public/js/out/cljs_deps.js
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.357 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.378 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.366 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.363 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.367 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[31mCompiling "resources/public/js/app.js" failed.
+[0mERROR: Map literal must contain an even number of forms on file /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs, line 51, column 18
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.221 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[31mCompiling "resources/public/js/app.js" failed.
+[0mERROR: Map literal must contain an even number of forms on file /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs, line 63, column 18
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.208 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[31mCompiling "resources/public/js/app.js" failed.
+[0mERROR: Map literal must contain an even number of forms on file /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs, line 63, column 18
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.211 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.365 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/view at line 87 src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.413 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.356 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.369 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 114 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 121 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 167 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 84 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 90 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 294 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 35 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.547 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/pub-info at line 111 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 134 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 338 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 35 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.934 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 134 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 338 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 35 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.96 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 338 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 35 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.859 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 35 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.833 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.433 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.393 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.358 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 114 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 121 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 167 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 35 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.21 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[31mCompiling "resources/public/js/app.js" failed.
+[0mjava.lang.AssertionError: Assert failed: Circular dependency detected, biomarket.projects -> biomarket.projectdisplay -> biomarket.bids -> biomarket.projectdisplay
+(not (some #{ns-name} seen))
+ at cljs.js_deps$dependency_order_visit.invoke (js_deps.cljc:148)
+    cljs.js_deps$dependency_order_visit$fn__332.invoke (js_deps.cljc:156)
+    clojure.core.protocols$iter_reduce.invoke (protocols.clj:49)
+    clojure.core.protocols/fn (protocols.clj:112)
+    clojure.core.protocols$fn__6452$G__6447__6465.invoke (protocols.clj:13)
+    clojure.core$reduce.invoke (core.clj:6519)
+    cljs.js_deps$dependency_order_visit.invoke (js_deps.cljc:156)
+    cljs.js_deps$dependency_order_visit$fn__332.invoke (js_deps.cljc:156)
+    clojure.core.protocols$iter_reduce.invoke (protocols.clj:49)
+    clojure.core.protocols/fn (protocols.clj:112)
+    clojure.core.protocols$fn__6452$G__6447__6465.invoke (protocols.clj:13)
+    clojure.core$reduce.invoke (core.clj:6519)
+    cljs.js_deps$dependency_order_visit.invoke (js_deps.cljc:156)
+    cljs.js_deps$dependency_order_visit$fn__332.invoke (js_deps.cljc:156)
+    clojure.core.protocols$iter_reduce.invoke (protocols.clj:49)
+    clojure.core.protocols/fn (protocols.clj:112)
+    clojure.core.protocols$fn__6452$G__6447__6465.invoke (protocols.clj:13)
+    clojure.core$reduce.invoke (core.clj:6519)
+    cljs.js_deps$dependency_order_visit.invoke (js_deps.cljc:156)
+    cljs.js_deps$dependency_order_visit.invoke (js_deps.cljc:146)
+    clojure.core.protocols$iter_reduce.invoke (protocols.clj:49)
+    clojure.core.protocols/fn (protocols.clj:117)
+    clojure.core.protocols$fn__6452$G__6447__6465.invoke (protocols.clj:13)
+    clojure.core$reduce.invoke (core.clj:6519)
+    cljs.js_deps$dependency_order.invoke (js_deps.cljc:176)
+    cljs.closure$build.invoke (closure.clj:1943)
+    cljs.build.api$build.invoke (api.clj:210)
+    figwheel_sidecar.components.cljs_autobuild$cljs_build.invoke (cljs_autobuild.clj:22)
+    figwheel_sidecar.build_middleware.injection$hook$fn__17498.invoke (injection.clj:139)
+    figwheel_sidecar.build_middleware.notifications$hook$fn__17833.invoke (notifications.clj:187)
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.113 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 114 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 121 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 167 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 35 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.053 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 93 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 99 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 303 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 35 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.866 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 89 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 95 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 299 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 35 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.881 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/show-default at line 169 /home/jason/Dropbox/biomarket/src/cljs/biomarket/utilities.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 89 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 95 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 299 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.526 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 89 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 95 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 299 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.5 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[31mCompiling "resources/public/js/app.js" failed.
+[0mANALYSIS ERROR: Can't def ns-qualified name at line 180 /home/jason/Dropbox/biomarket/src/cljs/biomarket/utilities.cljs on file /home/jason/Dropbox/biomarket/src/cljs/biomarket/utilities.cljs, line 180, column 1
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.355 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 89 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 95 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 299 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.494 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 90 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 294 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.811 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 294 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.775 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom at line 34 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 50 src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/bottom-skel at line 54 src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.717 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 33 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/bottom at line 33 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 49 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/bottom-skel at line 49 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 53 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/bottom-skel at line 53 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 81 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/project-summary at line 81 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 86 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/project-summary at line 86 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  resources/public/js/out/cljs_deps.js
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.588 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 49 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/bottom-skel at line 49 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 53 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/bottom-skel at line 53 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 81 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/project-summary at line 81 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 86 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/project-summary at line 86 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.555 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 53 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/bottom-skel at line 53 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 81 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/project-summary at line 81 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 86 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/project-summary at line 86 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.5 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 81 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/project-summary at line 81 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: No such namespace: pd, could not locate pd.cljs, pd.cljc, or Closure namespace "" at line 86 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var pd/project-summary at line 86 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.46 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  resources/public/js/out/cljs_deps.js
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.356 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.243 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.302 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.815 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.833 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.817 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.809 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.847 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.814 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.839 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.829 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.832 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.842 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.845 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.837 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.826 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.845 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.828 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.847 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.832 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.828 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.819 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.832 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.822 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.841 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.85 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.833 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.816 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.818 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.837 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.823 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.857 seconds.[0m

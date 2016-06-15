@@ -10,10 +10,29 @@
             [biomarket.utilities :refer [log] :as ut]
             [biomarket.newproject :refer [new-project-view]]
             [biomarket.bids :as bid]
+            [biomarket.comments :as com]
             [biomarket.server :as server]
             [biomarket.projectdisplay :as pd])
   (:import [goog History]
            [goog.history EventType]))
+
+
+(defmethod ut/bottom :open-jobs
+  [p]
+  (let [links {:bids ["Bid history" bid/show-bids]
+               :comments ["Discussion" com/comments (:username p)]}]
+    (dom/div
+     nil
+     (dom/div
+      #js {:className "row"}
+      (dom/div
+       #js {:className "col-md-12"}
+       (om/build bid/bid-widget p)))
+     (if (seq (:bids p))
+       (dom/div
+        nil
+        (dom/hr nil)
+        (om/build ut/bottom-skel (assoc p :links links)))))))
 
 (defn- jobs-view
   [_ owner]

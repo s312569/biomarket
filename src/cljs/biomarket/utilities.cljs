@@ -210,12 +210,13 @@
          (dom/div nil text)
          (condp = showing
            :less (dom/div nil
-                          (dom/span nil (str (apply str (take 300 text)) " ... "))
+                          (dom/span #js {:style #js {:white-space "pre-line"}}
+                                    (str (apply str (take 300 text)) " ... "))
                           (dom/a #js {:onClick #(om/set-state! owner :showing :more)
                                       :className "flinka"}
                                  " More"))
            :more (dom/div nil
-                          (dom/span nil text)
+                          (dom/span #js {:style #js {:white-space "pre-line"}} text)
                           (dom/a #js {:onClick #(om/set-state! owner :showing :less)
                                       :className "flinka"}
                                  " Less"))))))))
