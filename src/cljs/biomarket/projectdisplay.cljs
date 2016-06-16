@@ -62,18 +62,6 @@
                    (om/get-state owner :nav)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; bottom links
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defmethod ut/bottom :default
-  [p]
-  (if (seq (:bids p))
-    (dom/div
-     nil
-     (dom/hr nil)
-     (om/build ut/bottom-skel (assoc p :links {:bids ["Bids" bid/bid-manage]})))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; table
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -119,7 +107,7 @@
 ;; labels
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- label
+(defn label
   [class text]
   (dom/span
    #js {:style #js {:padding-right "10px"}}
@@ -127,52 +115,6 @@
              text)))
 
 (defmulti title-labels (fn [x] (:view-type x)))
-
-(defmethod title-labels :default
-  [project]
-  (om/component
-   (dom/h4
-    #js {:style #js {:font-weight "bold"}}
-    (dom/span #js {:style #js {:padding-right "10px"}}
-              (str (:title project) "  "))
-    (let [best (best-bid (:bids project))]
-      (if best
-        (label "label label-success" (str "Best bid: $" (:amount best)))
-        (label "label label-danger" "No bids yet!"))))))
-
-(defmethod title-labels :expired-projects
-  [project]
-  (om/component
-   (dom/h4
-    #js {:style #js {:font-weight "bold"}}
-    (dom/span #js {:style #js {:padding-right "10px"}}
-              (str (:title project) "  "))
-    (let [best (best-bid (:bids project))]
-      (if best
-        (label "label label-success" (str "Best bid: $" (:amount best)))
-        (label "label label-danger" "No bids"))))))
-
-(defmethod title-labels :find
-  [project]
-  (om/component
-   (dom/h4
-    #js {:style #js {:font-weight "bold"}}
-    (dom/span #js {:style #js {:padding-right "10px"}}
-              (str (:title project) "  "))
-    (let [ub (first (sort-by :time > (:user-bids project)))
-          best (best-bid (:bids project))]
-      (cond (and ub (>= (:amount best) (:amount ub)))
-            (dom/span nil
-                      (label "label label-success" (str "Best bid: $" (:amount best)))
-                      (label "label label-success" (str "Your bid: $" (:amount ub))))
-            (and ub (< (:amount best) (:amount ub)))
-            (dom/span nil
-                      (label "label label-success" (str "Best bid: $" (:amount best)))
-                      (label "label label-danger" (str "Your bid: $" (:amount ub))))
-            best
-            (label "label label-danger" (str "Best bid: $" (:amount best)))
-            :else
-            (label "label label-danger" "No bids yet!"))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; header

@@ -16,6 +16,66 @@
            [goog.history EventType]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; view methods
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; labels
+
+(defn- expired-or-deleted
+  [project]
+  (om/component
+   (dom/h4
+    #js {:style #js {:font-weight "bold"}}
+    (dom/span #js {:style #js {:padding-right "10px"}}
+              (str (:title project) "  "))
+    (let [best (bid/best-bid (:bids project))]
+      (if best
+        (pd/label "label label-success" (str "Best bid: $" (:amount best)))
+        (pd/label "label label-danger" "No bids"))))))
+
+(defmethod pd/title-labels :expired-projects
+  [project]
+  (expired-or-deleted project))
+
+(defmethod pd/title-labels :deleted-projects
+  [project]
+  (expired-or-deleted project))
+
+(defmethod pd/title-labels :open-projects
+  [project]
+  (om/component
+   (dom/h4
+    #js {:style #js {:font-weight "bold"}}
+    (dom/span #js {:style #js {:padding-right "10px"}}
+              (str (:title project) "  "))
+    (let [best (bid/best-bid (:bids project))]
+      (if best
+        (pd/label "label label-success" (str "Best bid: $" (:amount best)))
+        (pd/label "label label-danger" "No bids yet!"))))))
+
+;; bottom
+
+(defn- default-bottom
+  [p]
+  (if (seq (:bids p))
+    (dom/div
+     nil
+     (dom/hr nil)
+     (om/build ut/bottom-skel (assoc p :links {:bids ["Bids" bid/bid-manage]})))))
+
+(defmethod ut/bottom :open-projects
+  [p]
+  (default-bottom p))
+
+(defmethod ut/bottom :expired-projects
+  [p]
+  (default-bottom p))
+
+(defmethod ut/bottom :deleted-projects
+  [p]
+  (default-bottom p))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; user projects view
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

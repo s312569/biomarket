@@ -28,7 +28,7 @@
             (om/build skills/skill-tags [(:skills project) {}]))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; view
+;; view methods
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod ut/bottom :found-projects
@@ -47,6 +47,33 @@
        (om/build ut/bottom-skel (assoc p
                                        :links (dissoc links :bids :discussion)
                                        :widget [bid/bid-widget p]))))))
+
+(defmethod pd/title-labels :found-projects
+  [project]
+  (om/component
+   (dom/h4
+    #js {:style #js {:font-weight "bold"}}
+    (dom/span #js {:style #js {:padding-right "10px"}}
+              (str (:title project) "  "))
+    (let [ub (first (sort-by :time > (:user-bids project)))
+          best (bid/best-bid (:bids project))]
+      (cond ub
+            (dom/span
+             nil
+             (pd/label "label label-success" (str "Best bid: $" (:amount best)))
+             (pd/label "label label-primary" (str "Your bid: $" (:amount ub))))
+            best
+            (dom/span
+             nil
+             (pd/label "label label-success" (str "Best bid: $" (:amount best))))
+            :else
+            (dom/span
+             nil
+             (pd/label "label label-danger" "No bids yet!")))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; control
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- find-view
   [_ owner]
