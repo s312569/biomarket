@@ -33,14 +33,6 @@
         (pd/label "label label-success" (str "Best bid: $" (:amount best)))
         (pd/label "label label-danger" "No bids"))))))
 
-(defmethod pd/title-labels :expired-projects
-  [project]
-  (expired-or-deleted project))
-
-(defmethod pd/title-labels :deleted-projects
-  [project]
-  (expired-or-deleted project))
-
 (defmethod pd/title-labels :open-projects
   [project]
   (om/component
@@ -53,27 +45,61 @@
         (pd/label "label label-success" (str "Best bid: $" (:amount best)))
         (pd/label "label label-danger" "No bids yet!"))))))
 
+(defmethod pd/title-labels :active-projects
+  [p]
+  (om/component
+   (dom/div nil)))
+
+(defmethod pd/title-labels :completed-projects
+  [p]
+  (om/component
+   (dom/div nil)))
+
+(defmethod pd/title-labels :deleted-projects
+  [project]
+  (expired-or-deleted project))
+
+(defmethod pd/title-labels :expired-projects
+  [project]
+  (expired-or-deleted project))
+
 ;; bottom
 
 (defn- default-bottom
-  [p]
-  (if (seq (:bids p))
-    (dom/div
-     nil
-     (dom/hr nil)
-     (om/build ut/bottom-skel (assoc p :links {:bids ["Bids" bid/bid-manage]})))))
+  [p owner]
+  (om/component
+   (if (seq (:bids p))
+     (dom/div
+      nil
+      (dom/hr nil)
+      (om/build
+       pd/bottom-skel
+       [{:bids [[bid/bid-bbutton (pd/bbutton-state owner p :bids)] [bid/bid-manage p]]}
+        nil
+        (:bottom-view p)])))))
 
-(defmethod ut/bottom :open-projects
-  [p]
-  (default-bottom p))
+(defmethod pd/bottom :open-projects
+  [p owner]
+  (om/component
+   (om/build default-bottom p)))
 
-(defmethod ut/bottom :expired-projects
-  [p]
-  (default-bottom p))
+(defmethod pd/bottom :active-projects
+  [p owner]
+  nil)
 
-(defmethod ut/bottom :deleted-projects
+(defmethod pd/bottom :completed-projects
   [p]
-  (default-bottom p))
+  nil)
+
+(defmethod pd/bottom :deleted-projects
+  [p owner]
+  (om/component
+   (om/build default-bottom p)))
+
+(defmethod pd/bottom :expired-projects
+  [p owner]
+  (om/component
+   (om/build default-bottom p)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; user projects view

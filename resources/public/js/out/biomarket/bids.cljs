@@ -37,6 +37,15 @@
                 (map first))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; button
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn bid-bbutton
+  [bstate owner]
+  (om/component
+   (dom/a bstate "Show bids")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; show bids 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -108,109 +117,89 @@
                         "Next")))))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; bid view
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defmethod ut/bottom :bid-view
-  [p]
-  (let [links {:discussion ["Discussion" com/comments (:buser p)]
-               :skills ["Skills" skills/skill-tags {}]}]
-    (dom/div
-     nil
-     (dom/hr nil)
-     (om/build ut/bottom-skel (assoc p :links links)))))
-
-(defn bid-view-header
-  [project owner]
-  (om/component
-   (dom/div
-    #js {:className "row"}
-    (dom/div
-     #js {:className "col-md-6"}
-     (dom/div
-      #js{:className "btn-group"}
-      (dom/a #js {:className "btn btn-default btn-sm"
-                  :onClick #(ut/pub-info owner (:id project)
-                                         {:action :bid-show :bid false})}
-             (dom/i #js {:className "fa fa-arrow-left"
-                         :style #js {:padding-right "10px"}})
-             "Back to project")
-      (dom/a #js {:className "btn btn-primary btn-sm"}
-             "Accept this bid")))
-    (dom/div #js {:className "col-md-6"
-                  :style #js {:text-align "right"}}
-             (dd/drop-down (assoc project :view-type :bid-show))))))
-
-(defn bid-table
-  [project]
-  (let [f #(ut/color-span % "green")
-        bid (:show-bid project)
-        data (list {"Amount" (f (str "$" (:amount bid)))
-                    "Basis" (f (:basis project))
-                    "Bidder" (f (apply str (take 8 (:username bid))))
-                    "Date" (f (ut/ds->date-hour-minute (:time bid)))})]
-    (om/build ut/make-a-table {:data data :tparam {}})))
-
-(defn bid-view
-  [project owner]
-  (om/component
-    (dom/div
-        #js {:className "container-fluid"
-             :style #js {:position "relative"}}
-      (dom/div
-       #js {:className "panel panel-default"}
-       (dom/div
-        #js {:className "panel-body"
-             :style #js {:min-height (str (:height project) "px")}}
-        (om/build bid-view-header project)
-        (bid-table project)
-        (ut/bottom (assoc project
-                          :buser (:username (:show-bid project))
-                          :view-type :bid-view)))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bid management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn bid-display
   [project owner]
-  (om/component
-   (let [bids (:best-bids project)
-         basis (:basis project)
-         pid (:id project)]
-     (dom/table
-      #js {:className "table table-striped table-hover"}
-      (apply
-       dom/tbody
-       nil
-       (map #(dom/tr
-              nil
-              (dom/td
-               nil
-               (dom/span nil (str "$" (:amount %) " " basis " from "))
-               (dom/span nil (dom/a #js {:href "#"} (:username %))))
-              (dom/td
-               nil
-               (dom/a #js {:className "btn btn-default btn-sm"
-                           :onClick (fn [_] (ut/pub-info owner pid {:action :bid-show
-                                                                    :bid %}))}
-                      "View")))
-            bids))))))
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:visible false
+       :bg (if (= 0 (mod (:row project) 2))
+             "white" "#E7E7E7")})
+    om/IRenderState
+    (render-state [_ {:keys [visible bg]}]
+      (ut/log (mod (:row project) 2))
+      (let [bid (:bid project)
+            basis (:basis project)
+            pid (:id project)]
+        (dom/div
+         nil
+         (dom/div
+          #js {:className "row"
+               :style #js {:background-color bg
+                           :padding "5px"}}
+          (dom/div
+           #js {:className "col-md-6"
+                :style #js {:text-align "left"
+                            :height "40px"
+                            :line-height "40px"}}
+           (dom/span nil (str "$" (:amount bid) " " basis " from "))
+           (dom/span nil (dom/a #js {:href "#"} (:username bid))))
+          (dom/div
+           #js {:className "col-md-6"
+                :style #js {:text-align "right"
+                            :height "40px"
+                            :line-height "40px"}}
+           (dom/div
+            #js {:className "btn-group"}
+            (dom/a #js {:className (if (= visible :discussion)
+                                     "btn btn-default btn-sm active"
+                                     "btn btn-default btn-sm")
+                        :onClick #(if (= visible :discussion)
+                                    (om/set-state! owner :visible false)
+                                    (om/set-state! owner :visible :discussion))}
+                   "Discussion")
+            (dom/a #js {:className (if (= visible :skills)
+                                     "btn btn-default btn-sm active"
+                                     "btn btn-default btn-sm")
+                        :onClick #(if (= visible :skills)
+                                    (om/set-state! owner :visible false)
+                                    (om/set-state! owner :visible :skills))}
+                   "Skills match")
+            (dom/a #js {:className "btn btn-primary btn-sm"
+                        :onClick (fn [x] nil)}
+                   "Accept this bid"))))
+         (if visible
+           (dom/div
+            #js {:className "row"
+                 :style #js {:background-color bg
+                             :padding "5px"}}
+            (dom/div
+             #js {:className "col-md-12"}
+             (condp = visible
+               :discussion (om/build com/comments [project (:username bid)])
+               :skills (om/build skills/skill-tags [project {}])
+               nil)))))))))
 
 (defn bid-manage
   [project owner]
   (reify
     om/IInitState
     (init-state [_]
-      {:best-bids (sort-best-bids project)})
+      {:best-bids (sort-best-bids project)
+       :counter (atom 0)})
     om/IWillReceiveProps
     (will-receive-props [_ np]
       (om/set-state! owner :best-bids (sort-best-bids np)))
     om/IRenderState
-    (render-state [_ {:keys [best-bids]}]
-      (dom/div
-       #js {:style #js {:padding-top "20px"}}
-       (om/build bid-display (assoc project :best-bids best-bids))))))
+    (render-state [_ {:keys [best-bids counter]}]
+      (apply dom/div
+             #js {:className "container-fluid"
+                  :style #js {:padding-top "20px"}}
+             (map #(om/build bid-display (assoc project :bid % :row (swap! counter inc)))
+                  best-bids)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bidding widget

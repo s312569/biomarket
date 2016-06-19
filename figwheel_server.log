@@ -34625,3 +34625,1315 @@ notifying browser that file changed:  out/biomarket/bids.js
 [0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
 notifying browser that file changed:  out/biomarket/bids.js
 [32mSuccessfully compiled "resources/public/js/app.js" in 1.119 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.01 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.001 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.009 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.084 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Bad method signature in protocol implementation, cljs.core/IMeta does not declare method called let at line 177 src/cljs/biomarket/bids.cljs
+[31mCompiling "resources/public/js/app.js" failed.
+[0mANALYSIS ERROR: Unsupported binding form: (:best-bids project) at line 177 src/cljs/biomarket/bids.cljs on file src/cljs/biomarket/bids.cljs, line 177, column 3
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.311 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Bad method signature in protocol implementation, om/IInitState does not declare method called let at line 177 src/cljs/biomarket/bids.cljs
+[31mCompiling "resources/public/js/app.js" failed.
+[0mANALYSIS ERROR: Unsupported binding form: (:best-bids project) at line 177 src/cljs/biomarket/bids.cljs on file src/cljs/biomarket/bids.cljs, line 177, column 3
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.325 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Bad method signature in protocol implementation, om/IInitState does not declare method called let at line 177 src/cljs/biomarket/bids.cljs
+[31mCompiling "resources/public/js/app.js" failed.
+[0mANALYSIS ERROR: Unsupported binding form: (:best-bids project) at line 177 src/cljs/biomarket/bids.cljs on file src/cljs/biomarket/bids.cljs, line 177, column 3
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.316 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.994 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.352 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.066 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.967 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/% at line 191 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.bids/% at line 200 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.bids/% at line 204 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.138 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/% at line 200 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.bids/% at line 204 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.152 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/% at line 200 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.bids/% at line 204 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.191 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/% at line 203 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.146 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/% at line 205 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.159 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.982 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.972 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.969 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.985 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.016 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.097 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.074 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.046 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.981 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.96 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.037 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.997 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.976 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to cljs.core/mod at line 181 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.06 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to cljs.core/mod at line 181 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.07 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to cljs.core/mod at line 181 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.203 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.09 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.11 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.067 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.114 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.136 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.084 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.084 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.987 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.062 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.113 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.129 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.991 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.0 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.986 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.105 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.071 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.14 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.984 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.155 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.148 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.088 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.12 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.981 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.004 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/bid-view at line 221 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.093 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/bid-view at line 219 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.897 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/bid-view at line 218 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.952 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.782 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  resources/public/js/out/cljs_deps.js
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.809 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/pub-info at line 166 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.928 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.896 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.875 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.37 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 263 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 64 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 66 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 70 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 74 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 34 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 43 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 47 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 28 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.46 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 263 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 64 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 66 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 70 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 74 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 34 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 43 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 47 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 28 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.685 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 64 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 66 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 70 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 74 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 34 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 43 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 47 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 28 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.289 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 64 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 70 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 74 src/cljs/biomarket/projects.cljs
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.589 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 64 src/cljs/biomarket/projects.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 74 src/cljs/biomarket/projects.cljs
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.514 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 64 src/cljs/biomarket/projects.cljs
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.547 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.413 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 34 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 43 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 47 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.538 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 43 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 47 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.493 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 43 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.447 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.36 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom at line 20 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 28 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.446 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.utilities/bottom-skel at line 28 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.418 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.32 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.629 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.641 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.652 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.794 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.316 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.336 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.326 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.352 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.jobs/p at line 28 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+[31mCompiling "resources/public/js/app.js" failed.
+[0mANALYSIS ERROR: Parameter declaration  should be a vector at line 27 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs on file /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs, line 27, column 1
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.239 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.328 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.365 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.352 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.341 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[31mCompiling "resources/public/js/app.js" failed.
+[0mANALYSIS ERROR: Parameter declaration  should be a vector at line 78 src/cljs/biomarket/projects.cljs on file src/cljs/biomarket/projects.cljs, line 78, column 1
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.223 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.375 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.388 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.396 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.422 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/bids at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.4 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.36 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.341 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.342 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.219 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.126 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.139 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.855 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.922 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.275 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Bad method signature in protocol implementation, om/IWillMount does not declare method called let at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.499 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Bad method signature in protocol implementation, om/IWillMount does not declare method called let at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 44 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/d at line 44 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.562 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Bad method signature in protocol implementation, om/IWillMount does not declare method called let at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 44 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/d at line 44 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.597 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.386 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/receiver at line 26 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/receiver at line 26 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 26 src/cljs/biomarket/comments.cljs
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.292 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.298 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.345 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.332 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.279 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/receiver at line 26 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/receiver at line 26 src/cljs/biomarket/comments.cljs
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.368 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.29 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/visible at line 40 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/tag at line 40 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/tag at line 40 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.316 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/visible at line 40 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/tag at line 40 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/tag at line 40 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.33 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/visible at line 42 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/tag at line 42 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/tag at line 42 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.374 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.314 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.354 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.298 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.291 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[31mCompiling "resources/public/js/app.js" failed.
+[0mANALYSIS ERROR: Wrong number of args (0) passed to: dom/a at line 48 src/cljs/biomarket/bids.cljs on file src/cljs/biomarket/bids.cljs, line 48, column 6
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.218 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.7 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.684 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.337 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.337 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/skills.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.419 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.skills/unread-comments at line 34 src/cljs/biomarket/skills.cljs
+WARNING: Use of undeclared Var biomarket.skills/unread-comments at line 35 src/cljs/biomarket/skills.cljs
+notifying browser that file changed:  out/biomarket/skills.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.543 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/skills.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.423 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[31mCompiling "resources/public/js/app.js" failed.
+[0mERROR: Map literal must contain an even number of forms on file /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs, line 38, column 81
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.196 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.332 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.356 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.87 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.895 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.342 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.383 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.3 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.508 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.466 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.409 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.325 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.server/get-data at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.465 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.367 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.379 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.907 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.705 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.355 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.879 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 151 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Wrong number of args (1) passed to cljs.core/apply at line 170 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 173 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 174 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.114 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to cljs.core/apply at line 169 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 172 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 173 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.228 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to cljs.core/apply at line 169 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 172 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 173 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.215 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to cljs.core/apply at line 169 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 172 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 173 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/skills.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.711 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.343 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to cljs.core/apply at line 170 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 173 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 174 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.061 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.89 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.342 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.355 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.957 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.346 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.865 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.38 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.892 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.877 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.881 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.899 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.86 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.912 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/skills.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.483 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/skills.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.51 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.799 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.959 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.877 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.701 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.717 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.71 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.347 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.335 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/skills.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.611 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/skills.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.418 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.373 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.714 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.339 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.338 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.361 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.898 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.363 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.376 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/project-bid-button at line 74 src/cljs/biomarket/projects.cljs
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.493 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.401 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.392 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.416 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/owner at line 50 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.823 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/owner at line 50 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.855 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/project-bid-bbutton at line 74 src/cljs/biomarket/projects.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.803 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.388 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.352 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.364 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.347 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.386 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/p at line 29 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.398 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.284 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.199 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.276 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.175 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.283 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.184 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.245 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.336 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.25 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.315 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/owner at line 145 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/project at line 145 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 148 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/tag at line 148 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/tag at line 148 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.003 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.887 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.444 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.446 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.449 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/tag at line 36 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/tag at line 42 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/tag at line 42 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.41 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.299 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/project at line 26 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/project at line 29 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/project at line 34 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.392 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.466 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/project at line 28 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/project at line 33 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.378 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/project at line 28 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/project at line 32 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.374 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.456 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/visible at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/visible at line 42 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.448 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/bbutton-state at line 40 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.392 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 150 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/owner at line 153 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 156 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.find/bbutton-state at line 40 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.027 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.342 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.384 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/project at line 28 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/project at line 32 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 150 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/owner at line 153 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 156 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.351 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.366 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/project at line 46 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.bids/tag at line 48 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.bids/project at line 51 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.bids/tag at line 54 src/cljs/biomarket/bids.cljs
+WARNING: Use of undeclared Var biomarket.bids/tag at line 54 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.829 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.bids/project at line 46 src/cljs/biomarket/bids.cljs
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.794 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/bids.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.693 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/project at line 28 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 150 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/owner at line 153 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 156 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.357 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.skills/project at line 23 src/cljs/biomarket/skills.cljs
+WARNING: Use of undeclared Var biomarket.skills/tag at line 25 src/cljs/biomarket/skills.cljs
+WARNING: Use of undeclared Var biomarket.skills/project at line 28 src/cljs/biomarket/skills.cljs
+WARNING: Use of undeclared Var biomarket.skills/tag at line 31 src/cljs/biomarket/skills.cljs
+WARNING: Use of undeclared Var biomarket.skills/tag at line 31 src/cljs/biomarket/skills.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 150 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/owner at line 153 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 156 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/skills.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.667 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 150 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/owner at line 153 src/cljs/biomarket/projectdisplay.cljs
+WARNING: Use of undeclared Var biomarket.projectdisplay/visible at line 156 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/skills.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.601 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.388 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.351 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.375 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.projectdisplay/owner at line 154 src/cljs/biomarket/projectdisplay.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.985 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 74 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 38 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 40 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 43 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 44 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.149 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/owner at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 38 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 40 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.482 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/owner at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 38 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 40 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.493 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.find/owner at line 36 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 38 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Use of undeclared Var biomarket.find/owner at line 40 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.506 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.344 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 74 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 43 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 44 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.077 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.jobs/owner at line 44 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 46 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.531 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.jobs/owner at line 44 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Use of undeclared Var biomarket.jobs/owner at line 46 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.464 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.352 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (2) passed to biomarket.projectdisplay/bbutton-state at line 75 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 82 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 94 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 98 src/cljs/biomarket/projects.cljs
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.604 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 82 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 94 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 98 src/cljs/biomarket/projects.cljs
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.594 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 83 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 95 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 99 src/cljs/biomarket/projects.cljs
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.554 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 95 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 99 src/cljs/biomarket/projects.cljs
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.534 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (1) passed to biomarket.projects/default-bottom at line 99 src/cljs/biomarket/projects.cljs
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.512 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.414 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.407 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.46 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.436 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.421 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projects.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.427 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/project at line 28 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.372 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/project at line 28 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.509 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/project at line 28 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.424 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.382 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.35 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.356 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.209 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.399 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.284 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/cids at line 122 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.272 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.201 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.201 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.261 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.268 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.256 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.294 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.243 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.743 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.262 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.292 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.289 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.257 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.267 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.301 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.268 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.263 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.234 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (3) passed to biomarket.projectdisplay/bbutton-state at line 77 src/cljs/biomarket/projects.cljs
+WARNING: Wrong number of args (3) passed to biomarket.projectdisplay/bbutton-state at line 37 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Wrong number of args (3) passed to biomarket.projectdisplay/bbutton-state at line 39 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Wrong number of args (3) passed to biomarket.projectdisplay/bbutton-state at line 41 /home/jason/Dropbox/biomarket/src/cljs/biomarket/find.cljs
+WARNING: Wrong number of args (3) passed to biomarket.projectdisplay/bbutton-state at line 44 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+WARNING: Wrong number of args (3) passed to biomarket.projectdisplay/bbutton-state at line 46 /home/jason/Dropbox/biomarket/src/cljs/biomarket/jobs.cljs
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.236 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/projectdisplay.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.943 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.203 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/pid at line 28 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/bstate at line 32 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.359 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/jobs.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.383 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/find.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.35 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/pid at line 28 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.359 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.309 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/pid at line 28 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/bstate at line 33 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.417 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Use of undeclared Var biomarket.comments/visible at line 35 src/cljs/biomarket/comments.cljs
+WARNING: Use of undeclared Var biomarket.comments/visible at line 41 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.451 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.228 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.28 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.335 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.27 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.261 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.269 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.215 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/server.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.769 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (3) passed to biomarket.server/save-data at line 44 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.291 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (3) passed to biomarket.server/save-data at line 49 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.335 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (3) passed to biomarket.server/save-data at line 48 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.338 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (3) passed to biomarket.server/save-data at line 48 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.326 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (3) passed to biomarket.server/save-data at line 48 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.373 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (3) passed to biomarket.server/save-data at line 53 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.356 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (3) passed to biomarket.server/save-data at line 53 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.368 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+WARNING: Wrong number of args (3) passed to biomarket.server/save-data at line 53 src/cljs/biomarket/comments.cljs
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.361 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.216 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.271 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.282 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.306 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.262 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.268 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.235 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.238 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.25 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.312 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.278 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/server.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.89 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/server.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.923 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/server.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.801 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.261 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.268 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.306 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.271 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.289 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.299 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.263 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.278 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.349 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.281 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.275 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/app.js" in 0.266 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.243 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.39 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.23 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/comments.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 1.25 seconds.[0m
+[0mCompiling "resources/public/js/app.js" from ["src/clj" "src/cljs"]...
+notifying browser that file changed:  out/biomarket/utilities.js
+[32mSuccessfully compiled "resources/public/js/app.js" in 2.243 seconds.[0m

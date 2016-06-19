@@ -136,53 +136,6 @@
     (unsub nc topic chan)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; bottom links
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- show-default
-  [_ owner]
-  (om/component
-   (dom/div nil)))
-
-(defn bottom-skel
-  [{:keys [links widget] :as project} owner]
-  (om/component
-   (let [visible (:bottom-view project)]
-     (dom/div
-      #js {:className "container-fluid"}
-      (dom/div
-       #js {:className "row"}
-       (dom/div
-        #js {:className "col-md-6"}
-        (apply
-         dom/div
-         #js {:className "btn-group" :role "group"}
-         (map (fn [[tag ele]]
-                (dom/a
-                 #js {:className (if (= visible tag)
-                                   "btn btn-default active"
-                                   "btn btn-default")
-                      :onClick #(pub-info owner (:id project)
-                                          {:action :show-bottom
-                                           :bottom-view
-                                           (if (= visible tag) :default tag)})}
-                 (first ele)))
-              links)))
-       (dom/div
-        #js {:className "col-md-6"}
-        (if widget (apply om/build (first widget) (rest widget)))))
-      (condp = visible
-        :default (dom/div #js {:className "row"}
-                          (dom/div #js {:className "col-md-12"}
-                                   (om/build show-default nil)))
-        (om/build (second (visible links))
-                  (if (seq (drop 2 (visible links)))
-                    (vec (cons project (drop 2 (visible links))))
-                    project)))))))
-
-(defmulti bottom (fn [p] (:view-type p)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; components
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

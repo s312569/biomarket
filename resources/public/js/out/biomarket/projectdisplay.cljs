@@ -7,7 +7,6 @@
             [cljs.pprint :as pprint]
             [biomarket.utilities :as ut]
             [biomarket.server :as server]
-            [biomarket.bids :refer [best-bid] :as bid]
             [biomarket.comments :as com]
             [biomarket.dropdown :as dd]
             [biomarket.skills :as skills]))
@@ -138,6 +137,53 @@
      (dd/drop-down p)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; bottom links
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- show-default
+  [_ owner]
+  (om/component
+   (dom/div nil)))
+
+(defn bbutton-state
+  [owner project tag]
+  (let [visible (:bottom-view project)]
+    (clj->js {:className (if (= visible tag)
+                           "btn btn-default active"
+                           "btn btn-default")
+              :onClick #(ut/pub-info owner (:id project)
+                                     {:action :show-bottom
+                                      :bottom-view
+                                      (if (= visible tag) :default tag)})})))
+
+(defn bottom-skel
+  [[links widget visible] owner]
+  (om/component
+   (dom/div
+    #js {:className "container-fluid"}
+    (dom/div
+     #js {:className "row"}
+     (dom/div
+      #js {:className "col-md-6"}
+      (apply
+       dom/div
+       #js {:className "btn-group" :role "group"}
+       (map (fn [[k [button]]]
+              (om/build (first button) (second button)))
+            links)))
+     (dom/div
+      #js {:className "col-md-6"}
+      (if widget (apply om/build (first widget) (rest widget)))))
+    (condp = visible
+      :default (dom/div #js {:className "row"}
+                        (dom/div #js {:className "col-md-12"}
+                                 (om/build show-default nil)))
+      (let [bottom (second (visible links))]
+        (om/build (first bottom) (second bottom)))))))
+
+(defmulti bottom (fn [p] (:view-type p)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the display
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -181,7 +227,6 @@
       {:project (assoc project :view-type view-type :bottom-view :default)
        :broadcast-chan (chan)
        :view-type view-type
-       :show-bid false
        :bottom-view :default})
     om/IWillMount
     (will-mount [_]
@@ -196,30 +241,24 @@
     om/IWillReceiveProps
     (will-receive-props [_ [np nv]]
       (let [op (first (om/get-props owner))]
-        (om/set-state! owner :project (assoc np :view-type nv))
-        (om/set-state! owner :show-bid false)))
+        (om/set-state! owner :project (assoc np :view-type nv))))
     om/IRenderState
     (render-state [_ {:keys [project show-bid bottom-view]}]
-      (if-not show-bid
+      (dom/div
+       #js {:className "container-fluid"
+            :style #js {:position "relative"}}
+       (dom/div
+        #js {:className "panel panel-default"
+             :ref (str (:id project "-panel"))}
         (dom/div
-         #js {:className "container-fluid"
-              :style #js {:position "relative"}}
-         (dom/div
-          #js {:className "panel panel-default"
-               :ref (str (:id project "-panel"))}
-          (dom/div
-           nil
-           (header project))
-          (dom/div
-           #js {:className "panel-body"}
-           (if-not show-bid
-             (dom/div nil
-                      (dom/div nil (om/build title-labels project))
-                      (dom/div nil (om/build info-table project))
-                      (om/build ut/more-less-text (:description project))
-                      (ut/bottom (assoc project :bottom-view bottom-view)))))))
-        (om/build bid/bid-view (assoc project
-                                      :bottom-view bottom-view
-                                      :show-bid show-bid
-                                      :height (om/get-state owner :height)))))))
+         nil
+         (header project))
+        (dom/div
+         #js {:className "panel-body"}
+         (if-not show-bid
+           (dom/div nil
+                    (dom/div nil (om/build title-labels project))
+                    (dom/div nil (om/build info-table project))
+                    (om/build ut/more-less-text (:description project))
+                    (om/build bottom (assoc project :bottom-view bottom-view))))))))))
 

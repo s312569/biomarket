@@ -14,6 +14,58 @@
            [goog.history EventType]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; button
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod ut/broadcast-loop-manager :comments-read
+  [owner {:keys [data]}]
+  (om/set-state! owner :unread-comments (remove #((set data) %)
+                                                (om/get-state owner :unread-comments))))
+
+(defn comment-bbutton
+  [[project tag] owner]
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:unread-comments []
+       :broadcast-chan (chan)})
+    om/IWillMount
+    (will-mount [_]
+      (server/get-data owner {:type :unread-comments :pid (:id project)}
+                       #(om/set-state! owner :unread-comments (:data %)))
+      (ut/register-broadcast-loop owner
+                                  :comments-read
+                                  (om/get-state owner :broadcast-chan)))
+    om/IWillUnmount
+    (will-unmount [_]
+      (ut/unsub-broadcast-loop owner :comments-read (om/get-state :broadcast-chan)))
+    om/IRenderState
+    (render-state [_ {:keys [unread-comments]}]
+      (let [visible (:bottom-view project)]
+        (dom/a
+         #js {:className (if (= visible tag)
+                           "btn btn-default active"
+                           "btn btn-default")
+              :onClick
+              (fn [x]
+                (ut/pub-info owner (:id project)
+                             {:action :show-bottom
+                              :bottom-view
+                              (if (= visible tag) :default tag)})
+                (if (seq unread-comments)
+                  (server/save-data {:type :comments-read
+                                     :data {:cids unread-comments}}
+                                    (fn [x]
+                                      (if-not (= :success (:status x))
+                                        (set! js/window.location "/error"))))))}
+         "Discussion "
+         (if (and (> (count unread-comments) 0)
+                  (not (= tag visible)))
+           (dom/span #js {:className "badge"
+                          :style #js {:background-color "#d43f3a"}}
+                     (count unread-comments))))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; subcomponents
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -92,6 +144,14 @@
                                              :pid pid
                                              :receiver receiver}})
     (om/set-state! owner :inputs new-inputs)))
+
+(defn- mark-read
+  [cids pid]
+  (server/save-data {:type :comments-read
+                     :data cids}
+   (fn [x]
+     (if-not (= :success (:status x))
+       (set! js/window.location "/error")))))
 
 (defn comments
   [[project receiver] owner]

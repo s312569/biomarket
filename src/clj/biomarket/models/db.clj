@@ -254,6 +254,25 @@
     {:type :comments
      :data d}))
 
+(defmethod server/get-data :unread-comments
+  [{:keys [pid username sender]}]
+  (let [d (if sender
+            (db/query spec ["select if from comments where pid=? and receiver=? and sender=? and read=false" pid username sender]
+                      :row-fn :id)
+            (db/query spec ["select id from comments where pid=? and receiver=? and read=false" pid username]
+                      :row-fn :id))]
+    {:type :unread-comments
+     :data d}))
+
+(defmethod server/save-data :comments-read
+  [{:keys [cids username]}]
+  (let [qs (str "update comments set read=true where id in ("
+                (->> (repeat (count cids) "?") (interpose ",") (apply str))
+                ")")]
+    (let [r (user-data-save (apply vector qs cids))]
+      (server/broadcast-update! {:type :comments-read :data cids})
+      r)))
+
 (defmethod server/save-data :comment
   [{:keys [comment receiver username pid] :as data}]
   (let [cid (-> (insert! :comments {:time (t/now)

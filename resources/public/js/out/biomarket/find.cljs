@@ -25,28 +25,32 @@
   [project owner]
   (om/component
    (dom/div #js {:style #js {:padding-top "20px"}}
-            (om/build skills/skill-tags [(:skills project) {}]))))
+            (om/build skills/skill-tags [project {}]))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; view methods
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod ut/bottom :found-projects
-  [p]
-  (let [links {:skills ["Matched skills" show-skills]
-               :bids ["Show bids" bid/show-bids]
-               :discussion ["Discussion" com/comments nil]}]
-    (if (seq (:bids p))
-      (dom/div
-       nil
-       (dom/hr nil)
-       (om/build ut/bottom-skel (assoc p :links links :widget [bid/bid-widget p])))
-      (dom/div
-       nil
-       (dom/hr nil)
-       (om/build ut/bottom-skel (assoc p
-                                       :links (dissoc links :bids :discussion)
-                                       :widget [bid/bid-widget p]))))))
+(defmethod pd/bottom :found-projects
+  [p owner]
+  (om/component
+   (let [links {:skills [[skills/skills-bbutton (pd/bbutton-state owner p :skills)]
+                         [show-skills p]]
+                :bids [[bid/bid-bbutton (pd/bbutton-state owner p :bids)]
+                       [bid/show-bids p]]
+                :discussion [[com/comment-bbutton [p :discussion]]
+                             [com/comments [p]]]}]
+     (if (seq (:bids p))
+       (dom/div
+        nil
+        (dom/hr nil)
+        (om/build pd/bottom-skel [links [bid/bid-widget p] (:bottom-view p)]))
+       (dom/div
+        nil
+        (dom/hr nil)
+        (om/build pd/bottom-skel [(list (first links))
+                                  [bid/bid-widget p]
+                                  (:bottom-view p)]))))))
 
 (defmethod pd/title-labels :found-projects
   [project]

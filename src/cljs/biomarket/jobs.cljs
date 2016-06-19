@@ -16,16 +16,58 @@
   (:import [goog History]
            [goog.history EventType]))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; view methods
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod ut/bottom :open-jobs
+(defmethod pd/bottom :active-jobs
   [p]
-  (let [links {:bids ["Bid history" bid/show-bids]
-               :comments ["Discussion" com/comments (:username p)]}]
-    (if (seq (:bids p))
-      (dom/div
-       nil
-       (dom/hr nil)
-       (om/build ut/bottom-skel (assoc p :links links :widget [bid/bid-widget p]))))))
+  nil)
+
+(defmethod pd/title-labels :active-jobs
+  [p]
+  (om/component
+   (dom/div nil)))
+
+(defmethod pd/bottom :completed-jobs
+  [p]
+  nil)
+
+(defmethod pd/title-labels :completed-jobs
+  [p]
+  (om/component
+   (dom/div nil)))
+
+(defmethod pd/bottom :open-jobs
+  [p owner]
+  (om/component
+   (let [links {:bids [[bid/bid-bbutton (pd/bbutton-state owner p :bids)]
+                       [bid/show-bids p]]
+                :comments [[com/comment-bbutton [p :comments]]
+                           [com/comments [p]]]}]
+     (if (seq (:bids p))
+       (dom/div
+        nil
+        (dom/hr nil)
+        (om/build pd/bottom-skel [links [bid/bid-widget p] (:bottom-view p)]))))))
+
+(defmethod pd/title-labels :open-jobs
+  [project]
+  (om/component
+   (dom/h4
+    #js {:style #js {:font-weight "bold"}}
+    (dom/span #js {:style #js {:padding-right "10px"}}
+              (str (:title project) "  "))
+    (let [ub (first (sort-by :time > (:user-bids project)))
+          best (bid/best-bid (:bids project))]
+      (dom/span
+             nil
+             (pd/label "label label-success" (str "Best bid: $" (:amount best)))
+             (pd/label "label label-primary" (str "Your bid: $" (:amount ub))))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; control
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- jobs-view
   [_ owner]

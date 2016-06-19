@@ -91,6 +91,11 @@
   (put! (:pub-chan @app-state)
         {:topic :amend-project-status :type type :data data}))
 
+(defmethod publish-update :comments-read
+  [{:keys [type data]}]
+  (put! (:pub-chan @app-state)
+        {:topic :comments-read :type type :data data}))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; broadcast receipt
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
