@@ -10,6 +10,7 @@
             [cljs-time.format :as f]
             [cljs-time.format :as tf]
             [cljs.pprint :as pprint]
+            [biomarket.components :as comps]
             [taoensso.sente  :as sente :refer (cb-success?)]
             [biomarket.utilities :as ut]))
 
@@ -18,9 +19,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn skills-bbutton
-  [bstate owner]
+  [[project tag] owner]
   (om/component
-   (dom/a bstate "Matched skills")))
+   (om/build comps/bottom-button {:project project :view-tag tag :text "Matched skills"})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; display skills as tags

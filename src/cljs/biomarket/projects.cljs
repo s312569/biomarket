@@ -74,7 +74,7 @@
       (dom/hr nil)
       (om/build
        pd/bottom-skel
-       [{:bids [[bid/bid-bbutton (pd/bbutton-state owner p :bids)] [bid/bid-manage p]]}
+       [{:bids [[bid/bid-bbutton [p :bids]] [bid/bid-manage p]]}
         nil
         (:bottom-view p)])))))
 

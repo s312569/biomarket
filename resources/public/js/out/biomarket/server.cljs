@@ -65,6 +65,11 @@
 ;; publishing events
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn default-publish
+  [{:keys [type data]} topic]
+  (put! (:pub-chan @app-state)
+        {:topic topic :type type :data data}))
+
 (defmulti publish-update :type)
 
 (defmethod publish-update :default
@@ -76,11 +81,6 @@
   (put! (:pub-chan @app-state)
         {:topic {:project (:id data)} :type type :data data}))
 
-(defmethod publish-update :comment
-  [{:keys [type data]}]
-  (put! (:pub-chan @app-state)
-        {:topic {:comment (:pid data)} :type type :data data}))
-
 (defmethod publish-update :skills
   [{:keys [type data]}]
   (put! (:pub-chan @app-state)
@@ -90,11 +90,6 @@
   [{:keys [type data]}]
   (put! (:pub-chan @app-state)
         {:topic :amend-project-status :type type :data data}))
-
-(defmethod publish-update :comments-read
-  [{:keys [type data]}]
-  (put! (:pub-chan @app-state)
-        {:topic :comments-read :type type :data data}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; broadcast receipt

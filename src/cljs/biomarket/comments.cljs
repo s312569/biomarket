@@ -9,7 +9,8 @@
             [cljs-time.core :as time]
             [cljs-time.format :as tf]
             [biomarket.utilities :refer [log] :as ut]
-            [biomarket.server :as server])
+            [biomarket.server :as server]
+            [biomarket.components :as comps])
   (:import [goog History]
            [goog.history EventType]))
 
@@ -19,55 +20,49 @@
 
 (defmethod ut/broadcast-loop-manager :comments-read
   [owner {:keys [data]}]
-  (om/set-state! owner :unread-comments (remove #((set data) %)
-                                                (om/get-state owner :unread-comments))))
+  (om/set-state! owner :unread (remove #((set data) %)
+                                       (om/get-state owner :unread))))
+
+(defmethod server/publish-update :comments-read
+  [{:keys [type data] :as m}]
+  (server/default-publish m :comments-read))
+
+(defmethod ut/broadcast-loop-manager :new-comment
+  [owner {:keys [data]}]
+  (if (and (= (om/get-state owner :username) (:receiver data))
+           (= (om/get-state owner :pid) (:pid data)))
+    (om/set-state! owner :unread (cons (:id data) (om/get-state owner :unread)))))
+
+(defmethod server/publish-update :new-comment
+  [{:keys [type data] :as m}]
+  (server/default-publish m :new-comment))
 
 (defn comment-bbutton
-  [[project tag] owner]
-  (reify
-    om/IInitState
-    (init-state [_]
-      {:unread-comments []
-       :broadcast-chan (chan)})
-    om/IWillMount
-    (will-mount [_]
-      (server/get-data owner {:type :unread-comments :pid (:id project)}
-                       #(om/set-state! owner :unread-comments (:data %)))
-      (ut/register-broadcast-loop owner
-                                  :comments-read
-                                  (om/get-state owner :broadcast-chan)))
-    om/IWillUnmount
-    (will-unmount [_]
-      (ut/unsub-broadcast-loop owner :comments-read (om/get-state :broadcast-chan)))
-    om/IRenderState
-    (render-state [_ {:keys [unread-comments]}]
-      (let [visible (:bottom-view project)]
-        (dom/a
-         #js {:className (if (= visible tag)
-                           "btn btn-default active"
-                           "btn btn-default")
-              :onClick
-              (fn [x]
-                (ut/pub-info owner (:id project)
-                             {:action :show-bottom
-                              :bottom-view
-                              (if (= visible tag) :default tag)})
-                (if (seq unread-comments)
-                  (server/save-data {:type :comments-read
-                                     :data {:cids unread-comments}}
-                                    (fn [x]
-                                      (if-not (= :success (:status x))
-                                        (set! js/window.location "/error"))))))}
-         "Discussion "
-         (if (and (> (count unread-comments) 0)
-                  (not (= tag visible)))
-           (dom/span #js {:className "badge"
-                          :style #js {:background-color "#d43f3a"}}
-                     (count unread-comments))))))))
+  [[project tag bclass bclick visible] owner]
+  (om/component
+   (om/build comps/badged-button {:project project
+                                  :view-tag tag
+                                  :visible visible
+                                  :bclass bclass
+                                  :bclick bclick
+                                  :bcast ({:comments-read (chan)}
+                                          {:new-comment (chan)})
+                                  :db-unread :unread-comments
+                                  :db-mark :comments-read
+                                  :text "Discussion"})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; subcomponents
+;; widget
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod ut/broadcast-loop-manager :comment
+  [owner {:keys [data]}]
+  (om/set-state! owner :comments (conj (om/get-state owner :comments) data)))
+
+(defmethod server/publish-update :comment
+  [{:keys [type data]}]
+  (put! (:pub-chan @server/app-state)
+        {:topic {:comment (:pid data)} :type type :data data}))
 
 (defn- show-comment
   [comment owner]
@@ -107,10 +102,6 @@
                     (filter #(not (= "" (str/trim (:comment %))))
                             (sort-by :time < comments))))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; widget
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (defn- comment-control
   [inputs utag owner]
   (let [comment (:comment (om/get-state owner :inputs))
@@ -144,14 +135,6 @@
                                              :pid pid
                                              :receiver receiver}})
     (om/set-state! owner :inputs new-inputs)))
-
-(defn- mark-read
-  [cids pid]
-  (server/save-data {:type :comments-read
-                     :data cids}
-   (fn [x]
-     (if-not (= :success (:status x))
-       (set! js/window.location "/error")))))
 
 (defn comments
   [[project receiver] owner]

@@ -12,6 +12,7 @@
             [biomarket.server :as server]
             [biomarket.comments :as com]
             [biomarket.skills :as skills]
+            [biomarket.components :as comps]
             [biomarket.dropdown :as dd])
   (:import [goog History]
            [goog.history EventType]))
@@ -37,13 +38,53 @@
                 (map first))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; button
+;; buttons
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defmethod ut/broadcast-loop-manager :bids-read
+  [owner {:keys [data]}]
+  (om/set-state! owner :unread (remove #(and ((set data) %)
+                                             (contains? % :bid))
+                                       (om/get-state owner :unread))))
+
+(defmethod server/publish-update :bids-read
+  [{:keys [type data] :as m}]
+  (server/default-publish m :bids-read))
+
+(defmethod ut/broadcast-loop-manager :new-bid-comment
+  [owner {:keys [data]}]
+  (ut/log "here")
+  (if (= (om/get-state owner :pid) (:pid data))
+    (om/set-state! owner :unread (cons {(:type data) (:id data)} (om/get-state owner :unread)))))
+
+(defmethod server/publish-update :new-bid-comment
+  [{:keys [type data] :as m}]
+  (server/default-publish m :new-bid-comment))
+
 (defn bid-bbutton
-  [bstate owner]
+  [[project tag] owner]
   (om/component
-   (dom/a bstate "Show bids")))
+   (om/build comps/badged-button {:project project
+                                  :view-tag tag
+                                  :bcast ({:bids-read (chan)}
+                                          {:new-bid-comment (chan)}
+                                          {:comments-read (chan)})
+                                  :db-unread :unread-bids
+                                  :db-mark :bids-read
+                                  :text "Show bids"
+                                  :badges [{:dfunc (fn [x] (let [c (->> (filter #(contains? % :bid) x)
+                                                                        count)]
+                                                             (if (> c 0)
+                                                               (str c " new bids"))))}
+                                           {:dfunc (fn [x] (let [c (->> (filter #(contains? % :comment) x)
+                                                                        count)]
+                                                             (if (> c 0)
+                                                               (str c " new comments"))))}]})))
+
+(defn bid-history-button
+  [[p tag]]
+  (om/component
+   (om/build comps/bottom-button {:project p :view-tag tag :text "Bid history"})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; show bids 
@@ -130,7 +171,6 @@
              "white" "#E7E7E7")})
     om/IRenderState
     (render-state [_ {:keys [visible bg]}]
-      (ut/log (mod (:row project) 2))
       (let [bid (:bid project)
             basis (:basis project)
             pid (:id project)]
@@ -154,13 +194,15 @@
                             :line-height "40px"}}
            (dom/div
             #js {:className "btn-group"}
-            (dom/a #js {:className (if (= visible :discussion)
-                                     "btn btn-default btn-sm active"
-                                     "btn btn-default btn-sm")
-                        :onClick #(if (= visible :discussion)
-                                    (om/set-state! owner :visible false)
-                                    (om/set-state! owner :visible :discussion))}
-                   "Discussion")
+            (om/build com/comment-bbutton [project
+                                           :discussion
+                                           (if (= visible :discussion)
+                                             "btn btn-default btn-sm active"
+                                             "btn btn-default btn-sm")
+                                           #(if (= visible :discussion)
+                                              (om/set-state! owner :visible false)
+                                              (om/set-state! owner :visible :discussion))
+                                           visible])
             (dom/a #js {:className (if (= visible :skills)
                                      "btn btn-default btn-sm active"
                                      "btn btn-default btn-sm")

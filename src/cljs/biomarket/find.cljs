@@ -34,9 +34,9 @@
 (defmethod pd/bottom :found-projects
   [p owner]
   (om/component
-   (let [links {:skills [[skills/skills-bbutton (pd/bbutton-state owner p :skills)]
+   (let [links {:skills [[skills/skills-bbutton [p :skills]]
                          [show-skills p]]
-                :bids [[bid/bid-bbutton (pd/bbutton-state owner p :bids)]
+                :bids [[bid/bid-history-button [p :bids]]
                        [bid/show-bids p]]
                 :discussion [[com/comment-bbutton [p :discussion]]
                              [com/comments [p]]]}]

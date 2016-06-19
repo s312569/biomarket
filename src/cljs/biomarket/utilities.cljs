@@ -78,10 +78,6 @@
   [owner {:keys [data]}]
   (om/set-state! owner :project (assoc data :view-type (om/get-state owner :view-type))))
 
-(defmethod broadcast-loop-manager :comment
-  [owner {:keys [data]}]
-  (om/set-state! owner :comments (conj (om/get-state owner :comments) data)))
-
 (defmethod broadcast-loop-manager :amend-project-status
   [owner {:keys [data]}]
   (let [status->view #({"open" :open-projects "expired" :expired-projects
@@ -232,6 +228,17 @@
     (dom/button #js {:className "pure-button pure-button-primary"
                      :disabled "true"}
                 value))))
+
+(defn fade-in
+  ([] (fade-in {} 2))
+  ([os] (fade-in os 2))
+  ([os time]
+   (let [t (str "fadein " time "s")]
+     (clj->js (merge os  {:-webkit-animation t
+                          :-moz-animation t
+                          :-ms-animation t
+                          :-o-animation t
+                          :animation t})))))
 
 (defn waiting
   [_ owner]

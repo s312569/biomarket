@@ -235,12 +235,39 @@
   (db/query spec ["select * from bids where pid = ?" pid]
             :row-fn fix-times))
 
+(defmethod server/get-data :unread-bids
+  [{:keys [username pid]}]
+  (let [bids (db/query spec ["select id from bids where pid=? and read=false" pid]
+                       :row-fn #(hash-map :bid (:id %)))
+        comments (db/query spec ["select id from comments where pid=? and receiver=? and read=false"
+                                 pid username]
+                           :row-fn #(hash-map :comment (:id %)))]
+    {:type :unread-bids
+     :data (concat bids comments)}))
+
 (defmethod server/save-data :bid
   [{:keys [amount username pid] :as data}]
-  (insert! :bids (-> (dissoc data :type)
-                     (merge {:time (t/now)
-                             :amount (moneystring->bigdec amount)})))
-  (server/broadcast-update! {:type :project :data (project username pid)}))
+  (let [id (:id (first (insert! :bids (-> (dissoc data :type)
+                                          (merge {:time (t/now)
+                                                  :amount (moneystring->bigdec amount)})))))]
+    (server/broadcast-update! {:type :project :data (project username pid)})
+    (server/broadcast-update! {:type :new-bid-comment :data {:id id :pid pid :type :bid}})))
+
+(defn- mark-bids-read
+  [ids]
+  (let [qs (str "update bids set read=true where id in ("
+                (->> (repeat (count ids) "?") (interpose ",") (apply str))
+                ")")]
+    (user-data-save (apply vector qs ids))))
+
+(defmethod server/save-data :bids-read
+  [{:keys [ids]}]
+  (let [bids (->> (filter #(contains? % :bid) ids) (map :bid) seq)
+        br (and bids (mark-bids-read bids))]
+    (if (or (nil? br) (= :success (:status br)))
+      (do (server/broadcast-update! {:type :bids-read :data ids})
+          {:status :success})
+      br)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; comment server calls
@@ -254,24 +281,32 @@
     {:type :comments
      :data d}))
 
+(defmethod server/get-data :username
+  [{:keys [username]}]
+  {:type :username :data username})
+
 (defmethod server/get-data :unread-comments
   [{:keys [pid username sender]}]
   (let [d (if sender
-            (db/query spec ["select if from comments where pid=? and receiver=? and sender=? and read=false" pid username sender]
+            (db/query spec ["select id from comments where pid=? and receiver=? and sender=? and read=false" pid username sender]
                       :row-fn :id)
             (db/query spec ["select id from comments where pid=? and receiver=? and read=false" pid username]
                       :row-fn :id))]
     {:type :unread-comments
      :data d}))
 
-(defmethod server/save-data :comments-read
-  [{:keys [cids username]}]
+(defn- mark-comments-read
+  [ids]
   (let [qs (str "update comments set read=true where id in ("
-                (->> (repeat (count cids) "?") (interpose ",") (apply str))
+                (->> (repeat (count ids) "?") (interpose ",") (apply str))
                 ")")]
-    (let [r (user-data-save (apply vector qs cids))]
-      (server/broadcast-update! {:type :comments-read :data cids})
-      r)))
+    (user-data-save (apply vector qs ids))))
+
+(defmethod server/save-data :comments-read
+  [{:keys [ids username]}]
+  (let [r (mark-comments-read ids)]
+    (if (= :success (:status r)) (server/broadcast-update! {:type :comments-read :data ids}))
+    r))
 
 (defmethod server/save-data :comment
   [{:keys [comment receiver username pid] :as data}]
@@ -285,8 +320,9 @@
         d (db/query spec ["select * from comments where id = ?" cid]
                     :row-fn fix-times
                     :result-set-fn first)]
-    (server/broadcast-update! {:type :comment
-                               :data d})))
+    (server/broadcast-update! {:type :comment :data d})
+    (server/broadcast-update! {:type :new-comment :data (select-keys d [:receiver :id :pid])})
+    (server/broadcast-update! {:type :new-bid-comment :data {:id cid :pid pid :type :comment}})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; project server calls
@@ -475,6 +511,7 @@
                             [:pid :integer "NOT NULL"]
                             [:time :timestamp "NOT NULL"]
                             [:amount :decimal "NOT NULL"]
+                            [:read :boolean "NOT NULL" "DEFAULT 'false'"]
                             [:username :varchar "NOT NULL"]))
         (apply db/insert! spec :skills skills))
       (catch Exception e
