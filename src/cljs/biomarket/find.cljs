@@ -84,7 +84,7 @@
   (reify
     om/IInitState
     (init-state [_]
-      {:projects []
+      {:projects false
        :view :found-projects})
     om/IWillMount
     (will-mount [_]
@@ -94,22 +94,24 @@
                              (om/set-state! owner :projects))))
     om/IRenderState
     (render-state [_ {:keys [projects bottoms]}]
-      (dom/div
-       nil
-       (if (seq projects)
-         (dom/div
-          #js {:className "container-fluid"}
-          (dom/div
-           #js {:className "row"}
-           (apply
-            dom/div
-            #js {:className "col-md-12"}
-            (map #(om/build pd/project-summary [% :found-projects])
-                 projects))))
-         (dom/div
-          #js {:style #js {:padding-top "30px"
-                           :text-align "center"}}
-          (str "No projects found")))))))
+      (if projects
+        (dom/div
+         nil
+         (if (seq projects)
+           (dom/div
+            #js {:className "container-fluid"}
+            (dom/div
+             #js {:className "row"}
+             (apply
+              dom/div
+              #js {:className "col-md-12"}
+              (map #(om/build pd/project-summary [% :found-projects])
+                   projects))))
+           (dom/div
+            #js {:style #js {:padding-top "30px"
+                             :text-align "center"}}
+            (str "No projects found"))))
+        (om/build ut/waiting nil)))))
 
 
 

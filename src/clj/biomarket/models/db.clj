@@ -305,7 +305,9 @@
 (defmethod server/save-data :comments-read
   [{:keys [ids username]}]
   (let [r (mark-comments-read ids)]
-    (if (= :success (:status r)) (server/broadcast-update! {:type :comments-read :data ids}))
+    (if (= :success (:status r))
+      (do (server/broadcast-update! {:type :comments-read :data ids})
+          (server/broadcast-update! {:type :bid-comment-read :data (map #(hash-map :comment %) ids)})))
     r))
 
 (defmethod server/save-data :comment
@@ -316,13 +318,11 @@
                                     :read false
                                     :pid pid
                                     :comment comment})
-                first :id)
-        d (db/query spec ["select * from comments where id = ?" cid]
-                    :row-fn fix-times
-                    :result-set-fn first)]
-    (server/broadcast-update! {:type :comment :data d})
-    (server/broadcast-update! {:type :new-comment :data (select-keys d [:receiver :id :pid])})
-    (server/broadcast-update! {:type :new-bid-comment :data {:id cid :pid pid :type :comment}})))
+                first fix-times)]
+    (server/broadcast-update! {:type :comment :data cid})
+    (server/broadcast-update! {:type :new-comment :data (select-keys cid [:receiver :sender :id :pid])})
+    (server/broadcast-update! {:type :new-bid-comment :data (-> (select-keys cid [:id :pid])
+                                                                (assoc :type :comment))})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; project server calls

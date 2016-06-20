@@ -30,7 +30,8 @@
 (defmethod ut/broadcast-loop-manager :new-comment
   [owner {:keys [data]}]
   (if (and (= (om/get-state owner :username) (:receiver data))
-           (= (om/get-state owner :pid) (:pid data)))
+           (= (om/get-state owner :pid) (:pid data))
+           (= (om/get-state owner :sender) (:sender data)))
     (om/set-state! owner :unread (cons (:id data) (om/get-state owner :unread)))))
 
 (defmethod server/publish-update :new-comment
@@ -38,17 +39,18 @@
   (server/default-publish m :new-comment))
 
 (defn comment-bbutton
-  [[project tag bclass bclick visible] owner]
+  [[project tag bclass bclick visible sender] owner]
   (om/component
    (om/build comps/badged-button {:project project
                                   :view-tag tag
                                   :visible visible
                                   :bclass bclass
                                   :bclick bclick
-                                  :bcast ({:comments-read (chan)}
-                                          {:new-comment (chan)})
+                                  :bcast [[:comments-read (chan)]
+                                          [:new-comment (chan)]]
                                   :db-unread :unread-comments
                                   :db-mark :comments-read
+                                  :sender sender
                                   :text "Discussion"})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

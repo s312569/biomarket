@@ -44,23 +44,26 @@
                   d)))))
 
 (defn badged-button
-  [{:keys [project view-tag bclass bclick visible bcast-read bcast-new db-unread db-mark text badges]} owner]
+  [{:keys [project view-tag bclass bclick visible bcast db-unread db-mark text badges sender]} owner]
   (reify
     om/IInitState
     (init-state [_]
       {:unread []
-       :username []
+       :username nil
+       :sender sender
        :pid (:id project)})
     om/IWillMount
     (will-mount [_]
-      (server/get-data owner {:type db-unread :pid (:id project)}
+      (server/get-data owner {:type db-unread :pid (:id project) :sender sender}
                        #(om/set-state! owner :unread (:data %)))
       (server/get-data owner {:type :username}
                        #(om/set-state! owner :username (:data %)))
-      (map (fn [[k v]] (ut/register-broadcast-loop owner k v))))
+      (doseq [[tag c] bcast]
+        (ut/register-broadcast-loop owner tag c)))
     om/IWillUnmount
     (will-unmount [_]
-      (map (fn [[k v]] (ut/unsub-broadcast-loop owner k v))))
+      (doseq [[tag c] bcast]
+        (ut/unsub-broadcast-loop owner tag c)))
     om/IWillUpdate
     (will-update [_ {:keys [project view-tag visible]} ns]
       (if (= (or visible (:bottom-view project)) view-tag)

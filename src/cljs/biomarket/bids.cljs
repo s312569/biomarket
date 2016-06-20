@@ -53,7 +53,6 @@
 
 (defmethod ut/broadcast-loop-manager :new-bid-comment
   [owner {:keys [data]}]
-  (ut/log "here")
   (if (= (om/get-state owner :pid) (:pid data))
     (om/set-state! owner :unread (cons {(:type data) (:id data)} (om/get-state owner :unread)))))
 
@@ -61,25 +60,39 @@
   [{:keys [type data] :as m}]
   (server/default-publish m :new-bid-comment))
 
+(defmethod ut/broadcast-loop-manager :bid-comment-read
+  [owner {:keys [data]}]
+  (om/set-state! owner :unread (remove #(and ((set data) %)
+                                             (contains? % :comment))
+                                       (om/get-state owner :unread))))
+
+(defmethod server/publish-update :bid-comment-read
+  [{:keys [type data] :as m}]
+  (server/default-publish m :bid-comment-read))
+
 (defn bid-bbutton
   [[project tag] owner]
   (om/component
    (om/build comps/badged-button {:project project
                                   :view-tag tag
-                                  :bcast ({:bids-read (chan)}
-                                          {:new-bid-comment (chan)}
-                                          {:comments-read (chan)})
+                                  :bcast [[:bids-read (chan)]
+                                          [:new-bid-comment (chan)]
+                                          [:bid-comment-read (chan)]]
                                   :db-unread :unread-bids
                                   :db-mark :bids-read
                                   :text "Show bids"
                                   :badges [{:dfunc (fn [x] (let [c (->> (filter #(contains? % :bid) x)
                                                                         count)]
                                                              (if (> c 0)
-                                                               (str c " new bids"))))}
+                                                               (condp < c
+                                                                 1 (str c " new bids")
+                                                                 (str c " new bid")))))}
                                            {:dfunc (fn [x] (let [c (->> (filter #(contains? % :comment) x)
                                                                         count)]
                                                              (if (> c 0)
-                                                               (str c " new comments"))))}]})))
+                                                               (condp < c
+                                                                 1 (str c " new comments")
+                                                                 (str c " new comment")))))}]})))
 
 (defn bid-history-button
   [[p tag]]
@@ -202,7 +215,8 @@
                                            #(if (= visible :discussion)
                                               (om/set-state! owner :visible false)
                                               (om/set-state! owner :visible :discussion))
-                                           visible])
+                                           visible
+                                           (:username bid)])
             (dom/a #js {:className (if (= visible :skills)
                                      "btn btn-default btn-sm active"
                                      "btn btn-default btn-sm")

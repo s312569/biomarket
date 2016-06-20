@@ -74,7 +74,7 @@
   (reify
     om/IInitState
     (init-state [_]
-      {:projects []
+      {:projects false
        :view :open-jobs
        :views {:open-jobs ["Bidding" "open"]
                :active-jobs ["Active jobs" "active"]
@@ -88,23 +88,25 @@
     (will-unmount [_]
       (pd/navigation-unmount owner))
     om/IRenderState
-    (render-state [_ {:keys [projects inputs view]}]
-      (dom/div
-       nil
-       (pd/project-nav owner)
-       (dom/div #js {:style #js {:padding-top "10px"}})
-       (if (seq projects)
-         (dom/div
-          #js {:className "container-fluid"}
-          (dom/div
-           #js {:className "row"}
-           (apply
-            dom/div
-            #js {:className "col-md-12"}
-            (map #(om/build pd/project-summary [% view])
-                 projects))))
-         (dom/div
-          #js {:style #js {:padding-top "30px"
-                           :text-align "center"}}
-          (str "You have no " (first (view inputs))
-               " projects.")))))))
+    (render-state [_ {:keys [projects views view]}]
+      (if projects
+        (dom/div
+         nil
+         (pd/project-nav owner)
+         (dom/div #js {:style #js {:padding-top "10px"}})
+         (if (seq projects)
+           (dom/div
+            #js {:className "container-fluid"}
+            (dom/div
+             #js {:className "row"}
+             (apply
+              dom/div
+              #js {:className "col-md-12"}
+              (map #(om/build pd/project-summary [% view])
+                   projects))))
+           (dom/div
+            #js {:style #js {:padding-top "30px"
+                             :text-align "center"}}
+            (str "You have no " (second (view views))
+                 " projects."))))
+        (om/build ut/waiting nil)))))
