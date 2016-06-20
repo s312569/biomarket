@@ -48,7 +48,7 @@
        (dom/div
         nil
         (dom/hr nil)
-        (om/build pd/bottom-skel [(list (first links))
+        (om/build pd/bottom-skel [(select-keys links [:skills])
                                   [bid/bid-widget p]
                                   (:bottom-view p)]))))))
 
@@ -79,6 +79,17 @@
 ;; control
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defmethod ut/loop-manager :remove-project
+  [owner {:keys [data]}]
+  (go
+    (loop [t 0]
+      (if (>= t 3000)
+        (om/set-state! owner :projects (remove #(= (:pid data) (:id %)) (om/get-state owner :projects)))
+        (do
+          (<! (timeout 30))
+          (ut/pub-info owner :progress nil)
+          (recur (+ t 30)))))))
+
 (defn- find-view
   [_ owner]
   (reify
@@ -91,7 +102,8 @@
       (server/get-data owner {:type :all-projects :status :open}
                        #(->> (:data %)
                              (sort-by :biddead)
-                             (om/set-state! owner :projects))))
+                             (om/set-state! owner :projects)))
+      (ut/register-loop owner :remove-project))
     om/IRenderState
     (render-state [_ {:keys [projects bottoms]}]
       (if projects

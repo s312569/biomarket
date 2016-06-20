@@ -8,12 +8,26 @@
             [biomarket.utilities :as ut]
             [biomarket.server :as server]
             [biomarket.comments :as com]
-            [biomarket.dropdown :as dd]
+            [biomarket.bids :as bid]
+            [biomarket.components :as comps]
             [biomarket.skills :as skills]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; project navigation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod ut/broadcast-loop-manager :amend-project-status
+  [owner {:keys [data]}]
+  (let [status->view #({"open" :open-projects "expired" :expired-projects
+                        "completed" :completed-projects "active" :active-projects
+                        "deleted" :deleted-projects} %)
+        cv (om/get-state owner :view)
+        projs (om/get-state owner :projects)]
+    (if (= cv (status->view (:status data)))
+      (om/set-state! owner :projects
+                     (conj projs
+                           (assoc data :view-type (om/get-state :view-type))))
+      (om/set-state! owner :projects (remove #(= (:id data) (:id %)) projs)))))
 
 (defn update-projects
   [owner]
@@ -70,21 +84,13 @@
   [& fields]
   (apply dom/div #js {:style #js {:color "red"}} fields))
 
-(defn- average-bid
-  [project]
-  (if (seq (:bids project))
-    (str "$"
-         (pprint/cl-format nil "~$"
-                           (/ (reduce + (map :amount (:bids project)))
-                              (count (:bids project)))))))
-
 (defmethod table-info :expired-projects
   [project]
   (let [f #(ut/color-span % "green")]
     {"Bidding ended" (alert-table-info (str (:bidmin project) " ago"))
      "Project deadline" (f (:projmin project))
      "Bids" (f (count (:bids project)))
-     "Average bid (USD)" (f (or (average-bid project) "No bids received"))
+     "Average bid (USD)" (f (or (bid/average-bid project) "No bids received"))
      "Budget (USD)" (f (str "$" (:budget project)))}))
 
 (defmethod table-info :default
@@ -92,8 +98,8 @@
   (let [f #(ut/color-span % "green")]
     {"Bidding ends" (f (:bidmin project))
      "Project deadline" (f (:projmin project))
-     "Bids" (f (count (:bids project)))
-     "Average bid" (f (or (average-bid project) "No bids yet"))
+     "Bids" (f (count (bid/sort-best-bids project)))
+     "Average bid" (f (or (bid/average-bid project) "No bids yet"))
      "Budget" (f (str "$" (:budget project)))}))
 
 (defn info-table
@@ -119,6 +125,35 @@
 ;; header
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn- delete-project
+  [p]
+  (server/save-data {:type :delete-project :data {:id (:id p)}}))
+
+(defn drop-down-skel
+  ([] (drop-down-skel nil nil))
+  ([func text]
+   (if (nil? func)
+     (dom/div
+      nil
+      (dom/i #js {:className "fa fa-bars"
+                  :style #js {:color "#D3D3D3"}}))
+     (dom/div
+      #js {:className "btn-group"}
+      (dom/a #js {:className "dropdown-toggle"
+                  :data-toggle "dropdown"}
+             (dom/i #js {:className "fa fa-bars"
+                         :style #js {:color "gray"}}))
+      (dom/ul #js {:className "dropdown-menu dropdown-menu-right"}
+              (dom/li
+               nil
+               (dom/a #js {:onClick func} text)))))))
+
+(defmulti drop-down (fn [p] (:view-type p)))
+
+(defmethod drop-down :default
+  [p]
+  (drop-down-skel #(delete-project p) "Delete project"))
+
 (defn header
   [p]
   (dom/div
@@ -134,7 +169,7 @@
     (dom/div
      #js {:className "col-md-2"
           :style #js {:text-align "right"}}
-     (dd/drop-down p)))))
+     (drop-down p)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bottom links
@@ -199,10 +234,16 @@
   [owner {:keys [data]}]
   (om/set-state! owner :bottom-view (:bottom-view data)))
 
+(defmethod ut/loop-manager :project-alert
+  [owner {:keys [data]}]
+  (om/set-state! owner :alert-type (:type data))
+  (om/set-state! owner :alert (:alert data)))
+
 (defn project-mount
   [owner]
   (let [pid (:id (om/get-state owner :project))]
     (ut/register-loop owner pid ut/loop-manager)
+    (ut/register-loop owner {:alert pid})
     (ut/register-broadcast-loop owner {:project pid}
                                 (om/get-state owner :broadcast-chan))))
 
@@ -210,6 +251,7 @@
   [owner]
   (let [pid (om/get-state owner :project)]
     (ut/unsubscribe owner pid)
+    (ut/unsubscribe owner {:alert pid})
     (ut/unsub-broadcast-loop owner {:project pid}
                              (om/get-state owner :broadcast-chan))))
 
@@ -227,6 +269,8 @@
       {:project (assoc project :view-type view-type :bottom-view :default)
        :broadcast-chan (chan)
        :view-type view-type
+       :alert false
+       :alert-type :success
        :bottom-view :default})
     om/IWillMount
     (will-mount [_]
@@ -243,7 +287,7 @@
       (let [op (first (om/get-props owner))]
         (om/set-state! owner :project (assoc np :view-type nv))))
     om/IRenderState
-    (render-state [_ {:keys [project show-bid bottom-view]}]
+    (render-state [_ {:keys [project bottom-view alert alert-type]}]
       (dom/div
        #js {:className "container-fluid"
             :style #js {:position "relative"}}
@@ -255,10 +299,10 @@
          (header project))
         (dom/div
          #js {:className "panel-body"}
-         (if-not show-bid
-           (dom/div nil
-                    (dom/div nil (om/build title-labels project))
-                    (dom/div nil (om/build info-table project))
-                    (om/build ut/more-less-text (:description project))
-                    (om/build bottom (assoc project :bottom-view bottom-view))))))))))
+         (if alert (om/build comps/alert {:msg alert :type alert-type :pid (:id project)}))
+         (dom/div nil
+                  (dom/div nil (om/build title-labels project))
+                  (dom/div nil (om/build info-table project))
+                  (om/build ut/more-less-text (:description project))
+                  (om/build bottom (assoc project :bottom-view bottom-view)))))))))
 

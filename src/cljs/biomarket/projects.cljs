@@ -19,52 +19,6 @@
 ;; view methods
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; labels
-
-(defn- expired-or-deleted
-  [project]
-  (om/component
-   (dom/h4
-    #js {:style #js {:font-weight "bold"}}
-    (dom/span #js {:style #js {:padding-right "10px"}}
-              (str (:title project) "  "))
-    (let [best (bid/best-bid (:bids project))]
-      (if best
-        (pd/label "label label-success" (str "Best bid: $" (:amount best)))
-        (pd/label "label label-danger" "No bids"))))))
-
-(defmethod pd/title-labels :open-projects
-  [project]
-  (om/component
-   (dom/h4
-    #js {:style #js {:font-weight "bold"}}
-    (dom/span #js {:style #js {:padding-right "10px"}}
-              (str (:title project) "  "))
-    (let [best (bid/best-bid (:bids project))]
-      (if best
-        (pd/label "label label-success" (str "Best bid: $" (:amount best)))
-        (pd/label "label label-danger" "No bids yet!"))))))
-
-(defmethod pd/title-labels :active-projects
-  [p]
-  (om/component
-   (dom/div nil)))
-
-(defmethod pd/title-labels :completed-projects
-  [p]
-  (om/component
-   (dom/div nil)))
-
-(defmethod pd/title-labels :deleted-projects
-  [project]
-  (expired-or-deleted project))
-
-(defmethod pd/title-labels :expired-projects
-  [project]
-  (expired-or-deleted project))
-
-;; bottom
-
 (defn- default-bottom
   [p owner]
   (om/component
@@ -78,25 +32,85 @@
         nil
         (:bottom-view p)])))))
 
+(defn- expired-or-deleted
+  [project]
+  (om/component
+   (dom/h4
+    #js {:style #js {:font-weight "bold"}}
+    (dom/span #js {:style #js {:padding-right "10px"}}
+              (str (:title project) "  "))
+    (let [best (bid/best-bid (:bids project))]
+      (if best
+        (pd/label "label label-success" (str "Best bid: $" (:amount best)))
+        (pd/label "label label-danger" "No bids"))))))
+
+(defn- undelete-project
+  [p]
+  (server/save-data {:type :undelete-project :data {:id (:id p)}}))
+
+;; open projects
+
+(defmethod pd/title-labels :open-projects
+  [project]
+  (om/component
+   (dom/h4
+    #js {:style #js {:font-weight "bold"}}
+    (dom/span #js {:style #js {:padding-right "10px"}}
+              (str (:title project) "  "))
+    (let [best (bid/best-bid (:bids project))]
+      (if best
+        (pd/label "label label-success" (str "Best bid: $" (:amount best)))
+        (pd/label "label label-danger" "No bids yet!"))))))
+
 (defmethod pd/bottom :open-projects
   [p owner]
   (om/component
    (om/build default-bottom p)))
+
+;; active projects
+
+(defmethod pd/title-labels :active-projects
+  [p]
+  (om/component
+   (dom/div nil)))
 
 (defmethod pd/bottom :active-projects
   [p owner]
   (om/component
    (dom/div nil "")))
 
+;; completed projects
+
+(defmethod pd/title-labels :completed-projects
+  [p]
+  (om/component
+   (dom/div nil)))
+
 (defmethod pd/bottom :completed-projects
   [p]
   (om/component
    (dom/div nil "")))
 
+;; deleted projects
+
+(defmethod pd/title-labels :deleted-projects
+  [project]
+  (expired-or-deleted project))
+
 (defmethod pd/bottom :deleted-projects
   [p owner]
   (om/component
    (om/build default-bottom p)))
+
+(defmethod pd/drop-down :deleted-projects
+  [p]
+  (pd/drop-down-skel #(undelete-project p) "Undelete project"))
+
+;; expired projects
+
+(defmethod pd/title-labels :expired-projects
+  [project]
+  (expired-or-deleted project))
 
 (defmethod pd/bottom :expired-projects
   [p owner]

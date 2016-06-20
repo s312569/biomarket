@@ -2,7 +2,7 @@
   (:require-macros [cljs.core.async.macros :refer [go go-loop alt!]])
   (:require [goog.events :as events]
             [ajax.core :refer [POST]]
-            [cljs.core.async :refer [put! <! >! chan pub sub unsub]]
+            [cljs.core.async :refer [put! <! >! chan pub sub unsub timeout]]
             [clojure.string :as str]
             [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
@@ -91,3 +91,74 @@
        #js {:className (or bclass (if (= visible view-tag) "btn btn-default active" "btn btn-default"))
             :onClick (if bclick #(bclick) #(default-click project view-tag owner))}
        text))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; progress bar
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn progress
+  [time owner]
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:progress 0
+       :tag (gensym)})
+    om/IWillMount
+    (will-mount [_]
+      (ut/register-loop owner :progress (fn [o d]
+                                          (om/set-state! owner :progress (+ 1.5 (om/get-state owner :progress))))))
+    om/IWillUnmount
+    (will-unmount [_]
+      (ut/unsubscribe owner :progress))
+    om/IRenderState
+    (render-state [_ {:keys [progress]}]
+      (dom/div
+       #js {:className "progress"}
+       (dom/div
+        #js {:className "progress-bar"
+             :role "progressbar"
+             :aria-valuenow (str progress)
+             :aria-valuemin "0"
+             :aria-valuemax "100"
+             :style #js {:width (str progress "%")}})))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; alerts
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- alert-class
+  [type]
+  (condp = type
+    :success "alert alert-success"
+    :warning "alert alert-warning"
+    :danger "alert alert-danger"
+    :info "alert alert-info"))
+
+(defn alert
+  [{:keys [msg type pid dismissable]} owner]
+  (om/component
+   (dom/div
+    #js {:className (alert-class type)
+         :style (ut/fade-in)}
+    (dom/div
+     #js {:className "container-fluid"}
+     (dom/div
+      #js {:className "row"}
+      (dom/div
+       #js {:className "col-md-11"}
+       msg)
+      (if dismissable
+        (dom/div
+         #js {:className "col-md-1"
+              :style #js {:text-align "right"}}
+         (dom/i #js {:className "fa fa-times"
+                     :onClick #(ut/pub-info owner {:alert pid}
+                                            {:action :project-alert :alert false})}))
+        (dom/div
+         #js {:className "col-md-1"}
+         "")))
+     (dom/div
+      #js {:className "row"}
+      (dom/div
+       #js {:className "col-md-12"}
+       (om/build progress 3000)))))))

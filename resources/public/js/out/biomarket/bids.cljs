@@ -12,8 +12,7 @@
             [biomarket.server :as server]
             [biomarket.comments :as com]
             [biomarket.skills :as skills]
-            [biomarket.components :as comps]
-            [biomarket.dropdown :as dd])
+            [biomarket.components :as comps])
   (:import [goog History]
            [goog.history EventType]))
 
@@ -36,6 +35,13 @@
                 vals
                 (map #(sort-by :time > %))
                 (map first))))
+
+(defn average-bid
+  [project]
+  (if-let [bb (seq (sort-best-bids project))]
+    (/ (->> (map :amount bb)
+            (reduce +))
+       (count bb))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; buttons
@@ -95,7 +101,7 @@
                                                                  (str c " new comment")))))}]})))
 
 (defn bid-history-button
-  [[p tag]]
+  [[p tag] owner]
   (om/component
    (om/build comps/bottom-button {:project p :view-tag tag :text "Bid history"})))
 
@@ -269,6 +275,9 @@
 
 (defn button-func
   [owner]
+  (ut/pub-info owner {:alert (:id (om/get-state owner :project))}
+               {:action :project-alert :alert "Your bid has been recorded and the project will be shifted to the 'My Jobs' tab." :type :success})
+  (ut/pub-info owner :remove-project {:action :remove-project :pid (:id (om/get-state owner :project))})
   (server/save-data
    {:type :bid
     :data {:pid (:id (om/get-state owner :project))

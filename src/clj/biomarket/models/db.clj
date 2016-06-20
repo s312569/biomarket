@@ -232,14 +232,14 @@
 
 (defn- bids
   [pid]
-  (db/query spec ["select * from bids where pid = ?" pid]
+  (db/query spec ["select * from bids where pid = ? and active=true" pid]
             :row-fn fix-times))
 
 (defmethod server/get-data :unread-bids
   [{:keys [username pid]}]
-  (let [bids (db/query spec ["select id from bids where pid=? and read=false" pid]
+  (let [bids (db/query spec ["select id from bids where pid=? and read=false and active=true" pid]
                        :row-fn #(hash-map :bid (:id %)))
-        comments (db/query spec ["select id from comments where pid=? and receiver=? and read=false"
+        comments (db/query spec ["select id from comments where pid=? and receiver=? and read=false and active=true"
                                  pid username]
                            :row-fn #(hash-map :comment (:id %)))]
     {:type :unread-bids
@@ -252,6 +252,14 @@
                                                   :amount (moneystring->bigdec amount)})))))]
     (server/broadcast-update! {:type :project :data (project username pid)})
     (server/broadcast-update! {:type :new-bid-comment :data {:id id :pid pid :type :bid}})))
+
+(defmethod server/save-data :remove-bids
+  [{:keys [id username]}]
+  (let [r (user-data-save ["update bids set active=false where pid=? and username=?" id username])
+        proj (first (projects ["select * from projects where id=?" id]))]
+    (if (= :success (:status r))
+      (server/broadcast-update! {:type :amend-project-status :data proj}))
+    r))
 
 (defn- mark-bids-read
   [ids]
@@ -360,7 +368,8 @@
 
 (defn- jobs
   [status username]
-  (projects ["select distinct projects.*,bids.username as buser from projects join bids on projects.id=bids.pid and projects.status = ? and bids.username = ?" status username]))
+  (projects ["select projects.* from projects where exists (select 1 from bids where bids.pid=projects.id and bids.username = ? and bids.active='true') and projects.status= ? and projects.biddead > ? and projects.username <> ?"
+             username status (t/now) username]))
 
 (defmethod server/get-data :open-jobs
   [{:keys [status username] :as m}]
@@ -377,7 +386,9 @@
 
 (defmethod server/get-data :all-projects
   [{:keys [status username] :as m}]
-  (let [d (projects ["select * from projects where status = ? and biddead > ? and username <> ?" (name status) (t/now) username])]
+  (let [q ["select projects.* from projects where not exists (select 1 from bids where bids.pid=projects.id and bids.username = ? and bids.active='true') and projects.status= ? and projects.biddead > ? and projects.username <> ?"
+           username (name status) (t/now) username]
+        d (projects q)]
     {:type :projects
      :data d}))
 
@@ -512,6 +523,7 @@
                             [:time :timestamp "NOT NULL"]
                             [:amount :decimal "NOT NULL"]
                             [:read :boolean "NOT NULL" "DEFAULT 'false'"]
+                            [:active :boolean "NOT NULL" "DEFAULT 'true'"]
                             [:username :varchar "NOT NULL"]))
         (apply db/insert! spec :skills skills))
       (catch Exception e

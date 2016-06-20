@@ -20,6 +20,8 @@
 ;; view methods
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; active jobs
+
 (defmethod pd/bottom :active-jobs
   [p]
   nil)
@@ -28,6 +30,8 @@
   [p]
   (om/component
    (dom/div nil)))
+
+;; completed jobs
 
 (defmethod pd/bottom :completed-jobs
   [p]
@@ -38,10 +42,20 @@
   (om/component
    (dom/div nil)))
 
+;; open jobs
+
+(defn remove-bids
+  [p]
+  (server/save-data {:type :remove-bids :data {:id (:id p)}}))
+
+(defmethod pd/drop-down :open-jobs
+  [p]
+  (pd/drop-down-skel #(remove-bids p) "Withdraw your bids"))
+
 (defmethod pd/bottom :open-jobs
   [p owner]
   (om/component
-   (let [links {:bids [[bid/bid-bbutton (pd/bbutton-state owner p :bids)]
+   (let [links {:bids [[bid/bid-history-button [p :bids]]
                        [bid/show-bids p]]
                 :comments [[com/comment-bbutton [p :comments]]
                            [com/comments [p]]]}]

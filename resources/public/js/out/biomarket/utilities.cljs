@@ -78,19 +78,6 @@
   [owner {:keys [data]}]
   (om/set-state! owner :project (assoc data :view-type (om/get-state owner :view-type))))
 
-(defmethod broadcast-loop-manager :amend-project-status
-  [owner {:keys [data]}]
-  (let [status->view #({"open" :open-projects "expired" :expired-projects
-                        "completed" :completed-projects "active" :active-projects
-                        "deleted" :deleted-projects} %)
-        cv (om/get-state owner :view)
-        projs (om/get-state owner :projects)]
-    (if (or (= cv (status->view (:status data))))
-      (om/set-state! owner :projects
-                     (conj projs
-                           (assoc data :view-type (om/get-state :view-type))))
-      (om/set-state! owner :projects (remove #(= (:id data) (:id %)) projs)))))
-
 (defn pub-info
   [owner topic data]
   (put! (:pub-chan (om/get-shared owner))
