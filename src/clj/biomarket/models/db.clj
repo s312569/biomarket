@@ -253,6 +253,8 @@
     (server/broadcast-update! {:type :project :data (project username pid)})
     (server/broadcast-update! {:type :new-bid-comment :data {:id id :pid pid :type :bid}})))
 
+(declare projects)
+
 (defmethod server/save-data :remove-bids
   [{:keys [id username]}]
   (let [r (user-data-save ["update bids set active=false where pid=? and username=?" id username])

@@ -1,6 +1,8 @@
 # biomarket
 
-FIXME
+A freelancer.com like website for bioinformatics work.
+
+Very beta.
 
 ## Prerequisites
 
@@ -16,4 +18,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © 2016 FIXME
+Copyright © 2016 Jason Mulvenna
